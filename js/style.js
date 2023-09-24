@@ -1,14 +1,17 @@
-function show_hide_formulas()
+function show_hide_formulas(event)
 {
-    var click = document.getElementsByClassName("formulas");
-alert("s");
-
-    if(click.style.display === "none")
+    let d = event.target.nextElementSibling;
+   
+    if(d.style.display === "none")
     {
-        click.style.display = "block";
+        console.log(Object.entries(event.target))
+        console.log(event.target);
+        d.style.display = "block";
     } 
-    else 
+    else
     {
-         click.style.display = "none";
+        console.log(Object.entries(event.target))
+        console.log(event.target);
+        d.style.display = "none";
     }
 }

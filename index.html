@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fisicalc</title>
-    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="./js/style.js"></script>
 </head>
 <body>
     <div id ="container">
@@ -20,14 +21,19 @@
         <aside id = "barraLateralBotoes">
             <div id = "buttonsAreasFisica">
                 <div class="dropdownAreas">
-                    <button class="btnCategorias" id="btnCinematica" onclick="showHide()">Cinemática</button>
+                    <button class="btnCategorias" id="btnCinematica" onclick="show_hide_formulas(event)">Cinemática</button>
                     <div class="formulas">
                         <a href="#">Velocidade</a>
                         <a href="#">Aceleração</a>
                         <a href="#">Função Horária do Deslocamento</a>
                     </div>
                 </div>
-                <button class="btnCategorias" id="btnDinamica">Dinâmica</button>
+                <button class="btnCategorias" id="btnDinamica" onclick="show_hide_formulas(event)">Dinâmica</button>
+                <div class="formulas">
+                    <a href="#">Peso</a>
+                    <a href="#">Massa</a>
+                    <a href="#">X</a>
+                </div>
             </div>            
         </aside>
         <main>

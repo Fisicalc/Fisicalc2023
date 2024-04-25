@@ -20,10 +20,32 @@ div#container{
     grid-template-rows: 1fr 8fr 1fr;
 }
 
+#container > section{
+    grid-column: 1/2;
+    grid-row: 1/2; 
+    margin-right: 40px;
+    padding: 20px;
+
+    background-color: darkslateblue;
+}
+
+section > button{
+    height: 100%;
+    width: 100%;
+    color: white;
+    border: none;
+    background-color: darkslateblue;
+}
+
+button > h1{
+    font-size: 2em;
+}
+
 aside#barraLateralBotoes{
     grid-column: 1/2;
     grid-row: 2/4;
     margin-right: 40px;
+    background-color: darkslateblue;
 }
 
 .dropdownAreas{
@@ -37,52 +59,65 @@ aside#barraLateralBotoes{
     font-size: 15px;
     width: 100%;
     border: none;
+    border-bottom: 2px solid #cecece;
     color: white;
+    background-color: transparent;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
 }
 
-/*.btnCategorias:hover{
-
+.btnCategorias:hover{
+    background-color: #3e8e41;
 }
-*/
 
 .formulas{
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;    
 }
 
 
-.formulas a {
+.formulas button {
     flex: 1;
     font-size: 16px;
     color: black;
     text-decoration: none;
     padding: 10px;
     text-align: center;
+    border-bottom: 10 dashed #000;
 }
 
-button#btnCinematica{
-    background-color: #4ba95a;
+div.formulas > button{
+    background-color: #77da87;
 }
 
-div.formulas > a{
-    border-bottom: 1px solid black;
+button.tooltip{
+    position: relative;
 }
 
-button#btnCinematica + div.formulas > a{
-    background-color: #77da87;    
+button.tooltip::before {
+    content: attr(data-text);
+    position: absolute;
+    
+    top: 50%;
+    transform: translateY(-50%);
+
+    left: 100%;
+    margin-left: 15px;
+
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+
+    display: none;
 }
 
-button#btnDinamica{
-    background-color: royalblue;
-}
-
-button#btnDinamica + div.formulas > a{
-    background-color: powderblue;
+button.tooltip:hover::before{
+    display: block;
 }
 
 main{

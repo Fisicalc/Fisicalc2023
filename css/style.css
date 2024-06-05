@@ -86,7 +86,6 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     height: 60px;
     font-size: 15px;
     width: 100%;
-    border: none;
     border-bottom: 2px solid #cecece;
     color:  #F5F5F5;;
     background-color: transparent;
@@ -100,26 +99,33 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     background-color: rgb(21, 156, 223);
 }
 
-.formulas{
-    display: flex;
-    flex-direction: column;    
+.formula{
+    width: 50%;
+    text-align: center;
+    float: right;
+    padding-right: 25%;
 }
 
-.formulas button {
+.formulasGrupo{
+    display: none;
+    flex-direction: column;
+}
+
+.formulasGrupo button {
     flex: 1;
     font-size: 16px;
     color:  #F5F5F5;;
     text-decoration: none;
     padding: 10px;
     text-align: center;
-    border-bottom: 10 dashed #000;
+
 }
 
-div.formulas > button{
+div.formulasGrupo > button{
     background-color: rgb(75, 72, 125);
 }
 
-div.formulas > button:hover{
+div.formulasGrupo > button:hover{
     background-color: rgb(21, 156, 223);;;
 }
 
@@ -181,4 +187,12 @@ div#bannerBaixo{
     grid-column: 2/3;
     grid-row: 3/4;
     border: 5px solid darkorchid;
+}
+
+.esconder{ 
+    display: none;
+}
+
+.visualEscondido{
+    opacity: 0;
 }

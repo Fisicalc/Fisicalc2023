@@ -107,8 +107,34 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
 }
 
 .formulasGrupo{
+    opacity: 0; 
+    visibility: hidden;
     display: none;
+    animation: slideInOut 1s ease-in-out; 
+}
+
+.formulasGrupo.visivel{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
     flex-direction: column;
+}
+
+@keyframes slideInOut{
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    50% {
+        opacity: 0.5;
+        visibility: visible;
+    }
+    
+    100%{
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .formulasGrupo button {

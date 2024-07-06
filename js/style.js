@@ -4,16 +4,29 @@ document.querySelectorAll("button.btnCategorias")
 
 function show_hide_formulas(event)
 {
-    const todasFormulas = document.querySelectorAll("div.formulas")
+    const todasFormulas = document.querySelectorAll("div.formulasGrupo")
 
     let formulas = event.target.nextElementSibling;
     
     for (let index = 0; index < todasFormulas.length; index++) {
-        if(formulas == todasFormulas[index] || todasFormulas[index].display === "none")
+        if(todasFormulas[index] == formulas)
+            continue
+        if(todasFormulas[index].classList.contains("visivel"))
+            todasFormulas[index].classList.remove("visivel")
+    }
+
+    formulas.classList.toggle('visivel'); 
+
+
+    /*
+    for (let index = 0; index < todasFormulas.length; index++) {
+        if(todasFormulas[index].display === "none")
             continue;
         todasFormulas[index].style.display = "none";
     }
-   
+    
+
+    
     if(formulas.style.display === "none")
     {
         console.log(Object.entries(event.target))
@@ -26,4 +39,5 @@ function show_hide_formulas(event)
         console.log(event.target);
         formulas.style.display = "none";
     }
+    */
 }

@@ -1,4 +1,4 @@
-export const gravitacaoUniversal = [
+const gravitacaoUniversal = [
     {
         nome: "Força gravitacional",
         formula: "F_g = G\\frac{M_1 \\cdot M_2}{r^2}",
@@ -15,3 +15,5 @@ export const gravitacaoUniversal = [
         variaveis: ["p", "a"]
     }
 ];
+
+export default gravitacaoUniversal; 

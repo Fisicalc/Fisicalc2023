@@ -1,3 +1,5 @@
-export const estatica = [
+const estatica = [
     
 ];
+
+export default estatica; 

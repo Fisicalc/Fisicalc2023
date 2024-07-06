@@ -1,4 +1,4 @@
-export const cinematica  = [
+const cinematica  = [
     {
         nome: "Velocidade Média",
         formula: "\\bar{v}=\\frac{\\Delta d}{\\Delta t}",
@@ -110,3 +110,5 @@ export const cinematica  = [
         variaveis: ["a_{CP}", "v", "r", "\\omega"]
     }
 ];
+
+export default cinematica; 

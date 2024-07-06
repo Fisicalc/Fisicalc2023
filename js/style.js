@@ -1,3 +1,7 @@
+document.querySelectorAll("button.btnCategorias")
+    .forEach(btn => btn.addEventListener("click", (event) => show_hide_formulas(event))
+);
+
 function show_hide_formulas(event)
 {
     const todasFormulas = document.querySelectorAll("div.formulas")

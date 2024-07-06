@@ -1,4 +1,4 @@
-export const termometria = [
+const termometria = [
     {
         nome: "Celsius para Fahrenheit",
         formula: "\\theta_C = \\frac{5\\theta_F - 160}{9}",
@@ -20,3 +20,5 @@ export const termometria = [
         variaveis: ["\\theta c", "T"]
     }
 ];
+
+export default termometria;

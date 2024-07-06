@@ -1,4 +1,4 @@
-export const hidrostatica = [
+const hidrostatica = [
     {
         nome: "Pressão em uma superficie",
         formula: "p = \\frac{F_\\bot}{A}",
@@ -28,3 +28,5 @@ export const hidrostatica = [
 
     }
 ];
+
+export default hidrostatica;

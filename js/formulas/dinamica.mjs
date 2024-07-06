@@ -1,4 +1,4 @@
-export const dinamica = [
+const dinamica = [
     {
         nome: "Força resultante",
         formula: "\\vec{F} = \\sum_{i=1}^n \\vec{F_i} = \\vec{F_1} + \\vec{F_2} + \\dots + \\vec{F_n}",
@@ -100,3 +100,5 @@ export const dinamica = [
         variaveis: ["\\Delta\\vec{Q}", "\\vec{Q_1}", "\\vec{Q_2}"]
     }
 ];
+
+export default dinamica; 

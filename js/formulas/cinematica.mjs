@@ -46,23 +46,23 @@ const cinematica  = [
     },
     {
         nome: "Função horária da posição horizontal",
-        formula: "x = x_0 + v_0_x t",
-        variaveis: ["x", "x_0", "v_0_x", "t"]
+        formula: "x = x_0 + v_{0_x} t",
+        variaveis: ["x", "x_0", "v_{0_x}", "t"]
     },
     {
         nome: "Componente horizontal da velocidade inicial",
-        formula: "v_0_x = |\\vec{v_0}| \\cdot cos\\theta",
-        variaveis: ["v_0_x", "|\\vec{v_0}|", "\\theta"]
+        formula: "v_{0_x} = |\\vec{v_0}| \\cdot cos\\theta",
+        variaveis: ["v_{0_x}", "|\\vec{v_0}|", "\\theta"]
     },
     {
         nome: "Função horária da posição vertical",
-        formula: "y = y_0 + v_0_y t + \\frac{1}{2} gt^2",
-        variaveis: ["y", "y_0", "v_0_y", "t", "g"]
+        formula: "y = y_0 + v_{0_y} t + \\frac{1}{2} gt^2",
+        variaveis: ["y", "y_0", "v_{0_y}", "t", "g"]
     },
     {
         nome: "Componente vertical da velocidade inicial",
-        formula: "v_0_y = |\\vec{v_0}| \\cdot sen\\theta",
-        variaveis: ["v_0_y", "v_0", "\\theta"]
+        formula: "v_{0_y} = |\\vec{v_0}| \\cdot sen\\theta",
+        variaveis: ["v_{0_y}", "v_0", "\\theta"]
     },
     {
         nome: "Alcance máximo do projétil horizontalmente",
@@ -106,8 +106,8 @@ const cinematica  = [
     },
     {
         nome: "Aceleração centrípeta",
-        formula: "a_{CP} = \\frac{v^2}{r} = \\omega^2 r",
-        variaveis: ["a_{CP}", "v", "r", "\\omega"]
+        formula: "a_{CP} = \\frac{v^2}{r}",
+        variaveis: ["a_{CP}", "v", "r"]
     }
 ];
 

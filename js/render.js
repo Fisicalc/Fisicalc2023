@@ -1,10 +1,4 @@
 function render(formula, elemento, idElemento){
-    if(formula.render){
-        
-    } else {
-        //katex.render(criarHtmlFormula(formula), elemento);
-    }
-
     const htmlFormula = criarHtmlFormula(formula);
     elemento.innerHtml += htmlFormula;
 }

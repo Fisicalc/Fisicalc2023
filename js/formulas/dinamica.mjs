@@ -1,9 +1,9 @@
 const dinamica = [
-    {
-        nome: "Força resultante",
-        formula: "\\vec{F} = \\sum_{i=1}^n \\vec{F_i} = \\vec{F_1} + \\vec{F_2} + \\dots + \\vec{F_n}",
-        variaveis: ["\\vec{F}", "\\sum_{i=1}^n \\vec{F_i}", "\\vec{F_1}", "\\vec{F_2}", "\\vec{F_n}"]
-    },
+    // {
+    //     nome: "Força resultante",
+    //     formula: "\\vec{F} = \\sum_{i=1}^n \\vec{F_i} = \\vec{F_1} + \\vec{F_2} + \\dots + \\vec{F_n}",
+    //     variaveis: ["\\vec{F}", "\\sum_{i=1}^n \\vec{F_i}", "\\vec{F_1}", "\\vec{F_2}", "\\vec{F_n}"]
+    // },
     {
         nome: "2ª Lei de Newton",
         formula: "F = ma",
@@ -14,11 +14,11 @@ const dinamica = [
         formula: "\\vec{F} = m\\vec{a}",
         variaveis: ["\\vec{F}", "m", "\\vec{a}"]
     },
-    {
-        nome: "3ª Lei de Newton",
-        formula: "\\vec{F_{a,b}} = \\vec{F_{b,a}}",
-        variaveis: ["\\vec{F_{a,b}}", "\\vec{F_{b,a}}"]
-    },
+    // {
+    //     nome: "3ª Lei de Newton",
+    //     formula: "\\vec{F_{a,b}} = \\vec{F_{b,a}}",
+    //     variaveis: ["\\vec{F_{a,b}}", "\\vec{F_{b,a}}"]
+    // },
     {
         nome: "Peso de um corpo",
         formula: "\\vec{P} = m\\vec{g}",
@@ -41,24 +41,24 @@ const dinamica = [
     },
     {
         nome: "Força centrípeta",
-        formula: "F_{CP} = ma_{CP} = m\\frac{v^2}{r}",
+        formula: "F_{CP} = ma_{CP}",
         variaveis: ["F_{CP}", "m", "a_{CP}", "v", "r"]
     },
     {
         nome: "Trabalho",
-        formula: "\\uptau = F \\cdot d \\cdot cos\\theta",
-        variaveis: ["\\uptau", "F", "d", "\\theta"]
+        formula: "\\tau = F \\cdot d \\cdot cos\\theta",
+        variaveis: ["\\tau", "F", "d", "\\theta"]
     },
     {
         nome: "Potência média",
-        formula: "\\bar{P} = \\frac{\\uptau}{\\Delta t} = \\frac{Fd}{\\Delta t} = F\\bar",
-        variaveis: ["\\bar{P}", "\\uptau", "\\Delta t", "F", "d", "\\bar{v}"]
+        formula: "\\bar{P} = \\frac{\\tau}{\\Delta t}",
+        variaveis: ["\\bar{P}", "\\tau", "\\Delta t", "F", "d", "\\bar{v}"]
     },
-    {
-        nome: "Potência instantânea",
-        formula: "P = lim\\limits_{t\\rightarrow 0} \\bar{P} = Fv",
-        variaveis: ["P", "\\bar{P}", "F", "v"]
-    },
+        // {
+        //     nome: "Potência instantânea",
+        //     formula: "P = \\lim_{t\\rightarrow 0} \\bar{P} = Fv",
+        //     variaveis: ["P", "\\bar{P}", "F", "v"]
+        // },
     {
         nome: "Energia cinética",
         formula: "E_c = \\frac{1}{2}mv^2",
@@ -94,11 +94,11 @@ const dinamica = [
         formula: "\\vec{I} = \\Delta\\vec{Q}",
         variaveis: ["\\vec{I}", "\\Delta\\vec{Q}"]
     },
-    {
-        nome: "Conservação da quantidade de movimento",
-        formula: "\\Delta\\vec{Q} = 0 \\Longrightarrow \\vec{Q_1} = \\vec{Q_2}",
-        variaveis: ["\\Delta\\vec{Q}", "\\vec{Q_1}", "\\vec{Q_2}"]
-    }
+    // {
+    //     nome: "Conservação da quantidade de movimento",
+    //     formula: "\\Delta\\vec{Q} = 0 \\Longrightarrow \\vec{Q_1} = \\vec{Q_2}",
+    //     variaveis: ["\\Delta\\vec{Q}", "\\vec{Q_1}", "\\vec{Q_2}"]
+    // }
 ];
 
 export default dinamica; 

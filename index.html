@@ -9,9 +9,18 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
+    <script defer type="text/javascript" src="js/nerdamer/nerdamer.core.js"></script> <!-- assuming you've saved the file in the root of course -->
+    <!-- LOAD MODULES -->
+    <script defer type="text/javascript" src="js/nerdamer/Algebra.js"></script>
+    <script defer type="text/javascript" src="js/nerdamer/Calculus.js"></script>
+    <script defer type="text/javascript" src="js/nerdamer/Solve.js"></script>
+    <script defer type="text/javascript" src="js/nerdamer/Extra.js"></script> <!-- again assuming you've saved the files in root -->
+
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="./js/style.js"></script>
-    <script type="module" defer src="./js/barra_formulas.mjs"></script>
+    <script defer type="text/javascript" src="/js/style.js"></script>
+    <script type="module" defer src="/js/barra_formulas.mjs"></script>
+
+    
 </head>
 <body>
     <div id ="container">
@@ -30,9 +39,9 @@
                     <button class="btnCategorias" id="btnCinematica">
                         Cinemática
                     </button>
-                    <div class="formulas cinematica"></div>
+                    <div class="formulas cinematica formulasGrupo"></div>
                     <button class="btnCategorias" id="btnDinamica">Dinâmica</button>
-                    <div class="formulas dinamica"></div>
+                    <div class="formulas dinamica formulasGrupo"></div>
                 </div>
             </div>            
         </aside>

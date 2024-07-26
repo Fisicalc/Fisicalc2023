@@ -4,7 +4,7 @@ html, body {
     margin: 0px;
     padding: 0px;
     height: 100vh;
-    /*position: relative;*/
+    /* position: relative; */
 }
 
 
@@ -87,7 +87,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     font-size: 15px;
     width: 100%;
     border-bottom: 2px solid #cecece;
-    color:  #F5F5F5;;
+    color:  #F5F5F5;
     background-color: transparent;
     text-align: left;
     text-decoration: none;

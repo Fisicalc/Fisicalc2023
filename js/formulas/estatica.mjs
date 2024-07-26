@@ -1,4 +1,4 @@
-export const estatica = [
+const estatica = [
    
     {
         nome: "Momento de uma Força (Torque)",
@@ -6,3 +6,5 @@ export const estatica = [
         variaveis: ["\\vec{M}", "F", "r", "sen \\theta" ]
     }
 ];
+
+export default estatica;

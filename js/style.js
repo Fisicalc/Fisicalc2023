@@ -7,6 +7,10 @@ function show_hide_formulas(event)
     const todasFormulas = document.querySelectorAll("div.formulasGrupo")
 
     let formulas = event.target.nextElementSibling;
+
+    todasFormulas.forEach(formula => {
+        
+    });
     
     for (let index = 0; index < todasFormulas.length; index++) {
         if(todasFormulas[index] == formulas)
@@ -15,10 +19,10 @@ function show_hide_formulas(event)
             todasFormulas[index].classList.remove("visivel")
     }
 
-    formulas.classList.toggle('visivel'); 
+    formulas.classList.toggle('visivel');
 
 
-    /*
+    
     for (let index = 0; index < todasFormulas.length; index++) {
         if(todasFormulas[index].display === "none")
             continue;
@@ -39,5 +43,4 @@ function show_hide_formulas(event)
         console.log(event.target);
         formulas.style.display = "none";
     }
-    */
 }

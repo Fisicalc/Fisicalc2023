@@ -99,18 +99,11 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     background-color: rgb(21, 156, 223);
 }
 
-.formula{
-    width: 50%;
-    text-align: center;
-    float: right;
-    padding-right: 25%;
-}
-
 .formulasGrupo{
     opacity: 0; 
     visibility: hidden;
     display: none;
-    animation: slideInOut 1s ease-in-out; 
+    /* animation: slideInOut 1s ease-in-out;  */
 }
 
 .formulasGrupo.visivel{
@@ -119,7 +112,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     display: flex;
     flex-direction: column;
 }
-
+/* 
 @keyframes slideInOut{
     0% {
         opacity: 0;
@@ -135,7 +128,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
         opacity: 1;
         visibility: visible;
     }
-}
+} */
 
 .formulasGrupo button {
     flex: 1;
@@ -144,6 +137,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     text-decoration: none;
     padding: 10px;
     text-align: center;
+    direction: ltr;
 
 }
 
@@ -175,12 +169,7 @@ button.tooltip::before {
     background: #000;
     color:  #F5F5F5;
     text-align: center;
-
     display: none;
-}
-
-button.tooltip:hover::before{
-    display: block;
 }
 
 main{

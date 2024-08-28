@@ -20,8 +20,6 @@ function show_hide_formulas(event)
     }
 
     formulas.classList.toggle('visivel');
-
-
     
     for (let index = 0; index < todasFormulas.length; index++) {
         if(todasFormulas[index].display === "none")

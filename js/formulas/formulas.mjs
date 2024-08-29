@@ -9,11 +9,11 @@ import termometria from "./termometria.mjs";
 const formulas = {
     cinematica,
     dinamica,
-    // estatica,
-    // hidrostatica,
-    // calorimetria,
-    // gravitacaoUniversal,
-    // termometria,
+    estatica,
+    hidrostatica,
+    calorimetria,
+    gravitacaoUniversal,
+    termometria,
 };
 
 export default formulas; 

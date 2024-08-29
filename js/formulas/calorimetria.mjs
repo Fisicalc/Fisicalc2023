@@ -11,8 +11,13 @@ const calorimetria = [
     },
     {
         nome: "Capacidade térmica",
-        formula: "C = \\frac{Q}{\\Delta\\theta} = m \\cdot c",
-        variaveis: ["C", "Q", "\\Delta\\theta", "m", "c"]
+        formula: "C=\\frac{Q}{\\Delta\\theta}",
+        variaveis: ["C", "Q", "\\Delta\\theta",]
+    },
+    {
+        nome: "Capacidade térmica",
+        formula: "C= m \\cdot c",
+        variaveis: ["C", "m", "c"]
     }
 ];
 

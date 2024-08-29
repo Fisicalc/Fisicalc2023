@@ -23,10 +23,7 @@ const hidrostatica = [
         nome: "Empuxo",
         formula: "\\vec{E} = d_f g V_{fd}",
         variaveis: ["\\vec{E}", "d_f", "f", "V_{fd}"]
-    },
-    {
-
     }
-];
+]
 
 export default hidrostatica;

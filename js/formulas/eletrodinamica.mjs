@@ -1,23 +1,28 @@
-export const eltrostatica = [
+const eletrodinamica = [
     {
         nome: "Intensidade da corrente elétrica",
-        formula: "i = \\frac {|Q|} {\\Delta t} ",
+        formula: "i = \\frac{|Q|}{\\Delta t}",
         variaveis: ["i", "Q", "\\Delta t"]
     },
     {
         nome: "Resistência elétrica",
-        formula: "R = \\ frac U i",
+        formula: "R = \\frac{U}{i}",
         variaveis: ["R", "U", "i"]
     },
     {
-        nome: "Resistência elétrica 2",
-        formula: "R = \\frac {\\rho \\cdot l} A",
-        variaveis: ["R", "\\rho", "l", "A"]
+        nome: "Resistência elétrica",
+        formula: "R = \\frac{\\rho \\cdot \\ell}{A}",
+        variaveis: ["R", "\\rho", "\\ell", "A"]
     },
     {
-        nome: "Condutância Elétrica",
-        formula: "G = \\frac i U",
+        nome: "Condutância elétrica",
+        formula: "G = \\frac{i}{U}",
         variaveis: ["G", "i", "U"]
+    },
+    {
+        nome: "Condutância elétrica",
+        formula: "G = R^{-1}",
+        variaveis: ["G", "R"]
     },
     {
         nome: "Aquecimento por efeito Joule",
@@ -30,13 +35,13 @@ export const eltrostatica = [
         variaveis: ["Pot", "u", "i"]
     },
     {
-        nome: "Potência elétrica 2",
+        nome: "Potência elétrica",
         formula: "Pot = R cdot i^2",
         variaveis: ["Pot", "R", "i"]
     },
     {
         nome: "Potência elétrica 3",
-        formula: "Pot = \\frac {U^2} R",
+        formula: "Pot = \\frac{U^2}{R}",
         variaveis: ["Pot", "U", "R"]
     },
     {
@@ -45,3 +50,5 @@ export const eltrostatica = [
         variaveis: ["E", "Pot", "\\Delta t"]
     }
 ]
+
+export default eletrodinamica;

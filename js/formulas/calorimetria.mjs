@@ -18,6 +18,11 @@ const calorimetria = [
         nome: "Capacidade térmica",
         formula: "C= m \\cdot c",
         variaveis: ["C", "m", "c"]
+    },
+    {
+        nome: "Fluxo de calor",
+        formula: "\\Phi = \\frac{Q}{\\Delta t}",
+        variaveis: ["\\Phi", "Q", "\\Delta t"]
     }
 ];
 

@@ -6,47 +6,42 @@ const dinamica = [
     // },
     {
         nome: "2ª Lei de Newton",
-        formula: "F = ma",
+        formula: "F = m \\cdot a",
         variaveis: ["F", "m", "a"],
     },
     {
-        nome: "2ª Lei de Newton vetorial",
-        formula: "\\vec{F} = m\\vec{a}",
-        variaveis: ["\\vec{F}", "m", "\\vec{a}"]
-    },
-    // {
-    //     nome: "3ª Lei de Newton",
-    //     formula: "\\vec{F_{a,b}} = \\vec{F_{b,a}}",
-    //     variaveis: ["\\vec{F_{a,b}}", "\\vec{F_{b,a}}"]
-    // },
-    {
         nome: "Peso de um corpo",
-        formula: "\\vec{P} = m\\vec{g}",
+        formula: "\\vec{P} = m \\cdot \\vec{g}",
         variaveis: ["\\vec{P}", "m", "\\vec{g}"]
     },
     {
         nome: "Força de atrito estático",
-        formula: "F_{AT} = \\mu_{est} N",
+        formula: "F_{AT} = \\mu_{est} \\cdot N",
         variaveis: ["F_{AT}", "\\mu_{est}", "N"]
     },
     {
         nome: "Força de atrito dinâmico",
-        formula: "F_{AT} = \\mu_{din} N",
+        formula: "F_{AT} = \\mu_{din} \\cdot N",
         variaveis: ["F_{AT}", "\\mu{din}", "N"]
     },
     {
         nome: "Lei de Hooke",
-        formula: "F = kx",
+        formula: "F = k \\cdot x",
         variaveis: ["F", "k", "x"]
     },
     {
         nome: "Força centrípeta",
-        formula: "F_{CP} = ma_{CP}",
-        variaveis: ["F_{CP}", "m", "a_{CP}", "v", "r"]
+        formula: "F_{CP} = m \\cdot a_{CP}",
+        variaveis: ["F_{CP}", "m", "a_{CP}"]
+    },
+    {
+        nome: "Força centrípeta",
+        formula: "F_{CP} = m \\cdot \\frac{v^2}{r}",
+        variaveis: ["F_{CP}", "m", "v", "r"]
     },
     {
         nome: "Trabalho",
-        formula: "\\tau = F \\cdot d \\cdot cos\\theta",
+        formula: "\\tau = F \\cdot d \\cdot cos \\theta",
         variaveis: ["\\tau", "F", "d", "\\theta"]
     },
     {
@@ -54,24 +49,40 @@ const dinamica = [
         formula: "\\bar{P} = \\frac{\\tau}{\\Delta t}",
         variaveis: ["\\bar{P}", "\\tau", "\\Delta t", "F", "d", "\\bar{v}"]
     },
-        // {
-        //     nome: "Potência instantânea",
-        //     formula: "P = \\lim_{t\\rightarrow 0} \\bar{P} = Fv",
-        //     variaveis: ["P", "\\bar{P}", "F", "v"]
-        // },
+    {
+        nome: "Potência média",
+        formula: "\\bar{P} = \\frac{F \\cdot d}{\\Delta t}",
+        variaveis: ["\\bar{P}", "F", "d", "\\Delta t"]
+    },
+    {
+        nome: "Potência média",
+        formula: "\\bar{P} = F \\cdot \\bar{v}",
+        variaveis: ["\\bar{P}", "F", "\\bar{v}"]
+    },
+    //Remover este item depois, rever código para resolver problema
+    // {
+    //     nome: "Potência instantânea",
+    //     formula: "P = \\lim_{t\\rightarrow 0} \\bar{P}",
+    //     variaveis: ["P", "t", "\\bar{P}"]
+    // },
+    {
+        nome: "Potência instantânea",
+        formula: "P = F \\cdot v",
+        variaveis: ["P", "F", "v"]
+    },
     {
         nome: "Energia cinética",
-        formula: "E_c = \\frac{1}{2}mv^2",
+        formula: "E_c = \\frac{1}{2} \\cdot m \\cdot v^2",
         variaveis: ["E_c", "m", "v"]
     },
     {
         nome: "Energia potencial gravitacional",
-        formula: "E_{PG} = mgh",
+        formula: "E_{PG} = m \\cdot g \\cdot h",
         variaveis: ["E_{PG}", "m", "g", "h"],
     },
     {
         nome: "Energia potencial elástica",
-        formula: "E_{PE} = \\frac{1}{2} kx^2",
+        formula: "E_{PE} = \\frac{1}{2} \\cdot k \\cdot x^2",
         variaveis: ["E_{PE}", "k", "x"]
     },
     {
@@ -81,12 +92,12 @@ const dinamica = [
     },
     {
         nome: "Impulso",
-        formula: "\\vec{I} = \\vec{F} \\Delta t",
+        formula: "\\vec{I} = \\vec{F} \\cdot \\Delta t",
         variaveis: ["\\vec{I}", "\\vec{F}", "\\Delta t"]
     },
     {
         nome: "Quantidade de movimento",
-        formula: "\\vec{Q} = m \\vec{v}",
+        formula: "\\vec{Q} = m \\cdot \\vec{v}",
         variaveis: ["\\vec{Q}", "m", "\\vec{v}"]
     },
     {

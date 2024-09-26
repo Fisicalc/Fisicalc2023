@@ -178,12 +178,25 @@ main{
     display: flex;
 }
 
-
 #equacao{
     flex-grow: 1;
     margin: 20px;
+    padding-top: 20px;
     border: 5px solid black;
     user-select: none;
+    font-size: 1.5em;
+}
+
+.areaInteracao {
+    font-size: 0.75em;
+    /* margin: auto 50px */
+    text-align: center;
+}
+
+.areaInteracao > input {
+    margin-left: 4px;
+    margin-right: 15px;
+    max-width: 100px;
 }
 
 div#bannerDir{
@@ -210,4 +223,19 @@ div#bannerBaixo{
 
 .visualEscondido{
     opacity: 0;
+}
+
+#divFormula {
+    margin-bottom: 50px;
+}
+
+#divFormula input::-webkit-inner-spin-button,
+#divFormula input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#divFormula input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }

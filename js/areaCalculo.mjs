@@ -64,7 +64,6 @@ function contemComandoLaTeX(variavel) {
 
 function removerComandosLaTeXVariavel(variavel, variaveis) {
     comandosLaTeX.forEach(comando => {
-        console.log(comando)
         
         if(variavel.includes(comando)){
             const indiceComando = variavel.indexOf(comando)
@@ -156,7 +155,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         const [inputNaoPreenchido] = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputNaoPreenchido.disabled = true
 
-        const formulaNerdamer = nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
+        const formulaNerdamer = formulaConcatenadaNerdamer.includes("|") ? nerdamer.convertFromLaTeX(substituirSimboloModulo(formulaConcatenadaNerdamer)) : nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
         console.log(formulaNerdamer.toString())
 
         const [variavelNaoPreenchida] = formula.filter(parte => { if(typeof parte !== "string") return parte.valor === parte.variavel})
@@ -175,6 +174,15 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     }
 
     renderMathInElement(areaCalculo)
+}
+
+function substituirSimboloModulo(formula){
+    const textoProcuraInicial = "\\left|"
+    const textoProcuraFinal = "\\right|"
+    const indiceInicial = formula.indexOf(textoProcuraInicial)
+    const indiceFinal = formula.lastIndexOf(textoProcuraFinal)
+
+    return formula.slice(0, indiceInicial) + "abs(" + formula.slice(indiceInicial + textoProcuraInicial.length, indiceFinal) + ")" + formula.slice(indiceFinal + textoProcuraFinal.length)
 }
 
 /**

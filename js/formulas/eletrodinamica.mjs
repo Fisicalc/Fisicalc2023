@@ -1,7 +1,7 @@
 const eletrodinamica = [
     {
         nome: "Intensidade da corrente elétrica",
-        formula: "i = \\frac{|Q|}{\\Delta t}",
+        formula: "i = \\frac{\\left|Q\\right|}{\\Delta t}",
         variaveis: ["i", "Q", "\\Delta t"]
     },
     {

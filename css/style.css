@@ -285,6 +285,9 @@ main{
     padding: 10px;
     border-radius: 6px;
     background-color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /*Div que abriga os inputs, formula e resultado*/

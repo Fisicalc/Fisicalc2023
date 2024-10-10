@@ -51,6 +51,7 @@ div#menuToggle{
     user-select: none;
 }
 
+
 #menuToggle input
 {
   display: block;
@@ -64,6 +65,12 @@ div#menuToggle{
   z-index: 2; /* and place it over the hamburger */
   
   -webkit-touch-callout: none;
+}
+
+#menuToggle input:checked ~span
+{
+  opacity: 1;
+  background: rgb(21, 156, 223);;
 }
 
 #menuToggle span

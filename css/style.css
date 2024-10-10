@@ -65,6 +65,9 @@ div#menuToggle{
   z-index: 2; /* and place it over the hamburger */
   
   -webkit-touch-callout: none;
+
+  top: -8px;
+  left: -8px;
 }
 
 #menuToggle input:checked ~span
@@ -72,6 +75,7 @@ div#menuToggle{
   opacity: 1;
   background: rgb(21, 156, 223);;
 }
+
 
 #menuToggle span
 {
@@ -294,7 +298,8 @@ main{
     border-radius: 6px;
     background-color: #e6e6e6;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -417,6 +422,10 @@ div#bannerBaixo{
         width: calc(100% - 80px);
         height: calc(100% - 40px);
         */
+    }
+
+    .areaInteracao{
+        flex-direction: column;
     }
 
     section > div > div{

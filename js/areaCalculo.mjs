@@ -24,7 +24,7 @@ export function criarFormulaAreaCalculo(formula, variaveis){
     areaCalculo.appendChild(divFormula);
     areaCalculo.appendChild(hr)
     
-    renderMathInElement(areaCalculo)
+    renderMathInElement(areaCalculo, {output: 'html'})
 }
 
 function classificarFormula(formula, variaveis) {
@@ -173,7 +173,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         elementoResolucao.innerText = ""
     }
 
-    renderMathInElement(areaCalculo)
+    renderMathInElement(areaCalculo, {output: 'html'})
 }
 
 function substituirSimboloModulo(formula){

@@ -14,7 +14,7 @@ function criarListaFormulas(){
             divFormulas.appendChild(btnFormula);
         }
 
-        renderMathInElement(document.body)
+        renderMathInElement(document.body, {output: 'html'})
     }
 }
 

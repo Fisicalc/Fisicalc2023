@@ -1,57 +1,145 @@
 @charset "utf-8";
 
+ /* Reset do html e body */
 html, body {
     margin: 0px;
     padding: 0px;
     height: 100vh;
-    /* position: relative; */
 }
 
-
+ /* Reset do h1 */
 h1 {
     margin: 0px;
     padding: 0px;
-}
-
-div#container{
-    min-height: 100%;
-    display: grid;
-    grid-template-columns: 2fr 6fr 1fr;
-    grid-template-rows: 1fr 8fr 1fr;
-}
-
-#container > section{
-    grid-column: 1/2;
-    grid-row: 1/2; 
-    margin-right: 40px;
-    padding: 20px;
-    border-bottom: 1.5px solid #cecece;
-    background-color: rgb(35, 37, 59);
-}
-
-section > button{
-    height: 100%;
-    width: 100%;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     color:  #F5F5F5;;
     border: none;
     background-color: transparent;
 }
 
-button > h1{
-    font-size: 2em;
+ /* Div que contain todos os elementos da página */
+div#container{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 3fr 8fr 1fr;
+    grid-template-rows: 10vh 80vh 10vh;
 }
 
+/* Navbar */
+div#navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+section > div > div{
+    display: none;
+}
+
+div#menuToggle{
+    display: none;
+    position: relative;
+
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+
+  top: -8px;
+  left: -8px;
+}
+
+#menuToggle input:checked ~span
+{
+  opacity: 1;
+  background: rgb(21, 156, 223);;
+}
+
+
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #F5F5F5;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+
+
+ /* TÍTULO */
+ /* Seção que contém o título do site */
+#container > section{
+    grid-column: 1/2;
+    grid-row: 1/2; 
+    padding: 20px;
+    background-color: #41084e;
+    align-items: center;
+    display: inline-flex; /* Adicionando flexbox ao section */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    width: calc(100% - 80px);
+    height: calc(100% - 40px);
+}
+
+ /* Botão dentro da sessão que é o título */
+
+ /* BARRA LATERAL */
+ /* Elemento pai */
 aside#barraLateralBotoes{
     grid-column: 1/2;
     grid-row: 2/4;
     margin-right: 40px;
-    background-color:  rgb(35, 37, 59);
+    background-color:  #4f166d  ;
     overflow-x: hidden;
     overflow-y: hidden;
-    height: 100vmin;
+    height: 100vh;
     direction: rtl;
 }
 
+ /* Configurações do scroll da barra lateral */
 aside#barraLateralBotoes:hover,
 aside#barraLateralBotoes:active,
 aside#barraLateralBotoes:focus{
@@ -75,30 +163,33 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     background-color: #555;
 }
 
-
+ /* Formatação da área de todos os botões */
 .dropdownAreas{
     position: relative;
     display: block;
 }
 
+ /* Formatação de cada botão que é uma categoria (cinemática, dinânica...) */
 .btnCategorias{
     padding: 10px 22px;
     height: 60px;
-    font-size: 15px;
     width: 100%;
-    border-bottom: 2px solid #cecece;
+    border:  none;
+    cursor: pointer;
     color:  #F5F5F5;
-    background-color: transparent;
+    background-color:  #4f166d  ;
     text-align: left;
     text-decoration: none;
     display: inline-block;
-    font-size: 20px;
+    font-size: 1.5em;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .btnCategorias:hover{
     background-color: rgb(21, 156, 223);
 }
 
+/* Formatação da div que abriga todos os elementos de uma categoria */
 .formulasGrupo{
     opacity: 0; 
     visibility: hidden;
@@ -130,25 +221,230 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     }
 } */
 
+
+/* Formatação do botão que contém uma fórmula */
 .formulasGrupo button {
     flex: 1;
-    font-size: 16px;
+    font-size: 1.2em;
     color:  #F5F5F5;;
     text-decoration: none;
     padding: 10px;
     text-align: center;
-    direction: ltr;
+    border:none;
+}
 
+div#navbar{
+    position: fixed;
+    
 }
 
 div.formulasGrupo > button{
-    background-color: rgb(75, 72, 125);
+    direction: ltr;
+    border-bottom: #331c3c 3px solid;
+    background-color: #862b90;
 }
 
 div.formulasGrupo > button:hover{
-    background-color: rgb(21, 156, 223);;;
+    background-color: #9f58a7;
 }
 
+
+/* MAIN */
+main{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+}
+
+
+/* Área que as equações aparecem */
+#equacao{
+    flex-grow: 1;
+    margin: 10px;
+    padding: 20px;
+    border: 4px solid #6e6e6e;
+    border-radius: 20px;
+    user-select: none;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* Scrool da área que as equações aparecem */
+#equacao::-webkit-scrollbar {
+    background-color: #F5F5F5;
+    width: 1.2vmin;
+    margin-top: 20px;
+}
+
+#equacao::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#equacao::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+}
+
+/* Área que aparecem os inputs */
+.areaInteracao {
+    font-size: 1em;
+    /* margin: auto 50px */
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+/*Div que abriga os inputs, formula e resultado*/
+#divFormula {
+    margin-bottom: 50px;
+}
+
+#divFormula input::-webkit-inner-spin-button,
+#divFormula input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#divFormula input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Formatação da dos inputs que o usuário coloca o número */
+.areaInteracao > input {
+    margin-left: 4px;
+    margin-right: 15px;
+    max-width: 100px;
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 0.75em;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.areaInteracao > input:focus {
+    border: 3px solid  #621a81;
+    box-shadow: 0 0 8px rgba(98, 26, 129, 0.3); /* Leve sombra ao focar */
+    outline: none; /* Remove o outline padrão do navegador */
+}
+
+.areaInteracao > input:hover {
+    border-color: #7e6e9f; /* Cor da borda ao passar o mouse (um pouco mais clara) */
+}
+
+/*ADS*/
+div#bannerDir{
+    grid-column: 3/4;
+    grid-row: 2/3;
+    border: 5px solid darkorchid;
+}
+
+div#bannerTop{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    border: 5px solid darkorchid;
+}
+
+div#bannerBaixo{
+    grid-column: 2/3;
+    grid-row: 3/4;
+    border: 5px solid darkorchid;
+}
+
+/*Outros*/
+.esconder{ 
+    display: none;
+}
+
+.visualEscondido{
+    opacity: 0;
+}
+
+
+.katex-mathml{
+    position: relative !important;
+}
+
+#div.menuMobile{
+    display: none;
+}
+
+/*Mobile*/
+
+@media screen and (max-width : 815px) {
+   
+    div#container{
+        grid-template-columns: 1fr 10fr 1fr;
+    }
+
+    aside#barraLateralBotoes {
+        /* display: none; */
+        /* visibility: hidden; */
+        position: fixed; /* Fixa a barra lateral na tela */
+        top: 50%; /* Centraliza verticalmente */
+        left: 50%; /* Centraliza horizontalmente */
+        transform: translate(-50%, -50%); /* Garante que ela fique exatamente no centro */
+        width: 80%; /* Ajusta a largura para caber melhor no mobile */
+        max-height: 80%;
+        z-index: 10; 
+        border: 5px solid #331c3c;
+        overflow-y: auto;
+        border-radius: 5px;
+    }
+
+    #container > section{
+        display: inline-flex;
+        grid-column: 1/-1;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 85%;
+
+        /*
+        grid-column: 1/2;
+        grid-row: 1/2; 
+        padding: 20px;
+        background-color: #41084e;
+        align-items: center;
+        display: flex;  Adicionando flexbox ao section 
+        justify-content: center; 
+        align-items: center; 
+        width: calc(100% - 80px);
+        height: calc(100% - 40px);
+        */
+    }
+
+    .areaInteracao{
+        flex-direction: column;
+    }
+
+    section > div > div{
+        display: inline-flex;
+    }
+    
+
+    div#bannerTop{
+        grid-column: 1/2;
+        grid-row: 2/3;
+        border: 5px solid darkorchid;
+    }
+
+    div#menuToggle{
+        display: block;
+    }
+}
+
+/* Não usado */
 button.tooltip{
     position: relative;
 }
@@ -172,70 +468,3 @@ button.tooltip::before {
     display: none;
 }
 
-main{
-    grid-column: 2/3;
-    grid-row: 2/3;
-    display: flex;
-}
-
-#equacao{
-    flex-grow: 1;
-    margin: 20px;
-    padding-top: 20px;
-    border: 5px solid black;
-    user-select: none;
-    font-size: 1.5em;
-}
-
-.areaInteracao {
-    font-size: 0.75em;
-    /* margin: auto 50px */
-    text-align: center;
-}
-
-.areaInteracao > input {
-    margin-left: 4px;
-    margin-right: 15px;
-    max-width: 100px;
-}
-
-div#bannerDir{
-    grid-column: 3/4;
-    grid-row: 2/3;
-    border: 5px solid darkorchid;
-}
-
-div#bannerTop{
-    grid-column: 2/3;
-    grid-row: 1/2;
-    border: 5px solid darkorchid;
-}
-
-div#bannerBaixo{
-    grid-column: 2/3;
-    grid-row: 3/4;
-    border: 5px solid darkorchid;
-}
-
-.esconder{ 
-    display: none;
-}
-
-.visualEscondido{
-    opacity: 0;
-}
-
-#divFormula {
-    margin-bottom: 50px;
-}
-
-#divFormula input::-webkit-inner-spin-button,
-#divFormula input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-#divFormula input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
-}

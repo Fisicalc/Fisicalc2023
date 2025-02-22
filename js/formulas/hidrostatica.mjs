@@ -17,7 +17,7 @@ const hidrostatica = [
     {
         nome: "Teorema de Stevin",
         formula: "\\Delta p = d \\cdot g \\cdot \\Delta h",
-        variaveis: ["\\Delta p", "d", "g", "h"]
+        variaveis: ["\\Delta p", "d", "g", "\\Delta h"]
     },
     {
         //Rever variáveis

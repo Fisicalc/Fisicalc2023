@@ -47,7 +47,7 @@ const dinamica = [
     {
         nome: "Potência média",
         formula: "\\bar{P} = \\frac{\\tau}{\\Delta t}",
-        variaveis: ["\\bar{P}", "\\tau", "\\Delta t", "F", "d", "\\bar{v}"]
+        variaveis: ["\\bar{P}", "\\tau", "\\Delta t"]
     },
     {
         nome: "Potência média",

@@ -7,7 +7,7 @@ const termometria = [
     {
         nome: "Fahrenheit para Celsius",
         formula: "\\theta_F = \\frac{9 \\cdot \\theta_C + 160}{5}",
-        variaveis: ["\\theta_C", "\\theta_F"]
+        variaveis: ["\\theta_F", "\\theta_C"]
     },
     {
         nome: "Celsius para Kevin",

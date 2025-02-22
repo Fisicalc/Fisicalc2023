@@ -7,7 +7,7 @@ const cinematica  = [
     {
         nome: "Função horária do deslocamento",
         formula: "s = s_0 + v \\cdot \\Delta t",
-        variaveis: ["s", "s_0", "\\Delta v", "\\Delta t"]
+        variaveis: ["s", "s_0", "v", "\\Delta t"]
     },
     {
         nome: "Aceleração média",
@@ -27,7 +27,7 @@ const cinematica  = [
     {
         nome: "Equação de Torricelli",
         formula: "v^2 = v_0^2 + 2 \\cdot a \\cdot \\Delta d",
-        variaveis: ["v", "v_0", "a", "d"]
+        variaveis: ["v", "v_0", "a", "\\Delta d"]
     },
     {
         nome: "Função horária da velocidade no movimento vertical",
@@ -81,8 +81,8 @@ const cinematica  = [
     },
     {
         nome: "Velocidade angular",
-        formula: "\\omega = \\frac{\\Delta phi}{t}",
-        variaveis: ["\\omega", "\\Delta phi", "t"]
+        formula: "\\omega = \\frac{\\Delta\\phi}{t}",
+        variaveis: ["\\omega", "\\Delta\\phi", "t"]
     },
     {
         nome: "Aceleração angular",

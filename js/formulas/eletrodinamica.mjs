@@ -1,8 +1,8 @@
 const eletrodinamica = [
     {
         nome: "Intensidade da corrente elétrica",
-        formula: "i = \\frac{\\left|Q\\right|}{\\Delta t}",
-        variaveis: ["i", "Q", "\\Delta t"]
+        formula: "I = \\frac{\\left|Q\\right|}{\\Delta t}",
+        variaveis: ["I", "Q", "\\Delta t"]
     },
     {
         nome: "Resistência elétrica",
@@ -31,12 +31,12 @@ const eletrodinamica = [
     },
     {
         nome: "Potência elétrica",
-        formula: "Pot = U cdot i",
+        formula: "Pot = u \\cdot i",
         variaveis: ["Pot", "u", "i"]
     },
     {
         nome: "Potência elétrica",
-        formula: "Pot = R cdot i^2",
+        formula: "Pot = R \\cdot i^2",
         variaveis: ["Pot", "R", "i"]
     },
     {

@@ -1,17 +1,18 @@
-const comandosLaTeX = ["\\bar", "\\bot", "\\cdot", "\\Delta", "\\frac", "\\rightarrow", "\\theta", "\\vec"]
+const comandosLaTeX = ["\\bar", "\\bot", "\\cdot", "\\Delta", "\\frac", "\\rightarrow", "\\omega", "\\theta", "\\vec"]
 const comandosNerdamer = ["cos", "sin", "tan", "sec", "csc", "cot", "dot", "arg", "log", 
     "min", "max", "abs", "exp", "mod", "erf", "fib", "tri", "sum", "lcm", "gcd", "deg", "ilt", "add", "pow","lte", "gte"
 ]
 
 export function criarFormulaAreaCalculo(formula, variaveis){
+    formula = substituirOperacoesLaTeXFormula(formula)
     const formulaClassificada = classificarFormula(formula, variaveis)
 
     const areaCalculo = document.getElementById("equacao");
-    const {divFormula, divInteracao, formulaInterativa, elementoResolucao, hr} = criarDivFormula(formula);
+    const {divFormula, divInteracao, divErro, formulaInterativa, elementoResolucao, hr} = criarDivFormula(formula);
 
-    variaveis.forEach(variavel => {
+    variaveis.forEach(variavel => { 
         const {descricaoVariavel, inputVariavel} = criarDescricaoEInputVariavel(variavel);
-        inputVariavel.addEventListener("input", (event) => responderInput(event, formulaClassificada, variavel, formulaInterativa, divFormula, elementoResolucao))
+        inputVariavel.addEventListener("input", (event) => responderInput(event, formulaClassificada, variavel, formulaInterativa, divFormula, elementoResolucao, divErro))
         
         divInteracao.appendChild(descricaoVariavel)
         divInteracao.appendChild(inputVariavel)
@@ -19,12 +20,23 @@ export function criarFormulaAreaCalculo(formula, variaveis){
 
     divFormula.appendChild(divInteracao)
 
+    divFormula.appendChild(divErro)
     divFormula.appendChild(formulaInterativa)
     divFormula.appendChild(elementoResolucao)
     areaCalculo.appendChild(divFormula);
     areaCalculo.appendChild(hr)
     
     renderMathInElement(areaCalculo, {output: 'html'})
+}
+
+/**
+ * 
+ * @param {string} formula 
+ * @returns { string }
+ */
+function substituirOperacoesLaTeXFormula(formula){
+    return formula.replaceAll("\\left|", "abs(").replaceAll("\\right|", ")")
+        .replaceAll("\\cdot", "*")
 }
 
 function classificarFormula(formula, variaveis) {
@@ -39,7 +51,7 @@ function classificarFormula(formula, variaveis) {
 
         const objetoVariavel = { valor: variavel, variavel }
 
-        if(contemComandoLaTeX(variavel)){
+        if(contemComandoLaTeX(variavel) || variavel == "E"){
             objetoVariavel.substituir = removerComandosLaTeXVariavel(variavel, variaveis);
         }
 
@@ -81,7 +93,7 @@ function removerComandosLaTeXVariavel(variavel, variaveis) {
         }
     })
 
-    if(variavel !== '' && variavel.indexOf("_{") === -1){
+    if(variavel !== '' && variavel.indexOf("_{") === -1 && variavel !== "e" && variavel !== "E"){
         return variavel
     } else {
         return gerarNomeAleatorioVariavel(variaveis)
@@ -112,12 +124,13 @@ function criarDivFormula(formula){
     divFormula.setAttribute("id", "divFormula")
     const divInteracao = document.createElement("div");
     divInteracao.setAttribute("class", "areaInteracao")
+    const divErro = document.createElement("div");
     const formulaInterativa = document.createElement("p");
     formulaInterativa.innerText = `$$${formula}$$`
     const elementoResolucao = document.createElement("p")
     const hr = document.createElement("hr")
 
-    return {divFormula, divInteracao, formulaInterativa, elementoResolucao, hr};
+    return {divFormula, divInteracao, divErro, formulaInterativa, elementoResolucao, hr};
 }
 
 function criarDescricaoEInputVariavel(variavel) {
@@ -131,7 +144,7 @@ function criarDescricaoEInputVariavel(variavel) {
     return {descricaoVariavel, inputVariavel} 
 }
 
-function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao) {
+function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro) {
     const areaCalculo = document.querySelector("#equacao")
 
     substituirVariavelNaFormula(formula, variavel, event.target.valueAsNumber)
@@ -146,43 +159,49 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else if(parte.substituir && parte.valor === parte.variavel) return formula.concat(parte.substituir)
         else return formula.concat(parte.valor)
     }, '')
-    
+
     formulaInterativa.innerText = `$$${formulaConcatenada}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
+    console.log(contarVariaveisPreenchidas(formula))
 
     if(contadorVariaveisPreenchidas.naoPreenchidas === 1){
         const [inputNaoPreenchido] = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputNaoPreenchido.disabled = true
 
-        const formulaNerdamer = formulaConcatenadaNerdamer.includes("|") ? nerdamer.convertFromLaTeX(substituirSimboloModulo(formulaConcatenadaNerdamer)) : nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
-        console.log(formulaNerdamer.toString())
-
         const [variavelNaoPreenchida] = formula.filter(parte => { if(typeof parte !== "string") return parte.valor === parte.variavel})
 
-        const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
+        console.log("FORMULACONCATENADANERDAMER: ", formulaConcatenadaNerdamer)
+        let formulaNerdamer;
+
+        try {
+            formulaNerdamer = nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
+
+            const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
+
+            const resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
+
+            const formulaNerdamerExibicao = variavelNaoPreenchida.variavel + " = " + nerdamer.convertToLaTeX(resolucaoExibicao) 
+
+            elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
+        }
+        catch(e) {
+            if(e.name === "ParseError" && formulaConcatenadaNerdamer.includes("frac")){
+                divErro.innerText = "Divisão por 0 não é permitida!"
+            }
+        }
+    
         
-        const resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
-
-        const formulaNerdamerExibicao = variavelNaoPreenchida.variavel + " = " + nerdamer.convertToLaTeX(resolucaoExibicao) 
-
-        elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
+        console.log("event", event.srcElement, "formulaInterativa", formulaInterativa, "divFormula", divFormula)
+        //console.log("FORMULANERDAMER: ", formulaNerdamer.toString())
     } else {
         const inputsNaoPreenchidos = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputsNaoPreenchidos.forEach(input => input.disabled = false)
         elementoResolucao.innerText = ""
+        divErro.innerText = ""
     }
 
     renderMathInElement(areaCalculo, {output: 'html'})
-}
-
-function substituirSimboloModulo(formula){
-    const textoProcuraInicial = "\\left|"
-    const textoProcuraFinal = "\\right|"
-    const indiceInicial = formula.indexOf(textoProcuraInicial)
-    const indiceFinal = formula.lastIndexOf(textoProcuraFinal)
-
-    return formula.slice(0, indiceInicial) + "abs(" + formula.slice(indiceInicial + textoProcuraInicial.length, indiceFinal) + ")" + formula.slice(indiceFinal + textoProcuraFinal.length)
 }
 
 /**

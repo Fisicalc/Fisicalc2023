@@ -194,7 +194,6 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     opacity: 0; 
     visibility: hidden;
     display: none;
-    /* animation: slideInOut 1s ease-in-out;  */
 }
 
 .formulasGrupo.visivel{
@@ -203,23 +202,6 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     display: flex;
     flex-direction: column;
 }
-/* 
-@keyframes slideInOut{
-    0% {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    50% {
-        opacity: 0.5;
-        visibility: visible;
-    }
-    
-    100%{
-        opacity: 1;
-        visibility: visible;
-    }
-} */
 
 
 /* Formatação do botão que contém uma fórmula */
@@ -340,6 +322,40 @@ main{
 
 .areaInteracao > input:hover {
     border-color: #7e6e9f; /* Cor da borda ao passar o mouse (um pouco mais clara) */
+}
+
+#erro {
+    position: fixed;
+    align-self: center;
+    justify-self: center;
+    background-color: #000;
+    width: 500px;
+    font-size: 16pt;
+    font-weight: 16;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    z-index: 1;
+    animation: slideInOut 2s reverse;
+}
+
+@keyframes slideInOut{
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        
+    }
+
+    50% {
+        opacity: 0.5;
+        visibility: visible;
+    }
+    
+    100%{
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 /*ADS*/

@@ -236,6 +236,7 @@ main{
     grid-column: 2/3;
     grid-row: 2/3;
     display: flex;
+    position: relative;
 }
 
 
@@ -325,22 +326,34 @@ main{
 }
 
 #erro {
-    position: fixed;
-    align-self: center;
-    justify-self: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    padding: 5px 0;
+    margin: 0 60px; 
     background-color: #000;
-    width: 500px;
     font-size: 16pt;
-    font-weight: 16;
-    padding: 12px;
+    font-weight: 400;
     border-radius: 10px;
     text-align: center;
     color: white;
-    z-index: 1;
-    animation: slideInOut 2s reverse;
+    z-index: 99;
+    box-sizing: border-box;
+    visibility: hidden;
 }
 
-@keyframes slideInOut{
+.fadeIn{
+    animation: slideIn 0.3s forwards;
+}
+
+
+.fadeOut{
+    animation: slideOut 0.3s forwards;
+}
+
+@keyframes slideIn{
     0% {
         opacity: 0;
         visibility: hidden;
@@ -356,6 +369,26 @@ main{
         opacity: 1;
         visibility: visible;
     }
+}
+
+
+@keyframes slideOut{
+    
+    0%{
+        opacity: 1;
+        visibility: visible;
+    }
+
+    50% {
+        opacity: 0.5;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        
+    }  
 }
 
 /*ADS*/

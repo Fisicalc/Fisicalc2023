@@ -144,6 +144,37 @@ function criarDescricaoEInputVariavel(variavel) {
     return {descricaoVariavel, inputVariavel} 
 }
 
+
+
+function MensagemErro(texto)
+{
+    const erro = document.getElementById("erro");
+
+    let mensagem = "ERRO: " + texto;
+
+    erro.classList.remove("fadeOut", "fadeIn");
+    void erro.offsetWidth;
+
+    erro.textContent = mensagem;
+    erro.classList.add("fadeIn");
+
+     // Configura animação de saída após término da entrada
+     const removeFadeOut = () => {
+        erro.classList.remove("fadeIn");
+        erro.classList.add("fadeOut");
+        
+        // Remove mensagem após animação de saída
+        erro.addEventListener("animationend", () => {
+            erro.classList.remove("fadeOut");
+        }, {once: true});
+    };
+
+    // Espera animação de entrada terminar + tempo de exibição
+    erro.addEventListener("animationend", () => {
+        setTimeout(removeFadeOut, 2000); // 2 segundos visível
+    }, {once: true});
+}
+
 function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro) {
     const areaCalculo = document.querySelector("#equacao")
 
@@ -187,7 +218,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         }
         catch(e) {
             if(e.name === "ParseError" && formulaConcatenadaNerdamer.includes("frac")){
-                divErro.innerText = "Divisão por 0 não é permitida!"
+                MensagemErro("Divisão por 0 não é permetida")
+                //divErro.innerText = "Divisão por 0 não é permitida!"
             }
         }
     

@@ -6,12 +6,12 @@ const gravitacaoUniversal = [
     },
     {
         nome: "Constante de gravitação universal",
-        formula: "G = 6,67 \\cdot 10^{-11} \\cdot \\frac{N \\cdot m^2}{k \\cdot g^2}",
+        formula: "G = 6.67 \\cdot 10^{-11} \\cdot \\frac{N \\cdot m^2}{k \\cdot g^2}",
         variaveis: ["G", "N", "m", "k", "g"]
     },
     {
         nome: "Constante de gravitação universal",
-        formula: "G = 6,67 \\cdot 10^{-11} \\cdot \\frac{m^3}{k \\cdot g \\cdot s^2}",
+        formula: "G = 6.67 \\cdot 10^{-11} \\cdot \\frac{m^3}{k \\cdot g \\cdot s^2}",
         variaveis: ["G", "m", "k", "g", "s"]
     },
     {

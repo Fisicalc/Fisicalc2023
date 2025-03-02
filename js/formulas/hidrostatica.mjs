@@ -23,7 +23,7 @@ const hidrostatica = [
         //Rever variáveis
         nome: "Empuxo",
         formula: "\\vec{E} = d_f \\cdot g \\cdot V_{fd}",
-        variaveis: ["\\vec{E}", "d_f", "f", "V_{fd}"]
+        variaveis: ["\\vec{E}", "d_f", "g", "V_{fd}"]
     },
     {
         nome: "Peso aparente",

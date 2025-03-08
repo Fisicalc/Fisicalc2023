@@ -1,8 +1,8 @@
 const cinematica  = [
     {
         nome: "Velocidade Média",
-        formula: "\\bar{v}=\\frac{\\Delta d}{\\Delta t}",
-        variaveis: ["\\bar{v}", "\\Delta d", "\\Delta t"],
+        formula: "\\bar{v}=\\frac{d}{\\Delta t}",
+        variaveis: ["\\bar{v}", "d", "\\Delta t"],
     },
     {
         nome: "Função horária do deslocamento",

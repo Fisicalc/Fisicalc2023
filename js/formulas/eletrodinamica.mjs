@@ -31,13 +31,13 @@ const eletrodinamica = [
     },
     {
         nome: "Potência elétrica",
-        formula: "Pot = u \\cdot i",
-        variaveis: ["Pot", "u", "i"]
+        formula: "Pot = U \\cdot I",
+        variaveis: ["Pot", "U", "I"]
     },
     {
         nome: "Potência elétrica",
-        formula: "Pot = R \\cdot i^2",
-        variaveis: ["Pot", "R", "i"]
+        formula: "Pot = R \\cdot I^2",
+        variaveis: ["Pot", "R", "I"]
     },
     {
         nome: "Potência elétrica 3",

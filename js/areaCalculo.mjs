@@ -126,7 +126,7 @@ function criarDivFormula(formula){
     divInteracao.setAttribute("class", "areaInteracao")
     const divErro = document.createElement("div");
     const formulaInterativa = document.createElement("p");
-    formulaInterativa.innerText = `$$${formula}$$`
+    formulaInterativa.innerText = `$$${formula.replaceAll("*", " \\cdot ")}$$`
     const elementoResolucao = document.createElement("p")
     const hr = document.createElement("hr")
 
@@ -191,7 +191,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, '')
 
-    formulaInterativa.innerText = `$$${formulaConcatenada}$$`
+    formulaInterativa.innerText = `$$${formulaConcatenada.replaceAll("*", " \\cdot ")}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))

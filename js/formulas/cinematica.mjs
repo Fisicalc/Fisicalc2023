@@ -61,12 +61,12 @@ const cinematica  = [
     },
     {
         nome: "Componente vertical da velocidade inicial",
-        formula: "v_{0_y} = \\left|\\vec{v_0}\\right| \\cdot sen \\theta",
+        formula: "v_{0_y} = \\left|\\vec{v_0}\\right| \\cdot sin \\theta",
         variaveis: ["v_{0_y}", "\\left|\\vec{v_0}\\right|", "\\theta"]
     },
     {
         nome: "Alcance máximo do projétil horizontalmente",
-        formula: "R = \\frac{\\left|\\vec{v_0}\\right|^2 \\cdot sen(2 \\cdot \\theta)}{g}",
+        formula: "R = \\frac{\\left|\\vec{v_0}\\right|^2 \\cdot sin(2 \\cdot \\theta)}{g}",
         variaveis: ["R", "\\vec{v_0}", "g"]
     },
     {

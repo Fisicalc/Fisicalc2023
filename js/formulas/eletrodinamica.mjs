@@ -6,8 +6,8 @@ const eletrodinamica = [
     },
     {
         nome: "Resistência elétrica",
-        formula: "R = \\frac{U}{i}",
-        variaveis: ["R", "U", "i"]
+        formula: "R = \\frac{U}{I}",
+        variaveis: ["R", "U", "I"]
     },
     {
         nome: "Resistência elétrica",
@@ -16,8 +16,8 @@ const eletrodinamica = [
     },
     {
         nome: "Condutância elétrica",
-        formula: "G = \\frac{i}{U}",
-        variaveis: ["G", "i", "U"]
+        formula: "G = \\frac{I}{U}",
+        variaveis: ["G", "I", "U"]
     },
     {
         nome: "Condutância elétrica",
@@ -26,8 +26,8 @@ const eletrodinamica = [
     },
     {
         nome: "Aquecimento por efeito Joule",
-        formula: "Q = i^2 \\cdot R \\cdot \\Delta t",
-        variaveis: ["Q", "i", "R","\\Delta t" ]
+        formula: "Q = I^2 \\cdot R \\cdot \\Delta t",
+        variaveis: ["Q", "I", "R","\\Delta t" ]
     },
     {
         nome: "Potência elétrica",

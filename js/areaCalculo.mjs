@@ -126,7 +126,7 @@ function criarDivFormula(formula){
     divInteracao.setAttribute("class", "areaInteracao")
     const divErro = document.createElement("div");
     const formulaInterativa = document.createElement("p");
-    formulaInterativa.innerText = `$$${formula.replaceAll("*", " \\cdot ")}$$`
+    formulaInterativa.innerText = `$$${traduzirSeno(formula.replaceAll("*", " \\cdot "))}$$`
     const elementoResolucao = document.createElement("p")
     const hr = document.createElement("hr")
 
@@ -136,7 +136,7 @@ function criarDivFormula(formula){
 function criarDescricaoEInputVariavel(variavel) {
     const descricaoVariavel = document.createElement("p");
     descricaoVariavel.style="display:inline;"
-    descricaoVariavel.innerText = `\\(${variavel}:\\)`
+    descricaoVariavel.innerText = `\\(${traduzirSeno(variavel)}:\\)`
 
     const inputVariavel = document.createElement("input");
     inputVariavel.setAttribute("type", "number")
@@ -191,7 +191,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, '')
 
-    formulaInterativa.innerText = `$$${formulaConcatenada.replaceAll("*", " \\cdot ")}$$`
+    formulaInterativa.innerText = `$$${traduzirSeno(formulaConcatenada.replaceAll("*", " \\cdot "))}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -212,7 +212,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             const resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
 
-            const formulaNerdamerExibicao = variavelNaoPreenchida.variavel + " = " + nerdamer.convertToLaTeX(resolucaoExibicao) 
+            const formulaNerdamerExibicao = traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) 
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -234,6 +234,10 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     }
 
     renderMathInElement(areaCalculo, {output: 'html'})
+}
+
+export function traduzirSeno(texto) {
+    return texto.replaceAll("sin", "sen");
 }
 
 /**

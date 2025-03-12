@@ -1,5 +1,5 @@
 import formulas from "./formulas/formulas.mjs";
-import { criarFormulaAreaCalculo } from "./areaCalculo.mjs";
+import { criarFormulaAreaCalculo, traduzirSeno } from "./areaCalculo.mjs";
 
 criarListaFormulas();
 
@@ -28,7 +28,7 @@ function criarBtnFormula(nome, formula, variaveis){
     const hr = document.createElement("hr");
             
     const spanBtnFormulaFormula = document.createElement("span");
-    spanBtnFormulaFormula.innerText = `$$${formula}$$`;
+    spanBtnFormulaFormula.innerText = `$$${traduzirSeno(formula)}$$`;
 
     btnFormula.appendChild(spanBtnFormulaNome);
     btnFormula.appendChild(hr);

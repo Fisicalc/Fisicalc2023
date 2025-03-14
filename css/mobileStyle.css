@@ -1,0 +1,112 @@
+/*Mobile*/
+
+@media screen and (max-width : 815px) {
+   
+    div#container{
+        grid-template-columns: 2fr 8fr 2fr;
+    }
+
+    div#menuToggle{
+        display: none;
+        position: relative;
+    
+        z-index: 1;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    /* 
+    #menuToggle input:checked ~span
+    {
+      opacity: 1;
+      background: rgb(21, 156, 223);;
+    } */
+    
+    
+        #menuToggle span
+        {
+        display: block;
+        width: 33px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+        background-color: #F5F5F5;
+        border-radius: 25px;
+        z-index: 1;
+        transform-origin: 0% 50%;
+        transition: transform 0.5s cubic-bezier(0,0.2,0.05,1.0),
+                    background 0.5s cubic-bezier(0,0.2,0.05,1.0),
+                    opacity 0.55s ease;
+        }
+        
+        #menuToggle span:first-child
+        {
+        transform-origin: 0% 0%;
+        }
+        
+        #menuToggle span:nth-last-child(2)
+        {
+        transform-origin: 0% 100%;
+        }
+        
+        #menuToggle.deactive span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, -4px);
+        }
+        
+        #menuToggle.deactive span:nth-child(2) {
+            visibility: hidden;
+        }
+        
+        #menuToggle.deactive span:nth-child(3) {
+            transform: rotate(-45deg) translate(0px, 6px);
+        }
+    
+    .deactive{
+        display: none;
+    }
+    
+
+    aside#barraLateralBotoes {
+        /* display: none; */
+        /* visibility: hidden; */
+        position: fixed; /* Fixa a barra lateral na tela */
+        top: 50%; /* Centraliza verticalmente */
+        left: 50%; /* Centraliza horizontalmente */
+        transform: translate(-50%, -50%); /* Garante que ela fique exatamente no centro */
+        width: 80%; /* Ajusta a largura para caber melhor no mobile */
+        max-height: 80%;
+        margin-right: 0px;
+        z-index: 10; 
+        border: 5px solid #331c3c;
+        overflow-y: auto;
+        border-radius: 5px;
+    }
+
+    #container > section{
+        display: inline-flex;
+        grid-column: 1/-1;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 85%;
+        }
+
+    .areaInteracao{
+        flex-direction: column;
+    }
+
+    section > div > div{
+        display: inline-flex;
+    }
+    
+
+    div#bannerTop{
+        grid-column: 1/2;
+        grid-row: 2/3;
+        border: 5px solid darkorchid;
+    }
+
+    div#menuToggle{
+        display: block;
+    }
+}

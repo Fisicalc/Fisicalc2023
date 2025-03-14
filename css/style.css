@@ -92,6 +92,30 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     background-color: #555;
 }
 
+#barraPesquisa{
+    direction: ltr;
+    display: inline-flex;
+    align-items: center;
+    background-color: navy;
+    padding-left: 100px;
+    width: 100%;
+}
+
+#search-input{
+    border-radius: 8px;
+    border-style: none;
+    width: 100%;
+    margin: 10px;
+    height: 30px;
+    font-size: 1rem;
+}
+
+input[type="search"] {
+    outline: none;
+    appearance: none;
+    padding-left: 10px;
+}
+
  /* Formatação da área de todos os botões */
 .dropdownAreas{
     position: relative;

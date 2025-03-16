@@ -39,30 +39,6 @@
                     opacity 0.55s ease;
         }
 
-        /*
-        #menuToggle span:first-child
-        {
-        transform-origin: 0% 0%;
-        }
-        
-        #menuToggle span:nth-last-child(2)
-        {
-        transform-origin: 0% 100%;
-        }
-        
-        #menuToggle.deactive span:nth-child(1) {
-            transform: rotate(45deg) translate(4px, -4px);
-        }
-        
-        #menuToggle.deactive span:nth-child(2) {
-            visibility: hidden;
-        }
-        
-        #menuToggle.deactive span:nth-child(3) {
-            transform: rotate(-45deg) translate(0px, 6px);
-        }
-        ----------------------------------------*/
-
         #menuToggle.deactive span:first-child{
             transform-origin: 0% 0%;
             transform: rotate(0) translate(0, 0);
@@ -120,6 +96,7 @@
         }
 
     .areaInteracao{
+        display: flex;
         flex-direction: column;
     }
 

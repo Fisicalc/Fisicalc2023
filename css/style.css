@@ -44,7 +44,7 @@ div#navbar{
     grid-column: 1/2;
     grid-row: 1/2; 
     padding: 20px;
-    background-color: #41084e;
+    background-color: #001A6E   ;
     align-items: center;
     display: inline-flex; /* Adicionando flexbox ao section */
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
@@ -61,7 +61,7 @@ aside#barraLateralBotoes{
     grid-column: 1/2;
     grid-row: 2/4;
     margin-right: 40px;
-    background-color:  #4f166d  ;
+    background-color:  #074799 ;
     overflow-x: hidden;
     overflow-y: hidden;
     height: 100vh;
@@ -96,7 +96,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     direction: ltr;
     display: inline-flex;
     align-items: center;
-    background-color: navy;
+    background-color: #2a5c82;
     padding-left: 100px;
     width: 100%;
 }
@@ -106,7 +106,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     border-style: none;
     width: 100%;
     margin: 10px;
-    height: 30px;
+    height: 40px;
     font-size: 1rem;
 }
 
@@ -130,7 +130,7 @@ input[type="search"] {
     border:  none;
     cursor: pointer;
     color:  #F5F5F5;
-    background-color:  #4f166d  ;
+    background-color: inherit  ;
     text-align: left;
     text-decoration: none;
     display: inline-block;
@@ -139,7 +139,7 @@ input[type="search"] {
 }
 
 .btnCategorias:hover{
-    background-color: rgb(21, 156, 223);
+    background-color: rgb(5, 81, 244);
 }
 
 /* Formatação da div que abriga todos os elementos de uma categoria */
@@ -161,11 +161,12 @@ input[type="search"] {
 .formulasGrupo button {
     flex: 1;
     font-size: 1.2em;
-    color:  #F5F5F5;;
+    color:  #F5F5F5;
     text-decoration: none;
     padding: 10px;
     text-align: center;
     border:none;
+    cursor: pointer;
 }
 
 div#navbar{
@@ -175,12 +176,12 @@ div#navbar{
 
 div.formulasGrupo > button{
     direction: ltr;
-    border-bottom: #331c3c 3px solid;
-    background-color: #862b90;
+    border-bottom: #162130 3px solid;
+    background-color: #009990;
 }
 
 div.formulasGrupo > button:hover{
-    background-color: #9f58a7;
+    background-color: #B084CC;
 }
 
 
@@ -269,13 +270,13 @@ main{
 }
 
 .areaInteracao > input:focus {
-    border: 3px solid  #621a81;
+    border: 3px solid  #28a745;
     box-shadow: 0 0 8px rgba(98, 26, 129, 0.3); /* Leve sombra ao focar */
     outline: none; /* Remove o outline padrão do navegador */
 }
 
 .areaInteracao > input:hover {
-    border-color: #7e6e9f; /* Cor da borda ao passar o mouse (um pouco mais clara) */
+    border-color: #a6e4b4; /* Cor da borda ao passar o mouse (um pouco mais clara) */
 }
 
 #erro {
@@ -286,7 +287,7 @@ main{
     right: 0;
     padding: 5px 0;
     margin: 0 60px; 
-    background-color: #000;
+    background-color: #dc3534;
     font-size: 16pt;
     font-weight: 400;
     border-radius: 10px;

@@ -32,6 +32,33 @@ function pesquisarFormulas(){
             btnFormula.addClass('.botaoFormulaPesquisa');
             const formulas = querySelectorAll('.botaoFormulaPesquisa');
             divFormulas.appendChild(btnFormula);
+function pesquisarFormulas(termo){
+    const termoBusca = termo.toLowerCase().trim();
+
+    document.querySelectorAll("button.btnCategorias").forEach(btnCategoria => {
+        const divFormulas = btnCategoria.nextElementSibling;
+        if (termoBusca === '') {
+            divFormulas.classList.remove('visivel');
+            return;
+        }
+        let temResultados = false;
+
+        // Verifica os botões dentro da div irmã
+        if (divFormulas) {
+            const botoesFormula = divFormulas.querySelectorAll('[data-nome]');
+            
+            botoesFormula.forEach(botao => {
+                const nomeFormula = (botao.getAttribute('data-nome') || '').toString();
+                const corresponde = nomeFormula.includes(termoBusca);
+                botao.style.display = corresponde ? 'block' : 'none';
+                
+                if (corresponde) temResultados = true;
+            });
+        }
+
+        btnCategoria.style.display = temResultados ? 'block' : 'none';
+        if (divFormulas){
+            divFormulas.classList.toggle('visivel', temResultados);
         }
         renderMathInElement(document.body, {output: 'html'})
     }

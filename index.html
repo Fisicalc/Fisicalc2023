@@ -17,6 +17,7 @@
     <script defer type="text/javascript" src="js/nerdamer/Extra.js"></script> <!-- again assuming you've saved the files in root -->
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobileStyle.css">
     <script defer type="text/javascript" src="/js/style.js"></script>
     <script type="module" defer src="/js/barra_formulas.mjs"></script>
 
@@ -28,7 +29,6 @@
             <div id="navbar">
                 <h1>Fisicalc</h1>
                 <div id="menuToggle">
-                    <input type="checkbox"/>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -44,6 +44,9 @@
         <aside id = "barraLateralBotoes">
             <div id = "botoesAreasFisica">
                 <div class="dropdownAreas">
+                    <div id="barraPesquisa">
+                        <input id="search-input" type="search" maxlength="800" placeholder="Digite o nome da fórmula"/>
+                    </div>
                     <button class="btnCategorias" id="btnCinematica">
                         Cinemática
                     </button>

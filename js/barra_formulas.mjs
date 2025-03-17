@@ -9,6 +9,8 @@ function criarListaFormulas(){
 
         for(const {nome, formula, variaveis} of formulas[nomeCategoriaFormulas]){
             const btnFormula = criarBtnFormula(nome, formula, variaveis);
+            //Adicão de atributo para pesquisa
+            btnFormula.setAttribute('data-nome', (nome || '').toLowerCase());
             btnFormula.onclick = () => {
                 criarFormulaAreaCalculo(formula, variaveis);
                 esconderFormulas();
@@ -19,19 +21,6 @@ function criarListaFormulas(){
     }
 }
 
-function pesquisarFormulas(){
-    for(const nomeCategoriaFormulas in formulas){
-        const divFormulas = document.querySelector(`.${nomeCategoriaFormulas}`);
-
-        for(const {nome, formula, variaveis} of formulas[nomeCategoriaFormulas]){
-            const btnFormula = criarBtnFormula(nome, formula, variaveis);
-            btnFormula.onclick = () => {
-                criarFormulaAreaCalculo(formula, variaveis);
-                esconderFormulas();
-            };
-            btnFormula.addClass('.botaoFormulaPesquisa');
-            const formulas = querySelectorAll('.botaoFormulaPesquisa');
-            divFormulas.appendChild(btnFormula);
 function pesquisarFormulas(termo){
     const termoBusca = termo.toLowerCase().trim();
 
@@ -56,14 +45,20 @@ function pesquisarFormulas(termo){
             });
         }
 
+        // Esconde/Exibe a categoria inteira
+        // btnCategoria.style.display = temResultados ? 'block' : 'none';
+        // if (divFormulas) divFormulas.style.display = temResultados ? 'block' : 'none';
         btnCategoria.style.display = temResultados ? 'block' : 'none';
         if (divFormulas){
             divFormulas.classList.toggle('visivel', temResultados);
         }
-        renderMathInElement(document.body, {output: 'html'})
-    }
-}
+    });
 
+ }
+
+ document.getElementById('search-input').addEventListener('input', (e) => {
+      pesquisarFormulas(e.target.value);
+  });
 
 function criarBtnFormula(nome, formula, variaveis){
     const btnFormula = document.createElement("button");

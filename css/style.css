@@ -96,18 +96,26 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     direction: ltr;
     display: inline-flex;
     align-items: center;
-    background-color: #2a5c82;
     padding-left: 100px;
     width: 100%;
 }
 
+#barraPesquisa:focus-within{
+    background-color: #2a5c82;
+}
+
 #search-input{
-    border-radius: 8px;
     border-style: none;
+    border-radius: 8px;
     width: 100%;
     margin: 10px;
     height: 40px;
     font-size: 1rem;
+}
+
+#search-input:focus{
+    border: 2px solid #162130;
+
 }
 
 input[type="search"] {
@@ -130,7 +138,7 @@ input[type="search"] {
     border:  none;
     cursor: pointer;
     color:  #F5F5F5;
-    background-color: inherit  ;
+    background-color: inherit;
     text-align: left;
     text-decoration: none;
     display: inline-block;
@@ -139,7 +147,15 @@ input[type="search"] {
 }
 
 .btnCategorias:hover{
-    background-color: rgb(5, 81, 244);
+    border-left: 10px solid #F5F5F5;
+    padding-left: 10%;
+    background-color: #2a5c82;
+}
+
+.btnCategorias.ativado{
+    border-left: 10px solid #F5F5F5;
+    padding-left: 10%;
+    background-color: #2a5c82;
 }
 
 /* Formatação da div que abriga todos os elementos de uma categoria */
@@ -169,10 +185,11 @@ input[type="search"] {
     cursor: pointer;
 }
 
+/* 
 div#navbar{
     position: fixed;
     
-}
+} */
 
 div.formulasGrupo > button{
     direction: ltr;
@@ -269,15 +286,17 @@ main{
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+
+.areaInteracao > input:hover {
+    border-color: #2a5c82; /* Cor da borda ao passar o mouse (um pouco mais clara) */
+}
+
 .areaInteracao > input:focus {
-    border: 3px solid  #28a745;
-    box-shadow: 0 0 8px rgba(98, 26, 129, 0.3); /* Leve sombra ao focar */
+    border: 3px solid  #074799;
+    box-shadow: 0 0 8px rgba(38, 26, 129, 0.3); /* Leve sombra ao focar */
     outline: none; /* Remove o outline padrão do navegador */
 }
 
-.areaInteracao > input:hover {
-    border-color: #a6e4b4; /* Cor da borda ao passar o mouse (um pouco mais clara) */
-}
 
 #erro {
     position: absolute;

@@ -211,8 +211,13 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
             const resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
+            let formaDecimal = "";
 
-            const formulaNerdamerExibicao = traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) 
+            if(resolucaoExibicao.includes("/")){
+                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals')
+            }
+            
+            const formulaNerdamerExibicao = traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) + formaDecimal
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -220,6 +225,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             if(e.name === "ParseError" && formulaConcatenadaNerdamer.includes("frac")){
                 MensagemErro("Divisão por 0 não é permetida")
                 //divErro.innerText = "Divisão por 0 não é permitida!"
+            }
+            else {
+                console.error(e)
             }
         }
     

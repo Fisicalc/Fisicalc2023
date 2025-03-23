@@ -26,10 +26,6 @@ function pesquisarFormulas(termo){
 
     document.querySelectorAll("button.btnCategorias").forEach(btnCategoria => {
         const divFormulas = btnCategoria.nextElementSibling;
-        if (termoBusca === '') {
-            divFormulas.classList.remove('visivel');
-            return;
-        }
         let temResultados = false;
 
         // Verifica os botões dentro da div irmã
@@ -44,6 +40,7 @@ function pesquisarFormulas(termo){
                 if (corresponde) temResultados = true;
             });
         }
+       
 
         // Esconde/Exibe a categoria inteira
         // btnCategoria.style.display = temResultados ? 'block' : 'none';
@@ -51,6 +48,10 @@ function pesquisarFormulas(termo){
         btnCategoria.style.display = temResultados ? 'block' : 'none';
         if (divFormulas){
             divFormulas.classList.toggle('visivel', temResultados);
+        }
+
+        if (termoBusca === '') {
+            divFormulas.classList.remove('visivel');
         }
     });
 

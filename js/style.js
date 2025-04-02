@@ -1,6 +1,7 @@
 
 const menuToggle = document.getElementById("menuToggle");
 const menuLateral = document.getElementById("barraLateralBotoes");
+const botoes = document.querySelectorAll('.btnCategorias');
 
 document.querySelectorAll("button.btnCategorias")
     .forEach(btn => btn.addEventListener("click", (event) => show_hide_formulas(event)));
@@ -17,3 +18,17 @@ menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('deactive');
     menuLateral.classList.toggle('deactive');
 })
+
+botoes.forEach(botao => {
+    botao.addEventListener('click', () => {
+        // Remove a classe "ativo" de todos os botões
+        botoes.forEach(
+            btn => {
+                if(btn != botao)
+                    btn.classList.remove('ativado')
+            }
+        );
+        // Adiciona a classe "ativo" apenas ao botão clicado
+        botao.classList.toggle('ativado');
+    });
+});

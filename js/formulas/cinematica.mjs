@@ -67,7 +67,7 @@ const cinematica  = [
     {
         nome: "Alcance máximo do projétil horizontalmente",
         formula: "R = \\frac{\\left|\\vec{v_0}\\right|^2 \\cdot sin(2 \\cdot \\theta)}{g}",
-        variaveis: ["R", "\\vec{v_0}", "g"]
+        variaveis: ["R", "\\vec{v_0}", "g", "\\theta"]
     },
     {
         nome: "Posição angular",

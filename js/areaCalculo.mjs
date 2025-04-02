@@ -43,6 +43,8 @@ function classificarFormula(formula, variaveis) {
     const formulaClassificada = [];
     const variaveisOrdenadasPorIndice = retornarVariaveisEIndices(variaveis, formula).sort((a, b) => a.indice - b.indice);
 
+    console.log(variaveisOrdenadasPorIndice, formula)
+
     let indiceFormula = 0
 
     variaveisOrdenadasPorIndice.forEach(({indice, variavel}, i) => {
@@ -126,7 +128,7 @@ function criarDivFormula(formula){
     divInteracao.setAttribute("class", "areaInteracao")
     const divErro = document.createElement("div");
     const formulaInterativa = document.createElement("p");
-    formulaInterativa.innerText = `$$${traduzirSeno(formula.replaceAll("*", " \\cdot "))}$$`
+    formulaInterativa.innerText = `$$${formatarFormulaParaExibicao(formula.replaceAll("*", " \\cdot "))}$$`
     const elementoResolucao = document.createElement("p")
     const hr = document.createElement("hr")
 
@@ -143,7 +145,6 @@ function criarDescricaoEInputVariavel(variavel) {
 
     return {descricaoVariavel, inputVariavel} 
 }
-
 
 
 function MensagemErro(texto)
@@ -178,6 +179,8 @@ function MensagemErro(texto)
 function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro) {
     const areaCalculo = document.querySelector("#equacao")
 
+    console.log(typeof formula, typeof variavel);
+
     substituirVariavelNaFormula(formula, variavel, event.target.valueAsNumber)
     
     const formulaConcatenada = formula.reduce((formula, parte) => {
@@ -191,7 +194,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, '')
 
-    formulaInterativa.innerText = `$$${traduzirSeno(formulaConcatenada.replaceAll("*", " \\cdot "))}$$`
+    console.log(formulaConcatenadaNerdamer)
+
+    formulaInterativa.innerText = `$$${formatarFormulaParaExibicao(traduzirSeno(formulaConcatenada.replaceAll("*", " \\cdot ")))}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -210,12 +215,23 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            const resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
+            let resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
+
+            if(resolucaoExibicao.includes(",")){
+                const partesResolucao = resolucaoExibicao.split(",")
+                
+                if((partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
+                    resolucaoExibicao = "\\pm" + partesResolucao[0].substring(1)
+                }
+            }
+
             let formaDecimal = "";
 
             if(resolucaoExibicao.includes("/")){
                 formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals')
             }
+
+            resolucaoExibicao = formatarFormulaParaExibicao(resolucaoExibicao)
             
             const formulaNerdamerExibicao = traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) + formaDecimal
 
@@ -244,6 +260,17 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     renderMathInElement(areaCalculo, {output: 'html'})
 }
 
+/**
+ * 
+ * @param {string} formula 
+ * @returns 
+ */
+function formatarFormulaParaExibicao(formula){
+    console.log(formula)
+    const formulaFormatada = formula.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
+    return formulaFormatada
+}
+
 export function traduzirSeno(texto) {
     return texto.replaceAll("sin", "sen");
 }
@@ -270,7 +297,7 @@ function retornarVariaveisEIndices(variaveis, formula){
             const primeiroIndiceAposVariavel = indiceVariavel + String(variavel).length;
             
             if(indiceVariavel >= 0 && (contemComandoLaTeX(variavel) || !comandoLaTeXContemNomeVariavel)) {
-                if(formula[primeiroIndiceAposVariavel] !== "_"){
+                if(formula[primeiroIndiceAposVariavel] !== "_" && formula[indiceVariavel-1] !== "_"){
                     variaveisEIndices.push({variavel, indice: indiceVariavel});
                 }
             }

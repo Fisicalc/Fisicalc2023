@@ -23,12 +23,14 @@ function criarListaFormulas(){
 
 function pesquisarFormulas(termo){
     const termoBusca = termo.toLowerCase().trim();
+    console.log(typeof termoBusca)
 
     document.querySelectorAll("button.btnCategorias").forEach(btnCategoria => {
         const divFormulas = btnCategoria.nextElementSibling;
         let temResultados = false;
 
         // Verifica os botões dentro da div irmã
+        console.log("divFormulas:", divFormulas)
         if (divFormulas) {
             const botoesFormula = divFormulas.querySelectorAll('[data-nome]');
             

@@ -13,9 +13,12 @@ export function criarFormulaAreaCalculo(formula, variaveis){
     variaveis.forEach(variavel => { 
         const {descricaoVariavel, inputVariavel} = criarDescricaoEInputVariavel(variavel);
         inputVariavel.addEventListener("input", (event) => responderInput(event, formulaClassificada, variavel, formulaInterativa, divFormula, elementoResolucao, divErro))
+
+        const divInputEDescricao = document.createElement("div");
+        divInputEDescricao.appendChild(descricaoVariavel)
+        divInputEDescricao.appendChild(inputVariavel)
         
-        divInteracao.appendChild(descricaoVariavel)
-        divInteracao.appendChild(inputVariavel)
+        divInteracao.appendChild(divInputEDescricao)
     })
 
     divFormula.appendChild(divInteracao)
@@ -196,7 +199,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
     console.log(formulaConcatenadaNerdamer)
 
-    formulaInterativa.innerText = `$$${formatarFormulaParaExibicao(traduzirSeno(formulaConcatenada.replaceAll("*", " \\cdot ")))}$$`
+    formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -233,7 +236,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             resolucaoExibicao = formatarFormulaParaExibicao(resolucaoExibicao)
             
-            const formulaNerdamerExibicao = traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) + formaDecimal
+            const formulaNerdamerExibicao = (traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) + formaDecimal).replaceAll(".", ",")
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -246,7 +249,6 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 console.error(e)
             }
         }
-    
         
         console.log("event", event.srcElement, "formulaInterativa", formulaInterativa, "divFormula", divFormula)
         //console.log("FORMULANERDAMER: ", formulaNerdamer.toString())
@@ -266,8 +268,10 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
  * @returns 
  */
 function formatarFormulaParaExibicao(formula){
-    console.log(formula)
     const formulaFormatada = formula.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
+        .replaceAll(".", ",")
+        .replaceAll("sin", "sen")
+        .replaceAll("*", " \\cdot ");
     return formulaFormatada
 }
 

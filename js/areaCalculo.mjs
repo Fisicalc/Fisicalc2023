@@ -220,7 +220,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             let formaDecimal = "";
 
             if(resolucaoExibicao.includes("/")){
-                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals')
+                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6)
             }
 
             resolucaoExibicao = formatarFormulaParaExibicao(resolucaoExibicao)

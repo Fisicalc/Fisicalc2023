@@ -1,10 +1,10 @@
-const comandosLaTeX = ["\\bar", "\\bot", "\\cdot", "\\Delta", "\\frac", "\\rightarrow", "\\omega", "\\theta", "\\vec"]
+const comandosLaTeX = ["\\bar", "\\bot", "\\cdot", "\\Delta", "\\frac", "\\rightarrow", "\\omega", "\\theta", "\\vec", "\\left", "\\right"]
 const comandosNerdamer = ["cos", "sin", "tan", "sec", "csc", "cot", "dot", "arg", "log", 
     "min", "max", "abs", "exp", "mod", "erf", "fib", "tri", "sum", "lcm", "gcd", "deg", "ilt", "add", "pow","lte", "gte"
 ]
 
 export function criarFormulaAreaCalculo(formula, variaveis){
-    formula = substituirOperacoesLaTeXFormula(formula)
+    //formula = substituirOperacoesLaTeXFormula(formula)
     const formulaClassificada = classificarFormula(formula, variaveis)
 
     const areaCalculo = document.getElementById("equacao");
@@ -182,7 +182,7 @@ function MensagemErro(texto)
 function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro) {
     const areaCalculo = document.querySelector("#equacao")
 
-    console.log(typeof formula, typeof variavel);
+    console.log("Fórmula:", formula);
 
     substituirVariavelNaFormula(formula, variavel, event.target.valueAsNumber)
     
@@ -191,13 +191,11 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, '')
 
-    const formulaConcatenadaNerdamer = formula.reduce((formula, parte) => {
+    const formulaConcatenadaNerdamer = substituirOperacoesLaTeXFormula(formula.reduce((formula, parte) => {
         if(typeof parte === "string") return formula.concat(parte)
         else if(parte.substituir && parte.valor === parte.variavel) return formula.concat(parte.substituir)
         else return formula.concat(parte.valor)
-    }, '')
-
-    console.log(formulaConcatenadaNerdamer)
+    }, ''))
 
     formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
 
@@ -210,7 +208,6 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
         const [variavelNaoPreenchida] = formula.filter(parte => { if(typeof parte !== "string") return parte.valor === parte.variavel})
 
-        console.log("FORMULACONCATENADANERDAMER: ", formulaConcatenadaNerdamer)
         let formulaNerdamer;
 
         try {
@@ -220,14 +217,6 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             let resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
 
-            if(resolucaoExibicao.includes(",")){
-                const partesResolucao = resolucaoExibicao.split(",")
-                
-                if((partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
-                    resolucaoExibicao = "\\pm" + partesResolucao[0].substring(1)
-                }
-            }
-
             let formaDecimal = "";
 
             if(resolucaoExibicao.includes("/")){
@@ -235,8 +224,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             }
 
             resolucaoExibicao = formatarFormulaParaExibicao(resolucaoExibicao)
-            
-            const formulaNerdamerExibicao = (traduzirSeno(variavelNaoPreenchida.variavel) + " = " + nerdamer.convertToLaTeX(traduzirSeno(resolucaoExibicao)) + formaDecimal).replaceAll(".", ",")
+
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao), formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -264,14 +253,35 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
 /**
  * 
- * @param {string} formula 
+ * @param {string | [string]} formula 
  * @returns 
  */
 function formatarFormulaParaExibicao(formula){
-    const formulaFormatada = formula.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
+    let formulaFormatada = "";
+
+    if(formula instanceof Array) {
+        for(const parte of formula){
+            if(parte.includes(",")){
+                console.log("ASDFASDFASDF", parte)
+                const partesResolucao = parte.split(",").map(n => n.replaceAll(" ", ""))
+                
+                if((partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
+                    formulaFormatada += "\\pm " + (partesResolucao[0].substring(1) || partesResolucao[1].substring(1))
+                }
+            }else{
+                formulaFormatada += parte
+            }
+        }
+    }else{
+        formulaFormatada = formula;
+    }
+
+    formulaFormatada = formulaFormatada.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
         .replaceAll(".", ",")
         .replaceAll("sin", "sen")
-        .replaceAll("*", " \\cdot ");
+        //.replaceAll("*", " \\cdot ");
+
+        console.log(formulaFormatada)
     return formulaFormatada
 }
 
@@ -286,6 +296,7 @@ export function traduzirSeno(texto) {
  * @returns {[{variavel: string, indice: number}]}
  */
 function retornarVariaveisEIndices(variaveis, formula){
+    console.log(formula)
     const variaveisEIndices = [];
     const indicesComandosLatex = retornarIndicesComandosLaTeX(formula)
     let indiceVariavel = -1;

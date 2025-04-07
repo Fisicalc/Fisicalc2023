@@ -23,7 +23,9 @@ function criarListaFormulas(){
 
 function pesquisarFormulas(termo){
     const termoBusca = termo.toLowerCase().trim();
-    console.log(typeof termoBusca)
+    const regexAcentos = /[\u0300-\u036F]/g
+    const termoBuscaPossuiAcento = Boolean(termoBusca.normalize("NFD").match(regexAcentos));
+    console.log(termo)
 
     document.querySelectorAll("button.btnCategorias").forEach(btnCategoria => {
         const divFormulas = btnCategoria.nextElementSibling;
@@ -36,7 +38,13 @@ function pesquisarFormulas(termo){
             
             botoesFormula.forEach(botao => {
                 const nomeFormula = (botao.getAttribute('data-nome') || '').toString();
-                const corresponde = nomeFormula.includes(termoBusca);
+
+                const corresponde = termoBuscaPossuiAcento ?
+                    nomeFormula.includes(termoBusca) :
+                    nomeFormula.normalize("NFD").replace(regexAcentos, "").includes(termoBusca.normalize("NFD").replace(regexAcentos, ""))
+                    
+                console.log(corresponde)
+
                 botao.style.display = corresponde ? 'block' : 'none';
                 
                 if (corresponde) temResultados = true;

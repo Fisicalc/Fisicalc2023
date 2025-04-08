@@ -215,7 +215,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            let resolucaoExibicao = resolucao.toString().replace("[", "").replace("]", "")
+            let resolucaoExibicao = resolucao.toString().includes("sin") ?
+            resolucao.evaluate().toString().replace("[", "").replace("]", "") :
+            resolucao.toString().replace("[", "").replace("]", "")
 
             let formaDecimal = "";
 

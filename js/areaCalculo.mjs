@@ -219,13 +219,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
             resolucao.toString().replace("[", "").replace("]", "")
 
-            let formaDecimal = "";
-
-            if(resolucaoExibicao.includes("/")){
-                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6)
-            }
-
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset", formaDecimal])
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset"])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -251,6 +245,35 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     renderMathInElement(areaCalculo, {output: 'html'})
 }
 
+function formatarResultadoParaExibicao(resultado) {
+    let resultadoFormatado = ""
+    
+    if(resultado.includes(",")){
+        const partesResolucao = parte.split(",").map(n => n.replaceAll(" ", ""))
+        
+        if(partesResolucao.length === 2 && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
+            resultadoFormatado += "\\pm " + (partesResolucao[0].substring(1) || partesResolucao[1].substring(1))
+        }else if(partesResolucao.length > 2){
+            resultadoFormatado += partesResolucao[0]
+        }
+        else {
+            partesResolucao.forEach(resultado => resultadoFormatado += resultado)
+        }
+    }else{
+        resultadoFormatado += parte
+    }
+
+    let formaDecimal = "";
+
+    if(resolucaoExibicao.includes("/")){
+        formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6).replaceAll("(", "").replaceAll(")", "")
+    }
+
+    resultadoFormatado += formaDecimal
+
+    return resultadoFormatado;
+}
+
 /**
  * 
  * @param {string | [string]} formula 
@@ -260,18 +283,7 @@ function formatarFormulaParaExibicao(formula){
     let formulaFormatada = "";
 
     if(formula instanceof Array) {
-        for(const parte of formula){
-            if(parte.includes(",")){
-                console.log("ASDFASDFASDF", parte)
-                const partesResolucao = parte.split(",").map(n => n.replaceAll(" ", ""))
-                
-                if((partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
-                    formulaFormatada += "\\pm " + (partesResolucao[0].substring(1) || partesResolucao[1].substring(1))
-                }
-            }else{
-                formulaFormatada += parte
-            }
-        }
+        formulaFormatada = formula.reduce((acc, cur) => acc.concat(cur))
     }else{
         formulaFormatada = formula;
     }
@@ -279,7 +291,7 @@ function formatarFormulaParaExibicao(formula){
     formulaFormatada = formulaFormatada.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
         .replaceAll(".", ",")
         .replaceAll("sin", "sen")
-        .replaceAll("*", " \\cdot ");
+        //.replaceAll("*", " \\cdot ")
 
         console.log(formulaFormatada)
     return formulaFormatada

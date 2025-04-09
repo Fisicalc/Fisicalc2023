@@ -215,7 +215,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            let resolucaoExibicao = resolucao.toString().includes("sin") ?
+            let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
             resolucao.toString().replace("[", "").replace("]", "")
 
@@ -225,9 +225,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6)
             }
 
-            resolucaoExibicao = formatarFormulaParaExibicao(resolucaoExibicao)
-
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao), formaDecimal])
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -281,7 +279,7 @@ function formatarFormulaParaExibicao(formula){
     formulaFormatada = formulaFormatada.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
         .replaceAll(".", ",")
         .replaceAll("sin", "sen")
-        //.replaceAll("*", " \\cdot ");
+        .replaceAll("*", " \\cdot ");
 
         console.log(formulaFormatada)
     return formulaFormatada

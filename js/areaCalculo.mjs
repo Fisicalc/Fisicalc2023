@@ -238,7 +238,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         }
         catch(e) {
             if(e.name === "ParseError" && formulaConcatenadaNerdamer.includes("frac")){
-                exibirMensagem("Divisão por 0 não é permetida")
+                exibirMensagem("Divisão por 0 não é permitida")
                 //divErro.innerText = "Divisão por 0 não é permitida!"
             }
             else if (e.name === "ParseError" && e.message.includes("does not equal")){

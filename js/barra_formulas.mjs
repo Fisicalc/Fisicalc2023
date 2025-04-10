@@ -25,7 +25,6 @@ function pesquisarFormulas(termo){
     const termoBusca = termo.toLowerCase().trim();
     const regexAcentos = /[\u0300-\u036F]/g
     const termoBuscaPossuiAcento = Boolean(termoBusca.normalize("NFD").match(regexAcentos));
-    console.log(termo)
 
     document.querySelectorAll("button.btnCategorias").forEach(btnCategoria => {
         const divFormulas = btnCategoria.nextElementSibling;
@@ -42,8 +41,6 @@ function pesquisarFormulas(termo){
                 const corresponde = termoBuscaPossuiAcento ?
                     nomeFormula.includes(termoBusca) :
                     nomeFormula.normalize("NFD").replace(regexAcentos, "").includes(termoBusca.normalize("NFD").replace(regexAcentos, ""))
-                    
-                console.log(corresponde)
 
                 botao.style.display = corresponde ? 'block' : 'none';
                 

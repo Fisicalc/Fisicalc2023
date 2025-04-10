@@ -150,11 +150,12 @@ function criarDescricaoEInputVariavel(variavel) {
 }
 
 
-function MensagemErro(texto)
+function exibirMensagem(texto, aviso = false)
 {
-    const erro = document.getElementById("erro");
+    const erro = document.getElementById("erro") || document.getElementById("aviso");
+    erro.setAttribute("id", aviso ? "aviso" : "erro");
 
-    let mensagem = "ERRO: " + texto;
+    let mensagem = aviso ? "AVISO:" + texto : "ERRO: " + texto;
 
     erro.classList.remove("fadeOut", "fadeIn");
     void erro.offsetWidth;
@@ -215,18 +216,33 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
-            resolucao.evaluate().toString().replace("[", "").replace("]", "") :
-            resolucao.toString().replace("[", "").replace("]", "")
+            console.log(resolucao.toString())
 
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset"])
+            let resolucaoExibicao = formatarResultadoParaExibicao(resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
+            resolucao.evaluate().toString().replace("[", "").replace("]", "") :
+            resolucao.toString().replace("[", "").replace("]", ""))
+
+            if(resolucaoExibicao === "") {
+                exibirMensagem("Resultado não possui solução", true)
+            }
+
+            let formaDecimal = "";
+
+            if(resolucaoExibicao.includes("/")){
+                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6).replaceAll("(", "").replaceAll(")", "")
+            }
+
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
         catch(e) {
             if(e.name === "ParseError" && formulaConcatenadaNerdamer.includes("frac")){
-                MensagemErro("Divisão por 0 não é permetida")
+                exibirMensagem("Divisão por 0 não é permetida")
                 //divErro.innerText = "Divisão por 0 não é permitida!"
+            }
+            else if (e.name === "ParseError" && e.message.includes("does not equal")){
+                exibirMensagem("Igualdade incorreta inserida");
             }
             else {
                 console.error(e)
@@ -246,10 +262,12 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 }
 
 function formatarResultadoParaExibicao(resultado) {
+    console.log(resultado)
+
     let resultadoFormatado = ""
     
     if(resultado.includes(",")){
-        const partesResolucao = parte.split(",").map(n => n.replaceAll(" ", ""))
+        const partesResolucao = resultado.split(",").map(n => n.replaceAll(" ", ""))
         
         if(partesResolucao.length === 2 && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
             resultadoFormatado += "\\pm " + (partesResolucao[0].substring(1) || partesResolucao[1].substring(1))
@@ -260,16 +278,10 @@ function formatarResultadoParaExibicao(resultado) {
             partesResolucao.forEach(resultado => resultadoFormatado += resultado)
         }
     }else{
-        resultadoFormatado += parte
+        resultadoFormatado = resultado
     }
 
-    let formaDecimal = "";
-
-    if(resolucaoExibicao.includes("/")){
-        formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6).replaceAll("(", "").replaceAll(")", "")
-    }
-
-    resultadoFormatado += formaDecimal
+    console.log(resultadoFormatado)
 
     return resultadoFormatado;
 }

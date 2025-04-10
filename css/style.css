@@ -298,7 +298,7 @@ main{
 }
 
 
-#erro {
+#erro, #aviso {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -315,6 +315,10 @@ main{
     z-index: 99;
     box-sizing: border-box;
     visibility: hidden;
+}
+
+#aviso {
+    background-color: #ffff29;
 }
 
 /*Animações*/

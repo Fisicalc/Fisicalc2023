@@ -218,9 +218,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             console.log(resolucao.toString())
 
-            let resolucaoExibicao = formatarResultadoParaExibicao(resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
+            let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
-            resolucao.toString().replace("[", "").replace("]", ""))
+            resolucao.toString().replace("[", "").replace("]", "")
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)
@@ -232,7 +232,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6).replaceAll("(", "").replaceAll(")", "")
             }
 
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", nerdamer.convertToLaTeX(resolucaoExibicao) || "\\emptyset", formaDecimal])
+            resolucaoExibicao = formatarResultadoParaExibicao(resolucaoExibicao)
+
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -250,7 +252,6 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         }
         
         console.log("event", event.srcElement, "formulaInterativa", formulaInterativa, "divFormula", divFormula)
-        //console.log("FORMULANERDAMER: ", formulaNerdamer.toString())
     } else {
         const inputsNaoPreenchidos = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputsNaoPreenchidos.forEach(input => input.disabled = false)
@@ -270,15 +271,15 @@ function formatarResultadoParaExibicao(resultado) {
         const partesResolucao = resultado.split(",").map(n => n.replaceAll(" ", ""))
         
         if(partesResolucao.length === 2 && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
-            resultadoFormatado += "\\pm " + (partesResolucao[0].substring(1) || partesResolucao[1].substring(1))
+            resultadoFormatado += "\\pm " + nerdamer.convertToLaTeX(partesResolucao[0].replaceAll("-", ""))
         }else if(partesResolucao.length > 2){
-            resultadoFormatado += partesResolucao[0]
+            resultadoFormatado += nerdamer.convertToLaTeX(partesResolucao[0])
         }
         else {
-            partesResolucao.forEach(resultado => resultadoFormatado += resultado)
+            partesResolucao.forEach(resultado => resultadoFormatado += nerdamer.convertToLaTeX(resultado))
         }
     }else{
-        resultadoFormatado = resultado
+        resultadoFormatado = nerdamer.convertToLaTeX(resultado)
     }
 
     console.log(resultadoFormatado)
@@ -293,6 +294,8 @@ function formatarResultadoParaExibicao(resultado) {
  */
 function formatarFormulaParaExibicao(formula){
     let formulaFormatada = "";
+
+    console.log(formula)
 
     if(formula instanceof Array) {
         formulaFormatada = formula.reduce((acc, cur) => acc.concat(cur))

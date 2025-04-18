@@ -219,8 +219,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             console.log(resolucao.toString())
 
             let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
-            resolucao.evaluate().toString().replace("[", "").replace("]", "") :
-            resolucao.toString().replace("[", "").replace("]", "")
+            resolucao.evaluate().toString() :
+            resolucao.toString()
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)
@@ -228,13 +228,9 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             let formaDecimal = "";
 
-            if(resolucaoExibicao.includes("/")){
-                formaDecimal = " = " + nerdamer(resolucaoExibicao).text('decimals', 6).replaceAll("(", "").replaceAll(")", "")
-            }
+            ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao))
 
-            resolucaoExibicao = formatarResultadoParaExibicao(resolucaoExibicao)
-
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", formaDecimal])
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", " = ", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -243,7 +239,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 exibirMensagem("Divisão por 0 não é permitida")
                 //divErro.innerText = "Divisão por 0 não é permitida!"
             }
-            else if (e.name === "ParseError" && e.message.includes("does not equal")){
+            else if (e.name === "ParseError" || e.name === "NerdamerValueError" && e.message.includes("does not equal")){
                 exibirMensagem("Igualdade incorreta inserida");
             }
             else {
@@ -263,28 +259,37 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 }
 
 function formatarResultadoParaExibicao(resultado) {
-    console.log(resultado)
-
     let resultadoFormatado = ""
+    let parteDecimal = ""
     
     if(resultado.includes(",")){
-        const partesResolucao = resultado.split(",").map(n => n.replaceAll(" ", ""))
+        const partesResolucao = resultado.replace("[", "").replace("]", "").split(",").map(n => n.replaceAll(" ", ""))
         
-        if(partesResolucao.length === 2 && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])){
-            resultadoFormatado += "\\pm " + nerdamer.convertToLaTeX(partesResolucao[0].replaceAll("-", ""))
-        }else if(partesResolucao.length > 2){
-            resultadoFormatado += nerdamer.convertToLaTeX(partesResolucao[0])
-        }
-        else {
-            partesResolucao.forEach(resultado => resultadoFormatado += nerdamer.convertToLaTeX(resultado))
+        if(eDoisResultadosPositivoNegativo(partesResolucao)){
+            const resultadoBase = partesResolucao[0].replaceAll("-", "");
+
+            resultadoFormatado += "\\pm " + nerdamer.convertToLaTeX(resultadoBase)
+            parteDecimal = resultadoBase.includes("/") ? "\\pm " + nerdamer(resultadoBase).text('decimals', 6) : ""
+        } else {
+            partesResolucao.forEach(resultado => {
+                resultadoFormatado += nerdamer.convertToLaTeX(resultado);
+                parteDecimal = resultado.includes("/") ? nerdamer(resultado).text("decimals", 6) : ""
+            })
         }
     }else{
         resultadoFormatado = nerdamer.convertToLaTeX(resultado)
+        parteDecimal = resultado.includes("/") ? nerdamer(resultado).text("decimals", 6) : ""
     }
 
     console.log(resultadoFormatado)
 
-    return resultadoFormatado;
+    return {resolucaoExibicao: resultadoFormatado, formaDecimal: parteDecimal};
+}
+
+function eDoisResultadosPositivoNegativo(partesResolucao) {
+    return partesResolucao.length === 2 
+        && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) 
+        || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])
 }
 
 /**

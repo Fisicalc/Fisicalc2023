@@ -60,6 +60,10 @@ function classificarFormula(formula, variaveis) {
             objetoVariavel.substituir = removerComandosLaTeXVariavel(variavel, variaveis);
         }
 
+        if(variavelDentroDeSenoOuCosseno({indice, variavel}, formula)){
+            objetoVariavel.dentroDeSenoOuCosseno = true;
+        }
+
         console.log(objetoVariavel)
         formulaClassificada.push(objetoVariavel);
 
@@ -73,6 +77,28 @@ function classificarFormula(formula, variaveis) {
     console.log(formulaClassificada)
 
     return formulaClassificada;
+}
+
+function variavelDentroDeSenoOuCosseno(variavel, formula) {
+    const indicesSenoOuCosseno = retornarIndicesSenoOuCosseno(formula);
+    
+    return variavel.indice > indicesSenoOuCosseno.indiceInicial && ((variavel.indice + variavel.variavel.length) <= indicesSenoOuCosseno.indiceFinal || indicesSenoOuCosseno.indiceFinal === -1)
+}
+
+function retornarIndicesSenoOuCosseno(formula) {
+    const comprimentoNomeOperacao = 3;
+    
+    let indiceInicial = formula.indexOf("sin");
+
+    if(indiceInicial === -1) {
+        indiceInicial = formula.indexOf("cos");
+    }
+
+    const primeiroCaractereApos = formula[indiceInicial + comprimentoNomeOperacao]
+    const caractereFinal = primeiroCaractereApos === " " ? " " : ")"
+    const indiceFinal = formula.indexOf(caractereFinal, indiceInicial + comprimentoNomeOperacao + 1);
+
+    return { indiceInicial, indiceFinal };
 }
 
 function contemComandoLaTeX(variavel) {
@@ -219,8 +245,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             console.log(resolucao.toString())
 
             let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
-            resolucao.evaluate().toString() :
-            resolucao.toString()
+            resolucao.evaluate().toString().replace("[", "").replace("]", "") :
+            resolucao.toString().replace("[", "").replace("]", "")
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)
@@ -229,6 +255,11 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             let formaDecimal = "";
 
             ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao))
+
+            if(variavelNaoPreenchida.dentroDeSenoOuCosseno){
+                const resolucaoEmGraus = Math.round(Number(formaDecimal) * 180 * Math.PI)
+                resolucaoExibicao = String(resolucaoEmGraus) + "°"
+            }
 
             const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", " = ", formaDecimal])
 

@@ -259,7 +259,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
 
             ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao))
 
-            if(variavelNaoPreenchida.dentroDeSenoOuCosseno){
+            if(variavelNaoPreenchida.dentroDeSenoOuCosseno && resolucaoExibicao){
                 const resolucaoEmGraus = Math.round(Number(formaDecimal) * 180 * Math.PI)
                 resolucaoExibicao = String(resolucaoEmGraus) + "°"
             }

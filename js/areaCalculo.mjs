@@ -82,7 +82,9 @@ function classificarFormula(formula, variaveis) {
 function variavelDentroDeSenoOuCosseno(variavel, formula) {
     const indicesSenoOuCosseno = retornarIndicesSenoOuCosseno(formula);
     
-    return variavel.indice > indicesSenoOuCosseno.indiceInicial && ((variavel.indice + variavel.variavel.length) <= indicesSenoOuCosseno.indiceFinal || indicesSenoOuCosseno.indiceFinal === -1)
+    return indicesSenoOuCosseno.indiceInicial > -1 && 
+        variavel.indice > indicesSenoOuCosseno.indiceInicial && 
+        ((variavel.indice + variavel.variavel.length) <= indicesSenoOuCosseno.indiceFinal || indicesSenoOuCosseno.indiceFinal === -1)
 }
 
 function retornarIndicesSenoOuCosseno(formula) {
@@ -157,7 +159,7 @@ function criarDivFormula(formula){
     divInteracao.setAttribute("class", "areaInteracao")
     const divErro = document.createElement("div");
     const formulaInterativa = document.createElement("p");
-    formulaInterativa.innerText = `$$${formatarFormulaParaExibicao(formula.replaceAll("*", " \\cdot "))}$$`
+    formulaInterativa.innerText = `$$${formatarFormulaParaExibicao(formula)}$$`
     const elementoResolucao = document.createElement("p")
     const hr = document.createElement("hr")
 
@@ -215,16 +217,17 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     
     const formulaConcatenada = formula.reduce((formula, parte) => {
         if(typeof parte === "string") return formula.concat(parte)
+        else if(parte.dentroDeSenoOuCosseno) return formula.concat(parte.valor) 
         else return formula.concat(parte.valor)
     }, '')
+
+    formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
 
     const formulaConcatenadaNerdamer = substituirOperacoesLaTeXFormula(formula.reduce((formula, parte) => {
         if(typeof parte === "string") return formula.concat(parte)
         else if(parte.substituir && parte.valor === parte.variavel) return formula.concat(parte.substituir)
         else return formula.concat(parte.valor)
     }, ''))
-
-    formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -261,7 +264,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 resolucaoExibicao = String(resolucaoEmGraus) + "°"
             }
 
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", " = ", formaDecimal])
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", formaDecimal ? " = " : "", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -302,10 +305,9 @@ function formatarResultadoParaExibicao(resultado) {
             resultadoFormatado += "\\pm " + nerdamer.convertToLaTeX(resultadoBase)
             parteDecimal = resultadoBase.includes("/") ? "\\pm " + nerdamer(resultadoBase).text('decimals', 6) : ""
         } else {
-            partesResolucao.forEach(resultado => {
-                resultadoFormatado += nerdamer.convertToLaTeX(resultado);
-                parteDecimal = resultado.includes("/") ? nerdamer(resultado).text("decimals", 6) : ""
-            })
+            resultadoFormatado = partesResolucao.map(resolucao => nerdamer.convertToLaTeX(resolucao)).join(",")
+            parteDecimal = partesResolucao.map(resolucao => resolucao.includes("/") ? nerdamer(resolucao).text("decimals", 6) : "")
+                .join(partesResolucao.every(resolucao => resolucao.includes("/")) ? "," : "")
         }
     }else{
         resultadoFormatado = nerdamer.convertToLaTeX(resultado)
@@ -342,7 +344,7 @@ function formatarFormulaParaExibicao(formula){
     formulaFormatada = formulaFormatada.replaceAll(/abs\(([^abs]*)\)/g, "\\left|$1\\right|")
         .replaceAll(".", ",")
         .replaceAll("sin", "sen")
-        //.replaceAll("*", " \\cdot ")
+        .replaceAll("*", " \\cdot ")
 
         console.log(formulaFormatada)
     return formulaFormatada

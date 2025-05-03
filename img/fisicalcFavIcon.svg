@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="512"
-   height="512"
-   viewBox="0 0 512 512"
+   width="650"
+   height="650"
+   viewBox="0 0 650 650"
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   sodipodi:docname="fisicalcLogo1.svg"
+   sodipodi:docname="fisicalcFavIcon.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
      id="namedview1"
-     pagecolor="#0000ff"
+     pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
      inkscape:showpageshadow="2"
@@ -24,17 +24,17 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      inkscape:zoom="0.82581198"
-     inkscape:cx="282.75201"
-     inkscape:cy="371.14986"
+     inkscape:cx="659.95652"
+     inkscape:cy="170.13558"
      inkscape:window-width="1920"
      inkscape:window-height="991"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1"
+     inkscape:current-layer="g4"
      showguides="true">
     <sodipodi:guide
-       position="111.47199,276.26618"
+       position="111.47199,364.26618"
        orientation="0,-1"
        id="guide1"
        inkscape:locked="false" />
@@ -226,7 +226,9 @@
        close="false"
        join="false"
        linkedpaths="#ellipse2,0,1"
-       id="path-effect2" />
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="0" />
     <inkscape:path-effect
        effect="fill_between_many"
        method="bsplinespiro"
@@ -234,7 +236,9 @@
        close="false"
        join="false"
        linkedpaths="#ellipse2,0,1"
-       id="path-effect5" />
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="0" />
     <inkscape:path-effect
        effect="fill_between_many"
        method="bsplinespiro"
@@ -242,7 +246,9 @@
        close="false"
        join="false"
        linkedpaths="#ellipse3,0,1"
-       id="path-effect12" />
+       id="path-effect12"
+       is_visible="true"
+       lpeversion="0" />
     <inkscape:path-effect
        effect="fill_between_many"
        method="bsplinespiro"
@@ -250,15 +256,10 @@
        close="false"
        join="false"
        linkedpaths="#ellipse3,0,1"
-       id="path-effect14" />
+       id="path-effect14"
+       is_visible="true"
+       lpeversion="0" />
   </defs>
-  <rect
-     style="fill:#71ffe2;fill-opacity:1;stroke:#71ffe2;stroke-width:14.8299;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-     id="rect1"
-     width="210.62251"
-     height="340.87943"
-     x="150.68874"
-     y="98.145035" />
   <g
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
@@ -277,6 +278,17 @@
          sodipodi:nodetypes="cssssssssssccsssssssssscc"
          inkscape:linked-fill="path5" />
     </g>
+  </g>
+  <g
+     id="g4"
+     transform="translate(70.236295,85.082186)">
+    <rect
+       style="fill:#71ffe2;fill-opacity:1;stroke:#71ffe2;stroke-width:14.8299;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect1"
+       width="210.62251"
+       height="340.87943"
+       x="150.68874"
+       y="98.145035" />
     <path
        style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
        d="M 388.98611,230.61328 C 438.9839,306.09107 505.50763,405.36804 456.72835,456.23323 332.44087,585.83553 -0.44461368,146.1273 79.809174,50.380795 111.50275,12.56889 229.85167,87.461486 265.76176,110.90102 h -59.5555 C 162.10171,84.157799 121.75888,62.456559 112.77159,79.950414 83.745704,133.60129 272.77107,425.64689 394.41452,429.83619 c 11.06557,0.38109 17.72297,-2.13142 21.77715,-5.88391 C 444.03954,398.17656 399.54359,302.84817 388.98611,286.2 Z"
@@ -295,12 +307,12 @@
        d="m 374.98611,193.00586 v 19.64486 c 79.31445,12.10953 110.28371,37.69873 99.23249,51.06522 -50.50823,61.09007 -365.48102,62.92916 -417.586959,0 C 45.957165,250.82419 55.360213,225.12778 137.0139,212.65072 V 195.69025 C -25.111495,224.52434 -2.6759401,272.26678 12.372509,295.73249 c 58.877477,91.81026 431.291771,91.17912 487.282221,0 28.2739,-46.04338 -20.43557,-86.81254 -124.66862,-102.72656 z"
        id="path3"
        sodipodi:nodetypes="ccssccsscc" />
+    <rect
+       style="fill:#28993d;fill-opacity:0.988235;stroke:#28993d;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="130.54871"
+       height="55.471085"
+       x="190.72565"
+       y="143.97816" />
   </g>
-  <rect
-     style="fill:#28993d;fill-opacity:0.98823529;stroke:#28993d;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-     id="rect2"
-     width="130.54871"
-     height="55.471085"
-     x="190.72565"
-     y="143.97816" />
 </svg>

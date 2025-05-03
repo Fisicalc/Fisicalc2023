@@ -226,8 +226,11 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     const formulaConcatenadaNerdamer = substituirOperacoesLaTeXFormula(formula.reduce((formula, parte) => {
         if(typeof parte === "string") return formula.concat(parte)
         else if(parte.substituir && parte.valor === parte.variavel) return formula.concat(parte.substituir)
+        else if(parte.dentroDeSenoOuCosseno) return formula.concat(Number(parte.valor) * Math.PI / 180)
         else return formula.concat(parte.valor)
     }, ''))
+
+    console.log(formulaConcatenadaNerdamer)
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))

@@ -207,13 +207,14 @@ main{
     grid-column: 2/3;
     grid-row: 2/3;
     display: flex;
-    position: relative;
+    min-width: 0;
 }
 
 
 /* Área que as equações aparecem */
 #equacao{
     flex-grow: 1;
+    min-width: 0;
     margin: 20px;
     padding: 20px;
     border: 4px solid #6e6e6e;
@@ -221,26 +222,30 @@ main{
     user-select: none;
     font-size: 1.5em;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow: auto;
+    scrollbar-gutter: stable    ;
 }
 
 /* Scrool da área que as equações aparecem */
 #equacao::-webkit-scrollbar {
     background-color: #F5F5F5;
     width: 1.2vmin;
-    margin-top: 20px;
+    height: 1.2vmin;
+    margin: 10px;
 }
 
 #equacao::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #F5F5F5;
+    margin: 6px 0px;      
 }
 
 #equacao::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #555;
+    border: 2px solid transparent;
 }
 
 /*Div que abriga os inputs, formula e resultado*/

@@ -259,15 +259,19 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             }
 
             let formaDecimal = "";
+            
+            // ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel))
 
-            ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao))
+            let resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel);
 
             if(variavelNaoPreenchida.dentroDeSenoOuCosseno && resolucaoExibicao){
-                const resolucaoEmGraus = Math.round(Number(formaDecimal) * 180 * Math.PI)
-                resolucaoExibicao = String(resolucaoEmGraus) + "°"
+                resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel, "graus")
+
+                
             }
 
-            const formulaNerdamerExibicao = formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, " = ", resolucaoExibicao || "\\emptyset", formaDecimal ? " = " : "", formaDecimal])
+            const formulaNerdamerExibicao = formatarFormulaParaExibicao(resultadoFormatado);
+            // formatarFormulaParaExibicao([variavelNaoPreenchida.variavel, ` ${sinalIgualdade} `, resolucaoExibicao || "\\emptyset", formaDecimal ? ` ${sinalIgualdade} ` : "", formaDecimal])
 
             elementoResolucao.innerText = `$$${formulaNerdamerExibicao}$$`
         }
@@ -295,37 +299,121 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     renderMathInElement(areaCalculo, {output: 'html'})
 }
 
-function formatarResultadoParaExibicao(resultado) {
+    
+function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     let resultadoFormatado = ""
+    let resultados = [];
+    let partesDecimais = [];
     let parteDecimal = ""
+    let sinalIgualdade = "=";
+
+    if(!resultado) {
+        return
+    }
     
     if(resultado.includes(",")){
-        const partesResolucao = resultado.replace("[", "").replace("]", "").split(",").map(n => n.replaceAll(" ", ""))
-        
-        if(eDoisResultadosPositivoNegativo(partesResolucao)){
-            const resultadoBase = partesResolucao[0].replaceAll("-", "");
-
-            resultadoFormatado += "\\pm " + nerdamer.convertToLaTeX(resultadoBase)
-            parteDecimal = resultadoBase.includes("/") ? "\\pm " + nerdamer(resultadoBase).text('decimals', 6) : ""
-        } else {
-            resultadoFormatado = partesResolucao.map(resolucao => nerdamer.convertToLaTeX(resolucao)).join(",")
-            parteDecimal = partesResolucao.map(resolucao => resolucao.includes("/") ? nerdamer(resolucao).text("decimals", 6) : "")
-                .join(partesResolucao.every(resolucao => resolucao.includes("/")) ? "," : "")
-        }
+        resultados = resultado.replace("[", "").replace("]", "").split(",").map(n => n.replaceAll(" ", ""))
     }else{
-        resultadoFormatado = nerdamer.convertToLaTeX(resultado)
-        parteDecimal = resultado.includes("/") ? nerdamer(resultado).text("decimals", 6) : ""
+        resultados.push(resultado);
+    }
+    
+    resultados.forEach(resultado => {
+        let formaDecimal = formatarFormaDecimalResultado(resultado);
+
+        let quantidadeZerosAposVirgulaDecimal = quantosZerosAposOPontoDecimal(formaDecimal);
+
+        if(quantidadeZerosAposVirgulaDecimal >= 5) {
+            sinalIgualdade = "\\approx";
+
+            if(quantidadeZerosAposVirgulaDecimal >= 8) {
+                formaDecimal = formaDecimal.slice(0, formaDecimal.indexOf("."));
+            } else {
+                const quantidadeCasasDecimaisExibicao = quantidadeZerosAposVirgulaDecimal + 3;
+                formaDecimal = formatarFormaDecimalResultado(resultado, quantidadeCasasDecimaisExibicao);
+            }
+        } else {
+            formaDecimal = formatarFormaDecimalResultado(resultado, 6)
+        }
+
+        partesDecimais.push(formaDecimal);
+    });
+
+    partesDecimais = partesDecimais.filter(parteDecimal => !(parteDecimal === ""));
+
+    if(tipoResolucao === "graus") {
+        if(partesDecimais.length > 1){
+            const doisResultadosMaisProximosDeZero = partesDecimais.map(Number).sort().filter((_, i) => i === 0 || i === 1);
+
+            console.log(doisResultadosMaisProximosDeZero)
+
+            const resolucoesEmGraus = doisResultadosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => String(resolucao) + "°");
+
+            return variavel + ` ${sinalIgualdade} ` + resolucoesEmGraus.join(",");
+        } else {
+            const resolucaoEmGraus = converterRadianosParaGraus(Number(formaDecimal))
+
+            return variavel + ` ${sinalIgualdade} ` + String(resolucaoEmGraus) + "°";
+        }
     }
 
-    console.log(resultadoFormatado)
+    if(resultados.length === 2 && eDoisResultadosPositivoNegativo(resultados)) {
+        resultados = resultados
+            .filter(resultado => !resultado.includes("-"))
+            .map(resultado => nerdamer.convertToLaTeX(resultado));
+        partesDecimais = partesDecimais
+            .filter(parteDecimal => !parteDecimal.includes("-"))
+
+        console.log(resultados);
+        return variavel + ` ${sinalIgualdade} ` + "\\pm " + resultados.join(",") + (partesDecimais.length ?  ` ${sinalIgualdade} ` + "\\pm" + " " + partesDecimais.join(",") : "");
+    } else {
+        const resultadoFormatado = resultados.map(resultado => nerdamer.convertToLaTeX(resultado)).join(",");
+        const parteDecimal = partesDecimais.join(",");
+
+        return variavel + ` ${sinalIgualdade} ` + resultadoFormatado + (partesDecimais.length ? ` ${sinalIgualdade} ` + parteDecimal : "");
+    }
+
+    const formulaFinal = formatarFormulaParaExibicao(resultadoFormatado);
 
     return {resolucaoExibicao: resultadoFormatado, formaDecimal: parteDecimal};
 }
 
+function formatarFormaDecimalResultado(resultado, quantidadeCasasDecimais = 0) {
+    return resultado.includes("/") ? nerdamer(resultado).text('decimals', quantidadeCasasDecimais) : ""; 
+}
+
+function converterRadianosParaGraus(numero) {
+    return Math.round(numero * 180 / Math.PI);
+}
+
 function eDoisResultadosPositivoNegativo(partesResolucao) {
+    console.log(partesResolucao)
+
     return partesResolucao.length === 2 
         && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) 
         || (partesResolucao[1].indexOf("-") === 0 && partesResolucao[1].substring(1) === partesResolucao[0])
+}
+
+/**
+ * 
+ * @param {string} numero O número cuja quantidade de zeros após o ponto decimal vai ser medida
+ */
+function quantosZerosAposOPontoDecimal(numero){
+    const indicePontoDecimal = numero.indexOf(".");
+    let contador = 0;
+
+    if(indicePontoDecimal !== -1) {
+        for(let i = indicePontoDecimal + 1; i < numero.length; i++) {
+            if(numero[i] !== "0") {
+                return contador;
+            }else{
+                contador++
+            }
+        }
+
+        return contador;
+    } else {
+        return 0;
+    }
 }
 
 /**

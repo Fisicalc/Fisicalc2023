@@ -258,6 +258,10 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 exibirMensagem("Resultado não possui solução", true)
             }
 
+            if(resolucaoExibicao.includes("i")) {
+                exibirMensagem("Resultado não é parte do conjunto dos Reais", true);
+            }
+
             let formaDecimal = "";
             
             // ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel))
@@ -308,7 +312,13 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     let sinalIgualdade = "=";
 
     if(!resultado) {
-        return
+        return variavel + ` ${sinalIgualdade} ` + "\\emptyset"
+    }
+
+    if(resultado.includes("i")) {
+        sinalIgualdade = "\\notin";
+
+        return variavel + ` ${sinalIgualdade} ` + `\\R`
     }
     
     if(resultado.includes(",")){

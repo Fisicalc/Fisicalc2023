@@ -342,7 +342,12 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
                 const quantidadeCasasDecimaisExibicao = quantidadeZerosAposVirgulaDecimal + 3;
                 formaDecimal = formatarFormaDecimalResultado(resultado, quantidadeCasasDecimaisExibicao);
             }
-        } else {
+        }else if(quantosZerosAposDigitoAposOPontoDecimal(formaDecimal) >= 4) {
+            //TODO: Quando caso para números como 0.500300007 e 0.500300200004 forem adicionados, ainda adicionar limitação de dígitos com a função formatarFormaDecimalResultado
+            // Considerar que esta próxima linha já resolve o problema
+            formaDecimal = formaDecimal.slice(0, formaDecimal.indexOf("0000"))
+        }
+        else {
             formaDecimal = formatarFormaDecimalResultado(resultado, 6)
         }
 
@@ -352,16 +357,17 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     partesDecimais = partesDecimais.filter(parteDecimal => !(parteDecimal === ""));
 
     if(tipoResolucao === "graus") {
+        sinalIgualdade = "="
+
         if(partesDecimais.length > 1){
-            const doisResultadosMaisProximosDeZero = partesDecimais.map(Number).sort().filter((_, i) => i === 0 || i === 1);
+            const doisResultadosPositivosMaisProximosDeZero = partesDecimais.map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
 
-            console.log(doisResultadosMaisProximosDeZero)
+            const resolucoesEmGraus = doisResultadosPositivosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => resolucao >= 360 ? resolucao % 360 : resolucao).map(resolucao => String(resolucao) + "°");
 
-            const resolucoesEmGraus = doisResultadosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => String(resolucao) + "°");
-
-            return variavel + ` ${sinalIgualdade} ` + resolucoesEmGraus.join(",");
+            console.log(partesDecimais, doisResultadosPositivosMaisProximosDeZero)
+            return variavel + ` ${sinalIgualdade} ` + resolucoesEmGraus.join(";");
         } else {
-            const resolucaoEmGraus = converterRadianosParaGraus(Number(formaDecimal))
+            const resolucaoEmGraus = converterRadianosParaGraus(Number(partesDecimais.join("")))
 
             return variavel + ` ${sinalIgualdade} ` + String(resolucaoEmGraus) + "°";
         }
@@ -375,17 +381,13 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
             .filter(parteDecimal => !parteDecimal.includes("-"))
 
         console.log(resultados);
-        return variavel + ` ${sinalIgualdade} ` + "\\pm " + resultados.join(",") + (partesDecimais.length ?  ` ${sinalIgualdade} ` + "\\pm" + " " + partesDecimais.join(",") : "");
+        return variavel + ` ${sinalIgualdade} ` + "\\pm " + resultados.join(";") + (partesDecimais.length ?  ` ${sinalIgualdade} ` + "\\pm" + " " + partesDecimais.join(";") : "");
     } else {
-        const resultadoFormatado = resultados.map(resultado => nerdamer.convertToLaTeX(resultado)).join(",");
-        const parteDecimal = partesDecimais.join(",");
+        const resultadoFormatado = resultados.map(resultado => nerdamer.convertToLaTeX(resultado)).join(";");
+        const parteDecimal = partesDecimais.join(";");
 
         return variavel + ` ${sinalIgualdade} ` + resultadoFormatado + (partesDecimais.length ? ` ${sinalIgualdade} ` + parteDecimal : "");
     }
-
-    const formulaFinal = formatarFormulaParaExibicao(resultadoFormatado);
-
-    return {resolucaoExibicao: resultadoFormatado, formaDecimal: parteDecimal};
 }
 
 function formatarFormaDecimalResultado(resultado, quantidadeCasasDecimais = 0) {
@@ -424,6 +426,53 @@ function quantosZerosAposOPontoDecimal(numero){
         return contador;
     } else {
         return 0;
+    }
+}
+
+// TODO: criar função genérica "contarZeros(numero, indice)", que conta todos os zeros à partir de dado índice.
+// No caso de zeros após o ponto decimal, só se deve truncar à partir de 4 zeros ocorrendo após um dígito, respeitando as regras anteriormente definidas sobre zeros imediatamente após um ponto decimal.
+// Números como 0.0001500002 só devem ser truncados após quatro zeros ocorrerem. No caso do número 0.0001500002, o resultado seria 0.00015
+
+function quantosZerosAposDigitoAposOPontoDecimal(numero) {
+    const indicePontoDecimal = numero.indexOf(".");
+    const indicePrimeiroDigitoDecimal = indicePontoDecimal + 1;
+    let indicePesquisa = indicePrimeiroDigitoDecimal;
+    
+    if(indicePontoDecimal === -1) return 0;
+
+    if(numero[indicePesquisa] === "0") {
+        for(let i = indicePesquisa; i < numero.length; i++) {
+            if(numero[i] !== "0") {
+                indicePesquisa = i;
+                break;
+            }
+        }
+    }
+
+    if(numero[indicePesquisa] === "0") {
+        return 0;
+    }
+    else {
+        //TODO: Adicionar casos para números como 0.500300007
+        //TODO: Adicionar casos para números como 0.500300200004
+
+        indicePesquisa = numero.indexOf("0", indicePesquisa);
+
+        if(indicePesquisa === -1) {
+            return 0;
+        } else {
+            let contador = 0;
+
+            for(let i = indicePesquisa; i < numero.length; i++) {
+                if(numero[i] === "0") {
+                    contador++;
+                } else {
+                    return contador;
+                }
+            }
+
+            return contador;
+        }
     }
 }
 

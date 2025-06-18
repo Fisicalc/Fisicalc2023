@@ -246,13 +246,22 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         try {
             formulaNerdamer = nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
 
+            console.log(`Fórmula Nerdamer: ${formulaNerdamer}`);
+
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            console.log(resolucao.toString())
+            const formulaSemSenoCosseno = formulaNerdamer.toString().includes("sin") || formulaNerdamer.toString().includes("cos") ? removerSenoCosseno(formulaNerdamer.toString()) : "";
+            const resolucaoSemSenoCosseno = nerdamer.solve(formulaSemSenoCosseno, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel).toString().replace("[", "").replace("]", "");
 
             let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
-            resolucao.toString().replace("[", "").replace("]", "")
+            resolucao.toString().replace("[", "").replace("]", "");
+
+            if(variavelNaoPreenchida.dentroDeSenoOuCosseno &&
+                ((resolucaoSemSenoCosseno === "1" || resolucaoSemSenoCosseno === -1) && (formulaNerdamer.toString.includes("sin") || formulaNerdamer.toString))
+            ) {
+                resolucaoExibicao = resolucaoSemSenoCosseno;
+            }
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)
@@ -262,6 +271,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 exibirMensagem("Resultado não é parte do conjunto dos Reais", true);
             }
 
+            let tipoResolucao = formulaNerdamer.toString().includes("sin") ? "sin" : "cos";
+
             let formaDecimal = "";
             
             // ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel))
@@ -269,7 +280,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             let resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel);
 
             if(variavelNaoPreenchida.dentroDeSenoOuCosseno && resolucaoExibicao){
-                resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel, "graus")
+
+                resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel, "graus", tipoResolucao)
 
                 
             }
@@ -304,12 +316,14 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     renderMathInElement(areaCalculo, {output: 'html'})
 }
 
+function removerSenoCosseno(formula) {
+    return formula.replace("sin", "").replace("cos", "");
+}
+
     
-function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
-    let resultadoFormatado = ""
+function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoOuCosseno) {
     let resultados = [];
     let partesDecimais = [];
-    let parteDecimal = ""
     let sinalIgualdade = "=";
 
     if(!resultado) {
@@ -362,15 +376,28 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     if(tipoResolucao === "graus") {
         sinalIgualdade = "="
 
+        //TODO: Verificar porque as partesDecimais são usadas aqui (pensar em casos inteiros além de 0 (que também pode dar problemas aqui), 1 e -1)
         if(partesDecimais.length > 1){
             const doisResultadosPositivosMaisProximosDeZero = partesDecimais.map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
 
             const resolucoesEmGraus = doisResultadosPositivosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => resolucao >= 360 ? resolucao % 360 : resolucao).map(resolucao => String(resolucao) + "°");
 
-            console.log(partesDecimais, doisResultadosPositivosMaisProximosDeZero)
+            console.log("Partes decimais:", partesDecimais, "Dois resultados Positivos mais próximos de zero:", doisResultadosPositivosMaisProximosDeZero)
             return variavel + ` ${sinalIgualdade} ` + resolucoesEmGraus.join(";");
         } else {
-            const resolucaoEmGraus = converterRadianosParaGraus(Number(partesDecimais.join("")))
+            const resolucaoEmGraus = converterRadianosParaGraus(Number(partesDecimais.join("")));
+
+            console.log("Seno ou cosseno:", senoOuCosseno, "Resultados:", resultados.join(""));
+
+            if(senoOuCosseno === "sin" && resultados.join("") === "1") {
+                return variavel + ` ${sinalIgualdade}` + "90°"
+            } else if(senoOuCosseno === "sin" && resultados.join("") === "-1") {
+                return variavel + ` ${sinalIgualdade} ` + "270°";
+            } else if (senoOuCosseno === "cos" && resultados.join("") === "1") {
+                return variavel + ` ${sinalIgualdade} ` + "0°"
+            } else if (senoOuCosseno === "cos" && resultados.join("") === "-1") {
+                return variavel + ` ${sinalIgualdade} ` + "180°"
+            }
 
             return variavel + ` ${sinalIgualdade} ` + String(resolucaoEmGraus) + "°";
         }

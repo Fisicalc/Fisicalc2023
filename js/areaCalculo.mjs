@@ -46,7 +46,7 @@ function classificarFormula(formula, variaveis) {
     const formulaClassificada = [];
     const variaveisOrdenadasPorIndice = retornarVariaveisEIndices(variaveis, formula).sort((a, b) => a.indice - b.indice);
 
-    console.log(variaveisOrdenadasPorIndice, formula)
+    console.log("Variáveis ordenada por índice:", variaveisOrdenadasPorIndice, "formula:", formula)
 
     let indiceFormula = 0
 
@@ -64,7 +64,7 @@ function classificarFormula(formula, variaveis) {
             objetoVariavel.dentroDeSenoOuCosseno = true;
         }
 
-        console.log(objetoVariavel)
+        console.log("Objeto variável:", objetoVariavel)
         formulaClassificada.push(objetoVariavel);
 
         if(i === variaveisOrdenadasPorIndice.length - 1){
@@ -74,7 +74,7 @@ function classificarFormula(formula, variaveis) {
         indiceFormula = indice + variavel.length
     })
 
-    console.log(formulaClassificada)
+    console.log("Fórmula classificada:", formulaClassificada)
 
     return formulaClassificada;
 }
@@ -121,7 +121,7 @@ function removerComandosLaTeXVariavel(variavel, variaveis) {
             } else {
                 variavel = variavel.slice(indiceComando + comando.length)
 
-                console.log(variavel, comando)
+                console.log("Variável:", variavel, "Comando:", comando)
             }
         }
     })
@@ -230,7 +230,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, ''))
 
-    console.log(formulaConcatenadaNerdamer)
+    console.log("Fórmula concatenada Nerdamer:", formulaConcatenadaNerdamer)
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -293,7 +293,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             }
         }
         
-        console.log("event", event.srcElement, "formulaInterativa", formulaInterativa, "divFormula", divFormula)
+        console.log("Event:", event.srcElement, "Fórmula Interativa:", formulaInterativa, "Div Fórmula:", divFormula)
     } else {
         const inputsNaoPreenchidos = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputsNaoPreenchidos.forEach(input => input.disabled = false)
@@ -329,7 +329,10 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     }
     
     resultados.forEach(resultado => {
+        console.log("Resultado antes da formatação:", resultado)
         let formaDecimal = formatarFormaDecimalResultado(resultado);
+
+        console.log("Forma Decimal:", formaDecimal)
 
         let quantidadeZerosAposVirgulaDecimal = quantosZerosAposOPontoDecimal(formaDecimal);
 
@@ -380,7 +383,7 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
         partesDecimais = partesDecimais
             .filter(parteDecimal => !parteDecimal.includes("-"))
 
-        console.log(resultados);
+        console.log("Resultados:", resultados);
         return variavel + ` ${sinalIgualdade} ` + "\\pm " + resultados.join(";") + (partesDecimais.length ?  ` ${sinalIgualdade} ` + "\\pm" + " " + partesDecimais.join(";") : "");
     } else {
         const resultadoFormatado = resultados.map(resultado => nerdamer.convertToLaTeX(resultado)).join(";");
@@ -484,7 +487,7 @@ function quantosZerosAposDigitoAposOPontoDecimal(numero) {
 function formatarFormulaParaExibicao(formula){
     let formulaFormatada = "";
 
-    console.log(formula)
+    console.log("Fórmula:", formula)
 
     if(formula instanceof Array) {
         formulaFormatada = formula.reduce((acc, cur) => acc.concat(cur))
@@ -497,7 +500,7 @@ function formatarFormulaParaExibicao(formula){
         .replaceAll("sin", "sen")
         .replaceAll("*", " \\cdot ")
 
-        console.log(formulaFormatada)
+        console.log("Fórmula formatada:", formulaFormatada)
     return formulaFormatada
 }
 
@@ -512,7 +515,7 @@ export function traduzirSeno(texto) {
  * @returns {[{variavel: string, indice: number}]}
  */
 function retornarVariaveisEIndices(variaveis, formula){
-    console.log(formula)
+    console.log("Fórmula:", formula)
     const variaveisEIndices = [];
     const indicesComandosLatex = retornarIndicesComandosLaTeX(formula)
     let indiceVariavel = -1;
@@ -537,7 +540,7 @@ function retornarVariaveisEIndices(variaveis, formula){
         } while(indiceVariavel !== -1);
     })
 
-    console.log(variaveisEIndices);
+    console.log("Variáveis e índices:", variaveisEIndices);
 
     return variaveisEIndices;
 }
@@ -563,7 +566,7 @@ function retornarIndicesComandosLaTeX (formula) {
         } while( indiceComando !== -1 )
     })
 
-    console.log(indicesComandos)
+    console.log("Índices dos comandos:", indicesComandos)
 
     return indicesComandos
 }

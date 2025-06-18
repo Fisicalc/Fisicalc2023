@@ -373,6 +373,18 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
 
     partesDecimais = partesDecimais.filter(parteDecimal => !(parteDecimal === ""));
 
+    if(resultados.length >= 2 || partesDecimais.length >= 2){
+        ([resultados, partesDecimais] = removerResultadosDuplicados(resultados, partesDecimais));
+    }
+    
+
+    if(resultados.every(resultado => !(resultado.includes("/")))) {
+        sinalIgualdade = "=";
+        partesDecimais = [];
+    } 
+
+    console.log("Resultados após deduplicação: ", resultados, "Formas decimais após deduplicação: ", partesDecimais)
+
     if(tipoResolucao === "graus") {
         sinalIgualdade = "="
 
@@ -424,12 +436,73 @@ function formatarFormaDecimalResultado(resultado, quantidadeCasasDecimais = 0) {
     return resultado.includes("/") ? nerdamer(resultado).text('decimals', quantidadeCasasDecimais) : ""; 
 }
 
+//TODO: aplicar este método somente a fórmulas que contém módulo, para evitar possível interferência com resoluções de seno e cosseno (verificar se é necessário)
+function removerResultadosDuplicados(resultados, formasDecimais) {
+    console.log("Resultados antes de deduplicação: ", resultados, "Formas decimais antes de deduplicação: ", formasDecimais)
+    
+    const formasDecimaisDiferentes = [];
+    let resultadosDiferentes = [];
+
+    if(resultados.length === 1 && formasDecimais.length === 1) {
+        return[resultados, formasDecimais];
+    }
+
+    for(let i = 0; i < formasDecimais.length; i++) {
+        const formaAtualNegativa = formasDecimais[i].includes("-");
+
+        //TODO: Considerar o que fazer quando só 1 forma decimal
+        for(let j = i + 1; j !== undefined && j < formasDecimais.length; j++) {
+            if(formaAtualNegativa) {
+                if(formasDecimais[j] === formasDecimais[i].replace("-", "") && formasDecimaisDiferentes.length !== 2) {
+                    formasDecimaisDiferentes.push(formasDecimais[i], formasDecimais[j]);
+                }
+            } else {
+                if(formasDecimais[j].replace("-", "") === formasDecimais[i] && formasDecimaisDiferentes.length !== 2){
+                    formasDecimaisDiferentes.push(formasDecimais[i], formasDecimais[j]);
+                }
+            }
+        }
+    }
+
+    if(resultados.length >= 2) {
+        for(let i = 0; i < resultados.length; i++) {
+            const formaAtualNegativa = resultados[i].includes("-");
+
+            //TODO: Considerar o que fazer quando só 1 forma decimal
+            for(let j = i + 1; j !== undefined && j < resultados.length; j++) {
+                if(formaAtualNegativa) {
+                    if(resultados[j] === resultados[i].replace("-", "") && resultadosDiferentes.length !== 2) {
+                        resultadosDiferentes.push(resultados[i], resultados[j]);
+                    }
+                } else {
+                    if(resultados[j].replace("-", "") === resultados[i] && resultadosDiferentes.length !== 2){
+                        resultadosDiferentes.push(resultados[i], resultados[j]);
+                    }
+                }
+            }
+        }
+
+        //TODO: O método feito desta forma verifica se não há dois resultados em forma fracional iguais, para que a notação +- possa ser adicionada.
+        // Caso não haja dois, o que pode ser verificado na fórmula Componente vertical da velocidade inicial, quando v_0_x = 5 e theta = -1, que faz com que três frações distintas surjam,
+        // a forma fracional está sendo construída à partir das formas decimais, porque elas, depois de serem truncadas, são idênticas.
+        if(formasDecimaisDiferentes.length === 2 && !resultadosDiferentes.length) {
+            resultadosDiferentes = [...formasDecimaisDiferentes.values()].map(formaDecimal => nerdamer(formaDecimal).toString());
+        }
+    }
+    
+    if(!formasDecimaisDiferentes.length){
+        return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+    }
+
+    return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+}
+
 function converterRadianosParaGraus(numero) {
     return Math.round(numero * 180 / Math.PI);
 }
 
 function eDoisResultadosPositivoNegativo(partesResolucao) {
-    console.log(partesResolucao)
+    console.log("Partes da resolução:", partesResolucao)
 
     return partesResolucao.length === 2 
         && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) 

@@ -11,6 +11,20 @@
     --cor-tomDeCinzaClaro:#d5d5d5;
     --cor-erro: #dc3534;
     --cor-sombra: rgba(0, 0, 0, 0.3);
+
+    font-size: 16px;
+
+    --border-size-padrao: 10px;
+
+    --size-rem-xxs: 0.25rem; /* 5px */
+    --size-rem-xs: 0.5rem; /* 8px */
+    --size-rem-sm: 1rem; /* 16px */
+    --size-rem-md: 1.5rem; /* 24px */
+    --size-rem-lg: 2rem; /* 32px */
+    --size-rem-xl: 2.5rem; /* 40px */
+    --size-rem-xxl: 3rem; /* 48px */
+
+    --border-thin: 1p
 }
 
  /* Reset do html e body */
@@ -24,7 +38,7 @@ html, body {
 h1 {
     margin: 0px;
     padding: 0px;
-    font-size: 2rem;
+    font-size: var(--size-rem-lg);
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: var(--cor-tomDeBranco);
@@ -38,7 +52,10 @@ div#container{
     display: grid;
     grid-template-columns: 3fr 8fr 1fr;
     grid-template-rows: 10vh 80vh 10vh;
+    position: relative;
+    column-gap: var(--size-rem-md);
 }
+
 
 /* Navbar */
 div#navbar{
@@ -46,7 +63,7 @@ div#navbar{
     justify-content: center;
     align-items: center;   
     flex-direction: row;
-    gap: 10px;
+
 }
 
  /* TÍTULO */
@@ -54,14 +71,12 @@ div#navbar{
 #container > section{
     grid-column: 1/2;
     grid-row: 1/2; 
-    padding: 20px;
+    padding: var(--size-rem-md);
     background-color: var(--cor-titulo) ;
     align-items: center;
     display: inline-flex; /* Adicionando flexbox ao section */
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
     align-items: center; /* Centraliza o conteúdo verticalmente */
-    width: calc(100% - 80px);
-    height: calc(100% - 40px);
 }
 
  /* Botão dentro da sessão que é o título */
@@ -71,11 +86,9 @@ div#navbar{
 aside#barraLateralBotoes{
     grid-column: 1/2;
     grid-row: 2/4;
-    margin-right: 40px;
     background-color: var(--cor-primaria);
     overflow-x: hidden;
     overflow-y: hidden;
-    height: 100%;
     direction: rtl;
 }
 
@@ -93,12 +106,12 @@ aside#barraLateralBotoes::-webkit-scrollbar {
    
 aside#barraLateralBotoes::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px var(--cor-sombra);
-    border-radius: 10px;
+    border-radius: var(--border-size-padrao);
     background-color: var(--cor-tomDeBranco);
 }
 
 aside#barraLateralBotoes::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: var(--border-size-padrao);
     -webkit-box-shadow: inset 0 0 6px var(--cor-sombra);
     background-color: var(--cor-tomDeCinza);
 }
@@ -117,22 +130,22 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
 
 #search-input{
     border-style: none;
-    border-radius: 8px;
+    border-radius:  var(--border-size-padrao);
     width: 100%;
-    margin: 10px;
-    height: 40px;
-    font-size: 1rem;
+    margin: var(--size-rem-sm);
+    height: var(--size-rem-xl);
+    font-size: var(--size-rem-sm);
 }
 
 #search-input:focus{
-    border: 2px solid #162130;
+    border: calc(var(--border-size-padrao) * 0.3) solid #162130;
 
 }
 
 input[type="search"] {
     outline: none;
     appearance: none;
-    padding-left: 10px;
+    padding-left: var(--size-rem-xs);
 }
 
  /* Formatação da área de todos os botões */
@@ -143,8 +156,8 @@ input[type="search"] {
 
  /* Formatação de cada botão que é uma categoria (cinemática, dinânica...) */
 .btnCategorias{
-    padding: 10px 22px;
-    height: 60px;
+    padding: var(--size-rem-xs) var(--size-rem-md);
+    height: calc(var(--size-rem-md) + 2rem) ;
     width: 100%;
     border:  none;
     cursor: pointer;
@@ -153,18 +166,18 @@ input[type="search"] {
     text-align: left;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.5em;
+    font-size: var(--size-rem-md);
     transition: background-color 0.3s, transform 0.2s;
 }
 
 .btnCategorias:hover{
-    border-left: 10px solid var(--cor-tomDeBranco);
+    border-left: var(--border-size-padrao) solid var(--cor-tomDeBranco);
     padding-left: 10%;
     background-color: var(--cor-primariaEscuro);
 }
 
 .btnCategorias.ativado{
-    border-left: 10px solid var(--cor-tomDeBranco);
+    border-left: var(--border-size-padrao) solid var(--cor-tomDeBranco);
     padding-left: 10%;
     background-color: var(--cor-primariaEscuro);;
 }
@@ -190,7 +203,7 @@ input[type="search"] {
     font-size: 1.2em;
     color:  var(--cor-tomDeBranco);
     text-decoration: none;
-    padding: 10px;
+    padding: var(--size-rem-sm);
     text-align: center;
     border:none;
     cursor: pointer;
@@ -209,10 +222,8 @@ div.formulasGrupo > button{
 }
 
 div.formulasGrupo > button:hover{
-    background-color: var(--cor-secundariaClara
-);
+    background-color: var(--cor-secundariaClara);
 }
-
 
 /* MAIN */
 main{
@@ -227,10 +238,10 @@ main{
 #equacao{
     flex-grow: 1;
     min-width: 0;
-    margin: 20px;
-    padding: 20px;
+    margin: var(--size-rem-md);
+    padding: var(--size-rem-md);
     border: 4px solid var(--cor-tomDeCinza);
-    border-radius: 20px;
+    border-radius: var(--size-rem-sm);
     user-select: none;
     font-size: 1.5em;
     box-sizing: border-box;
@@ -243,18 +254,18 @@ main{
     background-color: var(--cor-tomDeBranco);
     width: 1.2vmin;
     height: 1.2vmin;
-    margin: 10px;
+    margin: var(--size-rem-xs);
 }
 
 #equacao::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px var(--cor-sombra);
-    border-radius: 10px;
+    border-radius: var(--size-rem-xs);
     background-color: var(--cor-tomDeBranco);
-    margin: 6px 0px;      
+    margin: var(--size-rem-xs) 0px;      
 }
 
 #equacao::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: var(--size-rem-xs);
     -webkit-box-shadow: inset 0 0 6px var(--cor-sombra);
     background-color: var(--cor-tomDeCinza);
     border: 2px solid transparent;
@@ -262,7 +273,7 @@ main{
 
 /*Div que abriga os inputs, formula e resultado*/
 #divFormula {
-    margin-bottom: 50px;
+    margin-bottom: var(--size-rem-xl);
 }
 
 #divFormula input::-webkit-inner-spin-button,
@@ -281,7 +292,8 @@ main{
     display: flex;
     justify-content: center;
     background-color: var(--cor-tomDeCinzaClaro);
-    border-radius: 10px;
+    border-radius: var(--size-rem-xs);
+    padding: var(--size-rem-xs) 0px;
 }
 
 /* Área que aparecem os inputs */
@@ -289,8 +301,8 @@ main{
     font-size: 1em;
     /* margin: auto 50px */
     text-align: center;
-    padding: 10px;
-    border-radius: 6px;
+    padding: var(--size-rem-xs);
+    border-radius: var(--size-rem-xs);
  
     /*display: flex;*/
     /* justify-content: center;
@@ -299,12 +311,12 @@ main{
 }
 
 .areaInteracao > div > input {
-    margin-left: 4px;
-    margin-right: 15px;
-    border: 2px solid #162130;
-    border-radius: 8px;
-    max-width: 100px;
-    padding: 12px 15px;
+    margin-left: var(--size-rem-xs);
+    margin-right: var(--size-rem-xs);
+    border: 2px solid var(--cor-tomDeCinza);
+    border-radius: var(--size-rem-xs);
+    max-width: 6.5rem;
+    padding: var(--size-rem-xs) var(--size-rem-sm);
     box-sizing: border-box;
     font-size: 0.75em;
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -312,12 +324,12 @@ main{
 
 
 .areaInteracao > div > input:hover {
-    border-color: #2a5c82; /* Cor da borda ao passar o mouse (um pouco mais clara) */
+    border-color: var(--cor-primaria); /* Cor da borda ao passar o mouse (um pouco mais clara) */
 }
 
 .areaInteracao > div > input:focus {
     border: 3px solid  var(--cor-primaria);
-    box-shadow: 0 0 8px rgba(38, 26, 129, 0.3); /* Leve sombra ao focar */
+    box-shadow: 0 0 8px var(--cor-sombra); /* Leve sombra ao focar */
     outline: none; /* Remove o outline padrão do navegador */
 }
 
@@ -327,12 +339,12 @@ main{
     transform: translateY(-50%);
     left: 0;
     right: 0;
-    padding: 5px 0;
-    margin: 0 60px; 
+    padding: var(--size-rem-xxs) 0;
+    margin: 0 calc(var(--size-rem-lg) * 2); 
     background-color: var(--cor-erro);
     font-size: 16pt;
     font-weight: 400;
-    border-radius: 10px;
+    border-radius: var(--size-rem-xs);
     text-align: center;
     color: white;
     z-index: 99;
@@ -397,22 +409,22 @@ main{
 div#bannerDir{
     grid-column: 3/4;
     grid-row: 2/3;
-    border: 5px solid darkorchid;
-    margin-right: 5px;
+    border: var(--size-rem-xxs) solid darkorchid;
+    margin-right:var(--size-rem-xxs);
 }
 
 div#bannerTop{
     grid-column: 2/3;
     grid-row: 1/2;
-    border: 5px solid darkorchid;
-     margin-top: 5px;
+    border: var(--size-rem-xxs) solid darkorchid;
+     margin-top: var(--size-rem-xxs);
 }
 
 div#bannerBaixo{
     grid-column: 2/3;
     grid-row: 3/4;
-    border: 5px solid darkorchid;
-    margin-bottom: 5px;
+    border: var(--size-rem-xxs) solid darkorchid;
+    margin-bottom:var(--size-rem-xxs);
 
 }
 

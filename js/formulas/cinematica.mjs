@@ -52,7 +52,7 @@ const cinematica  = [
     {
         nome: "Componente horizontal da velocidade inicial",
         formula: "v_{0_x} = \\left|\\vec{v_0}\\right| \\cdot cos \\theta",
-        variaveis: ["v_{0_x}", "\\left|\\vec{v_0}\\right|", "\\theta"]
+        variaveis: ["v_{0_x}", "\\vec{v_0}", "\\theta"]
     },
     {
         nome: "Função horária da posição vertical",
@@ -62,7 +62,7 @@ const cinematica  = [
     {
         nome: "Componente vertical da velocidade inicial",
         formula: "v_{0_y} = \\left|\\vec{v_0}\\right| \\cdot sin \\theta",
-        variaveis: ["v_{0_y}", "\\left|\\vec{v_0}\\right|", "\\theta"]
+        variaveis: ["v_{0_y}", "\\vec{v_0}", "\\theta"]
     },
     {
         nome: "Alcance máximo do projétil horizontalmente",

@@ -46,7 +46,7 @@ function classificarFormula(formula, variaveis) {
     const formulaClassificada = [];
     const variaveisOrdenadasPorIndice = retornarVariaveisEIndices(variaveis, formula).sort((a, b) => a.indice - b.indice);
 
-    console.log(variaveisOrdenadasPorIndice, formula)
+    console.log("Variáveis ordenada por índice:", variaveisOrdenadasPorIndice, "formula:", formula)
 
     let indiceFormula = 0
 
@@ -64,7 +64,7 @@ function classificarFormula(formula, variaveis) {
             objetoVariavel.dentroDeSenoOuCosseno = true;
         }
 
-        console.log(objetoVariavel)
+        console.log("Objeto variável:", objetoVariavel)
         formulaClassificada.push(objetoVariavel);
 
         if(i === variaveisOrdenadasPorIndice.length - 1){
@@ -74,7 +74,7 @@ function classificarFormula(formula, variaveis) {
         indiceFormula = indice + variavel.length
     })
 
-    console.log(formulaClassificada)
+    console.log("Fórmula classificada:", formulaClassificada)
 
     return formulaClassificada;
 }
@@ -121,7 +121,7 @@ function removerComandosLaTeXVariavel(variavel, variaveis) {
             } else {
                 variavel = variavel.slice(indiceComando + comando.length)
 
-                console.log(variavel, comando)
+                console.log("Variável:", variavel, "Comando:", comando)
             }
         }
     })
@@ -230,7 +230,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         else return formula.concat(parte.valor)
     }, ''))
 
-    console.log(formulaConcatenadaNerdamer)
+    console.log("Fórmula concatenada Nerdamer:", formulaConcatenadaNerdamer)
 
     const contadorVariaveisPreenchidas = contarVariaveisPreenchidas(formula);
     console.log(contarVariaveisPreenchidas(formula))
@@ -246,13 +246,22 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
         try {
             formulaNerdamer = nerdamer.convertFromLaTeX(formulaConcatenadaNerdamer);
 
+            console.log(`Fórmula Nerdamer: ${formulaNerdamer}`);
+
             const resolucao = nerdamer.solve(formulaNerdamer, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel)
 
-            console.log(resolucao.toString())
+            const formulaSemSenoCosseno = formulaNerdamer.toString().includes("sin") || formulaNerdamer.toString().includes("cos") ? removerSenoCosseno(formulaNerdamer.toString()) : "";
+            const resolucaoSemSenoCosseno = nerdamer.solve(formulaSemSenoCosseno, variavelNaoPreenchida.substituir ?? variavelNaoPreenchida.variavel).toString().replace("[", "").replace("]", "");
 
             let resolucaoExibicao = resolucao.toString().includes("sin") || resolucao.toString().includes("cos") ?
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
-            resolucao.toString().replace("[", "").replace("]", "")
+            resolucao.toString().replace("[", "").replace("]", "");
+
+            if(variavelNaoPreenchida.dentroDeSenoOuCosseno &&
+                ((resolucaoSemSenoCosseno === "1" || resolucaoSemSenoCosseno === -1) && (formulaNerdamer.toString.includes("sin") || formulaNerdamer.toString))
+            ) {
+                resolucaoExibicao = resolucaoSemSenoCosseno;
+            }
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)
@@ -262,6 +271,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
                 exibirMensagem("Resultado não é parte do conjunto dos Reais", true);
             }
 
+            let tipoResolucao = formulaNerdamer.toString().includes("sin") ? "sin" : "cos";
+
             let formaDecimal = "";
             
             // ({resolucaoExibicao, formaDecimal} = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel))
@@ -269,7 +280,8 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             let resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel);
 
             if(variavelNaoPreenchida.dentroDeSenoOuCosseno && resolucaoExibicao){
-                resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel, "graus")
+
+                resultadoFormatado = formatarResultadoParaExibicao(resolucaoExibicao, variavelNaoPreenchida.variavel, "graus", tipoResolucao)
 
                 
             }
@@ -293,7 +305,7 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             }
         }
         
-        console.log("event", event.srcElement, "formulaInterativa", formulaInterativa, "divFormula", divFormula)
+        console.log("Event:", event.srcElement, "Fórmula Interativa:", formulaInterativa, "Div Fórmula:", divFormula)
     } else {
         const inputsNaoPreenchidos = [...divFormula.querySelectorAll("input")].filter(({value}) => value === "")
         inputsNaoPreenchidos.forEach(input => input.disabled = false)
@@ -304,12 +316,14 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
     renderMathInElement(areaCalculo, {output: 'html'})
 }
 
+function removerSenoCosseno(formula) {
+    return formula.replace("sin", "").replace("cos", "");
+}
+
     
-function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
-    let resultadoFormatado = ""
+function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoOuCosseno) {
     let resultados = [];
     let partesDecimais = [];
-    let parteDecimal = ""
     let sinalIgualdade = "=";
 
     if(!resultado) {
@@ -329,7 +343,10 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
     }
     
     resultados.forEach(resultado => {
+        console.log("Resultado antes da formatação:", resultado)
         let formaDecimal = formatarFormaDecimalResultado(resultado);
+
+        console.log("Forma Decimal:", formaDecimal)
 
         let quantidadeZerosAposVirgulaDecimal = quantosZerosAposOPontoDecimal(formaDecimal);
 
@@ -356,18 +373,43 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
 
     partesDecimais = partesDecimais.filter(parteDecimal => !(parteDecimal === ""));
 
+    if(resultados.length >= 2 || partesDecimais.length >= 2){
+        ([resultados, partesDecimais] = removerResultadosDuplicados(resultados, partesDecimais));
+    }
+    
+
+    if(resultados.every(resultado => !(resultado.includes("/")))) {
+        sinalIgualdade = "=";
+        partesDecimais = [];
+    } 
+
+    console.log("Resultados após deduplicação: ", resultados, "Formas decimais após deduplicação: ", partesDecimais)
+
     if(tipoResolucao === "graus") {
         sinalIgualdade = "="
 
+        //TODO: Verificar porque as partesDecimais são usadas aqui (pensar em casos inteiros além de 0 (que também pode dar problemas aqui), 1 e -1)
         if(partesDecimais.length > 1){
             const doisResultadosPositivosMaisProximosDeZero = partesDecimais.map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
 
             const resolucoesEmGraus = doisResultadosPositivosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => resolucao >= 360 ? resolucao % 360 : resolucao).map(resolucao => String(resolucao) + "°");
 
-            console.log(partesDecimais, doisResultadosPositivosMaisProximosDeZero)
+            console.log("Partes decimais:", partesDecimais, "Dois resultados Positivos mais próximos de zero:", doisResultadosPositivosMaisProximosDeZero)
             return variavel + ` ${sinalIgualdade} ` + resolucoesEmGraus.join(";");
         } else {
-            const resolucaoEmGraus = converterRadianosParaGraus(Number(partesDecimais.join("")))
+            const resolucaoEmGraus = converterRadianosParaGraus(Number(partesDecimais.join("")));
+
+            console.log("Seno ou cosseno:", senoOuCosseno, "Resultados:", resultados.join(""));
+
+            if(senoOuCosseno === "sin" && resultados.join("") === "1") {
+                return variavel + ` ${sinalIgualdade}` + "90°"
+            } else if(senoOuCosseno === "sin" && resultados.join("") === "-1") {
+                return variavel + ` ${sinalIgualdade} ` + "270°";
+            } else if (senoOuCosseno === "cos" && resultados.join("") === "1") {
+                return variavel + ` ${sinalIgualdade} ` + "0°"
+            } else if (senoOuCosseno === "cos" && resultados.join("") === "-1") {
+                return variavel + ` ${sinalIgualdade} ` + "180°"
+            }
 
             return variavel + ` ${sinalIgualdade} ` + String(resolucaoEmGraus) + "°";
         }
@@ -380,7 +422,7 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao) {
         partesDecimais = partesDecimais
             .filter(parteDecimal => !parteDecimal.includes("-"))
 
-        console.log(resultados);
+        console.log("Resultados:", resultados);
         return variavel + ` ${sinalIgualdade} ` + "\\pm " + resultados.join(";") + (partesDecimais.length ?  ` ${sinalIgualdade} ` + "\\pm" + " " + partesDecimais.join(";") : "");
     } else {
         const resultadoFormatado = resultados.map(resultado => nerdamer.convertToLaTeX(resultado)).join(";");
@@ -394,12 +436,73 @@ function formatarFormaDecimalResultado(resultado, quantidadeCasasDecimais = 0) {
     return resultado.includes("/") ? nerdamer(resultado).text('decimals', quantidadeCasasDecimais) : ""; 
 }
 
+//TODO: aplicar este método somente a fórmulas que contém módulo, para evitar possível interferência com resoluções de seno e cosseno (verificar se é necessário)
+function removerResultadosDuplicados(resultados, formasDecimais) {
+    console.log("Resultados antes de deduplicação: ", resultados, "Formas decimais antes de deduplicação: ", formasDecimais)
+    
+    const formasDecimaisDiferentes = [];
+    let resultadosDiferentes = [];
+
+    if(resultados.length === 1 && formasDecimais.length === 1) {
+        return[resultados, formasDecimais];
+    }
+
+    for(let i = 0; i < formasDecimais.length; i++) {
+        const formaAtualNegativa = formasDecimais[i].includes("-");
+
+        //TODO: Considerar o que fazer quando só 1 forma decimal
+        for(let j = i + 1; j !== undefined && j < formasDecimais.length; j++) {
+            if(formaAtualNegativa) {
+                if(formasDecimais[j] === formasDecimais[i].replace("-", "") && formasDecimaisDiferentes.length !== 2) {
+                    formasDecimaisDiferentes.push(formasDecimais[i], formasDecimais[j]);
+                }
+            } else {
+                if(formasDecimais[j].replace("-", "") === formasDecimais[i] && formasDecimaisDiferentes.length !== 2){
+                    formasDecimaisDiferentes.push(formasDecimais[i], formasDecimais[j]);
+                }
+            }
+        }
+    }
+
+    if(resultados.length >= 2) {
+        for(let i = 0; i < resultados.length; i++) {
+            const formaAtualNegativa = resultados[i].includes("-");
+
+            //TODO: Considerar o que fazer quando só 1 forma decimal
+            for(let j = i + 1; j !== undefined && j < resultados.length; j++) {
+                if(formaAtualNegativa) {
+                    if(resultados[j] === resultados[i].replace("-", "") && resultadosDiferentes.length !== 2) {
+                        resultadosDiferentes.push(resultados[i], resultados[j]);
+                    }
+                } else {
+                    if(resultados[j].replace("-", "") === resultados[i] && resultadosDiferentes.length !== 2){
+                        resultadosDiferentes.push(resultados[i], resultados[j]);
+                    }
+                }
+            }
+        }
+
+        //TODO: O método feito desta forma verifica se não há dois resultados em forma fracional iguais, para que a notação +- possa ser adicionada.
+        // Caso não haja dois, o que pode ser verificado na fórmula Componente vertical da velocidade inicial, quando v_0_x = 5 e theta = -1, que faz com que três frações distintas surjam,
+        // a forma fracional está sendo construída à partir das formas decimais, porque elas, depois de serem truncadas, são idênticas.
+        if(formasDecimaisDiferentes.length === 2 && !resultadosDiferentes.length) {
+            resultadosDiferentes = [...formasDecimaisDiferentes.values()].map(formaDecimal => nerdamer(formaDecimal).toString());
+        }
+    }
+    
+    if(!formasDecimaisDiferentes.length){
+        return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+    }
+
+    return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+}
+
 function converterRadianosParaGraus(numero) {
     return Math.round(numero * 180 / Math.PI);
 }
 
 function eDoisResultadosPositivoNegativo(partesResolucao) {
-    console.log(partesResolucao)
+    console.log("Partes da resolução:", partesResolucao)
 
     return partesResolucao.length === 2 
         && (partesResolucao[0].indexOf("-") === 0 && partesResolucao[0].substring(1) === partesResolucao[1]) 
@@ -484,7 +587,7 @@ function quantosZerosAposDigitoAposOPontoDecimal(numero) {
 function formatarFormulaParaExibicao(formula){
     let formulaFormatada = "";
 
-    console.log(formula)
+    console.log("Fórmula:", formula)
 
     if(formula instanceof Array) {
         formulaFormatada = formula.reduce((acc, cur) => acc.concat(cur))
@@ -497,7 +600,7 @@ function formatarFormulaParaExibicao(formula){
         .replaceAll("sin", "sen")
         .replaceAll("*", " \\cdot ")
 
-        console.log(formulaFormatada)
+        console.log("Fórmula formatada:", formulaFormatada)
     return formulaFormatada
 }
 
@@ -512,7 +615,7 @@ export function traduzirSeno(texto) {
  * @returns {[{variavel: string, indice: number}]}
  */
 function retornarVariaveisEIndices(variaveis, formula){
-    console.log(formula)
+    console.log("Fórmula:", formula)
     const variaveisEIndices = [];
     const indicesComandosLatex = retornarIndicesComandosLaTeX(formula)
     let indiceVariavel = -1;
@@ -537,7 +640,7 @@ function retornarVariaveisEIndices(variaveis, formula){
         } while(indiceVariavel !== -1);
     })
 
-    console.log(variaveisEIndices);
+    console.log("Variáveis e índices:", variaveisEIndices);
 
     return variaveisEIndices;
 }
@@ -563,7 +666,7 @@ function retornarIndicesComandosLaTeX (formula) {
         } while( indiceComando !== -1 )
     })
 
-    console.log(indicesComandos)
+    console.log("Índices dos comandos:", indicesComandos)
 
     return indicesComandos
 }

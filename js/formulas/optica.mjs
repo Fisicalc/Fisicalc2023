@@ -41,8 +41,8 @@ const optica = [
     },
     {
         nome: "Equação dos fabricantes de lentes",
-        formula: "V = \\frac{1}{f}",
-        variaveis: ["V", "f"],
+        formula: "V = \\left(\\frac{n_{lente}}{n_{meio}} - 1\\right)",
+        variaveis: ["V", "n_{lente}", "n_{meio}"],
     },
     {
         nome: "Distância focal e raio de curvatura nos espelhos",

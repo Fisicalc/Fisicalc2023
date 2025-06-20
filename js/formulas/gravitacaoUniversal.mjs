@@ -19,6 +19,11 @@ const gravitacaoUniversal = [
         formula: "\\frac{T^2}{R^3} = k",
         variaveis: ["T", "R", "k"]
     },
+    {
+        nome: "3ª Lei de Kepler - Lei dos Períodos",
+        formula: "\\frac{{T_1}^2}{{R_1}^3} = \\frac{{T_2}^2}{{R_2}^3}",
+        variaveis: ["T_1", "T_2", "R_1", "R_2"]
+    }
 ];
 
 export default gravitacaoUniversal; 

@@ -7,6 +7,7 @@ import calorimetria from "./calorimetria.mjs";
 import gravitacaoUniversal from './gravitacaoUniversal.mjs';
 import termometria from "./termometria.mjs";
 import optica from "./optica.mjs"
+import ondulatoria from "./ondulatoria.mjs"
 
 const formulas = {
     cinematica,
@@ -19,6 +20,7 @@ const formulas = {
     gravitacaoUniversal,
     termometria,
     optica,
+    ondulatoria,
 };
 
 export default formulas; 

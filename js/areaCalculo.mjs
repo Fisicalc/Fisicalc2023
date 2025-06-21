@@ -12,7 +12,25 @@ export function criarFormulaAreaCalculo(formula, variaveis){
 
     variaveis.forEach(variavel => { 
         const {descricaoVariavel, inputVariavel} = criarDescricaoEInputVariavel(variavel);
-        inputVariavel.addEventListener("input", (event) => responderInput(event, formulaClassificada, variavel, formulaInterativa, divFormula, elementoResolucao, divErro))
+        inputVariavel.addEventListener("input", (event) => {
+            substituirVariavelNaFormula(formulaClassificada, variavel, event.target.valueAsNumber)
+
+            const formulaConcatenada = formulaClassificada.reduce((formula, parte) => {
+                if(typeof parte === "string") return formula.concat(parte)
+                else if(parte.dentroDeSenoOuCosseno) return formula.concat(parte.valor) 
+                else return formula.concat(parte.valor)
+            }, '')
+
+            formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
+
+            renderMathInElement(areaCalculo, {output: 'html'})
+
+            setTimeout((valorEvento) => {
+                if(valorEvento === event.target.value) {
+                    responderInput(event, formulaClassificada, variavel, formulaInterativa, divFormula, elementoResolucao, divErro, event.target.value)
+                }
+            }, 500, event.target.value);
+        })
 
         const divInputEDescricao = document.createElement("div");
         divInputEDescricao.appendChild(descricaoVariavel)
@@ -208,20 +226,10 @@ function exibirMensagem(texto, aviso = false)
     }, {once: true});
 }
 
-function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro) {
+function responderInput(event, formula, variavel, formulaInterativa, divFormula, elementoResolucao, divErro, valorEvento) {
     const areaCalculo = document.querySelector("#equacao")
 
     console.log("Fórmula:", formula);
-
-    substituirVariavelNaFormula(formula, variavel, event.target.valueAsNumber)
-    
-    const formulaConcatenada = formula.reduce((formula, parte) => {
-        if(typeof parte === "string") return formula.concat(parte)
-        else if(parte.dentroDeSenoOuCosseno) return formula.concat(parte.valor) 
-        else return formula.concat(parte.valor)
-    }, '')
-
-    formulaInterativa.innerText = `$$${(formatarFormulaParaExibicao(formulaConcatenada))}$$`
 
     const formulaConcatenadaNerdamer = substituirOperacoesLaTeXFormula(formula.reduce((formula, parte) => {
         if(typeof parte === "string") return formula.concat(parte)

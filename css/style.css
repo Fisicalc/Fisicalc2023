@@ -5,7 +5,7 @@
     --cor-primaria: #1863d3;
     --cor-primariaEscuro: #1d3b68;
     --cor-secundaria: #0e8ea7;
-    --cor-secundariaClara: #157891;
+    --cor-secundariaEscura: #157891;
     --cor-tomDeBranco: #F5F5F5;
     --cor-tomDeCinza: #555;
     --cor-tomDeCinzaClaro:#d5d5d5;
@@ -16,7 +16,7 @@
 
     --border-size-padrao: 10px;
 
-    --size-rem-xxs: 0.25rem; /* 5px */
+    --size-rem-xxs: 0.25rem; /* 4px */
     --size-rem-xs: 0.5rem; /* 8px */
     --size-rem-sm: 1rem; /* 16px */
     --size-rem-md: 1.5rem; /* 24px */
@@ -209,12 +209,6 @@ input[type="search"] {
     cursor: pointer;
 }
 
-/* 
-div#navbar{
-    position: fixed;
-    
-} */
-
 div.formulasGrupo > button{
     direction: ltr;
     border-bottom: var(--cor-primariaEscuro) 3px solid;
@@ -222,7 +216,7 @@ div.formulasGrupo > button{
 }
 
 div.formulasGrupo > button:hover{
-    background-color: var(--cor-secundariaClara);
+    background-color: var(--cor-secundariaEscura);
 }
 
 /* MAIN */
@@ -232,7 +226,6 @@ main{
     display: flex;
     min-width: 0;
 }
-
 
 /* Área que as equações aparecem */
 #equacao{
@@ -299,7 +292,6 @@ main{
 /* Área que aparecem os inputs */
 .areaInteracao > div {
     font-size: 1em;
-    /* margin: auto 50px */
     text-align: center;
     padding: var(--size-rem-xs);
     border-radius: var(--size-rem-xs);
@@ -409,23 +401,26 @@ main{
 div#bannerDir{
     grid-column: 3/4;
     grid-row: 2/3;
-    border: var(--size-rem-xxs) solid darkorchid;
+    
     margin-right:var(--size-rem-xxs);
 }
 
 div#bannerTop{
     grid-column: 2/3;
     grid-row: 1/2;
-    border: var(--size-rem-xxs) solid darkorchid;
-     margin-top: var(--size-rem-xxs);
+    
+    margin-top: var(--size-rem-xxs);
 }
 
 div#bannerBaixo{
     grid-column: 2/3;
     grid-row: 3/4;
-    border: var(--size-rem-xxs) solid darkorchid;
     margin-bottom:var(--size-rem-xxs);
 
+}
+
+.bannerAd{
+    border: var(--size-rem-xxs) solid darkorchid;
 }
 
 /*Outros*/

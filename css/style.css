@@ -23,8 +23,6 @@
     --size-rem-lg: 2rem; /* 32px */
     --size-rem-xl: 2.5rem; /* 40px */
     --size-rem-xxl: 3rem; /* 48px */
-
-    --border-thin: 1p
 }
 
  /* Reset do html e body */
@@ -34,16 +32,33 @@ html, body {
     height: 100vh;
 }
 
- /* Reset do h1 */
-h1 {
+ /* Reset dos títulos */
+h1, h2, h3, h4 {
     margin: 0px;
     padding: 0px;
-    font-size: var(--size-rem-lg);
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: var(--cor-tomDeBranco);
     border: none;
     background-color: transparent;
+}
+
+h1{
+    font-size: var(--size-rem-xl);
+}
+
+h2{
+    font-size: var(--size-rem-lg);
+}
+
+h3{
+    font-size: var(--size-rem-md)
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
  /* Div que contain todos os elementos da página */
@@ -56,14 +71,12 @@ div#container{
     column-gap: var(--size-rem-md);
 }
 
-
 /* Navbar */
 div#navbar{
     display: flex;
     justify-content: center;
     align-items: center;   
     flex-direction: row;
-
 }
 
  /* TÍTULO */
@@ -345,7 +358,7 @@ main{
 }
 
 #aviso {
-    background-color: gold;
+    background-color: darkgoldenrod;
 }
 
 /*Animações*/
@@ -354,9 +367,41 @@ main{
     animation: slideIn 0.3s forwards;
 }
 
-
 .fadeOut{
     animation: slideOut 0.3s forwards;
+}
+
+footer{
+    background-color: var(--cor-primariaEscuro);
+}
+
+footer > h2{
+    padding-top: var(--size-rem-sm);
+}
+
+footer > div#textos{
+    display: flex;
+    padding:  var(--size-rem-md);
+    justify-content: center;
+    color: var(--cor-tomDeBranco);
+}
+
+footer > div#textos > div{
+    flex: 1;
+}
+
+div#textos:first-child{
+    color: rebeccapurple;
+}
+
+footer > div#textos > div h3 {
+    text-align: left;
+}
+
+footer > div#barrinha{
+    background-color: var(--cor-primaria);
+    color: white;
+    height: 4vh;
 }
 
 @keyframes slideIn{
@@ -450,13 +495,10 @@ button.tooltip{
 button.tooltip::before {
     content: attr(data-text);
     position: absolute;
-    
     top: 50%;
     transform: translateY(-50%);
-
     left: 100%;
     margin-left: 15px;
-
     width: 200px;
     padding: 10px;
     border-radius: 10px;

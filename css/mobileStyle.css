@@ -1,9 +1,8 @@
 @import url('style.css');
 /*Mobile*/
 
-/* @media screen and (max-width : 815px) { */
    
-@media (orientation: portrait)  {
+@media (orientation: portrait) or (max-width: 900px) {
     
     div#container{
         grid-template-columns: 0fr 10fr 0fr;
@@ -16,7 +15,6 @@
         -webkit-user-select: none;
         user-select: none;
     }
-
     
     #menuToggle span
     {

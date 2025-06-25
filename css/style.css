@@ -5,7 +5,7 @@
     --cor-primaria: #1863d3;
     --cor-primariaEscuro: #1d3b68;
     --cor-secundaria: #0e8ea7;
-    --cor-secundariaClara: #157891;
+    --cor-secundariaEscura: #157891;
     --cor-tomDeBranco: #F5F5F5;
     --cor-tomDeCinza: #555;
     --cor-tomDeCinzaClaro:#d5d5d5;
@@ -16,15 +16,13 @@
 
     --border-size-padrao: 10px;
 
-    --size-rem-xxs: 0.25rem; /* 5px */
+    --size-rem-xxs: 0.25rem; /* 4px */
     --size-rem-xs: 0.5rem; /* 8px */
     --size-rem-sm: 1rem; /* 16px */
     --size-rem-md: 1.5rem; /* 24px */
     --size-rem-lg: 2rem; /* 32px */
     --size-rem-xl: 2.5rem; /* 40px */
     --size-rem-xxl: 3rem; /* 48px */
-
-    --border-thin: 1p
 }
 
  /* Reset do html e body */
@@ -34,16 +32,37 @@ html, body {
     height: 100vh;
 }
 
- /* Reset do h1 */
-h1 {
+ /* Reset dos títulos */
+h1, h2, h3, h4 {
     margin: 0px;
     padding: 0px;
-    font-size: var(--size-rem-lg);
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: var(--cor-tomDeBranco);
     border: none;
     background-color: transparent;
+}
+
+h1{
+    font-size: var(--size-rem-xl);
+}
+
+h2{
+    font-size: var(--size-rem-lg);
+}
+
+h3{
+    font-size: var(--size-rem-md)
+}
+
+h4{
+    font-size: var(--size-rem-sm)
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
  /* Div que contain todos os elementos da página */
@@ -56,14 +75,12 @@ div#container{
     column-gap: var(--size-rem-md);
 }
 
-
 /* Navbar */
 div#navbar{
     display: flex;
     justify-content: center;
     align-items: center;   
     flex-direction: row;
-
 }
 
  /* TÍTULO */
@@ -209,12 +226,6 @@ input[type="search"] {
     cursor: pointer;
 }
 
-/* 
-div#navbar{
-    position: fixed;
-    
-} */
-
 div.formulasGrupo > button{
     direction: ltr;
     border-bottom: var(--cor-primariaEscuro) 3px solid;
@@ -222,7 +233,7 @@ div.formulasGrupo > button{
 }
 
 div.formulasGrupo > button:hover{
-    background-color: var(--cor-secundariaClara);
+    background-color: var(--cor-secundariaEscura);
 }
 
 /* MAIN */
@@ -232,7 +243,6 @@ main{
     display: flex;
     min-width: 0;
 }
-
 
 /* Área que as equações aparecem */
 #equacao{
@@ -299,7 +309,6 @@ main{
 /* Área que aparecem os inputs */
 .areaInteracao > div {
     font-size: 1em;
-    /* margin: auto 50px */
     text-align: center;
     padding: var(--size-rem-xs);
     border-radius: var(--size-rem-xs);
@@ -353,7 +362,7 @@ main{
 }
 
 #aviso {
-    background-color: gold;
+    background-color: darkgoldenrod;
 }
 
 /*Animações*/
@@ -362,9 +371,60 @@ main{
     animation: slideIn 0.3s forwards;
 }
 
-
 .fadeOut{
     animation: slideOut 0.3s forwards;
+}
+
+footer{
+    background-color: var(--cor-primariaEscuro);
+}
+
+footer > h2{
+    padding-top: var(--size-rem-sm);
+}
+
+footer > div#textos{
+    display: flex;
+    padding:  var(--size-rem-sm);
+    justify-content: center;
+    color: var(--cor-tomDeBranco);
+}
+
+footer > div#textos > div{
+    flex: 1;
+}
+
+div#textos > div:first-child{
+    flex-grow: 2;
+    padding: 0 var(--size-rem-md);
+}
+
+footer > div#textos > div h3 {
+    text-align: left;
+}
+
+footer > div#textos h3,
+footer > div#ajuda h3,
+footer > div#textos li {
+    padding-bottom: var(--size-rem-xxs);
+}
+
+footer > div#barrinha{
+    background-color: var(--cor-primaria);
+    color: white;
+    height: 4vh;
+}
+
+footer > div#ajuda{
+    margin: var(--size-rem-sm);
+    text-align: center;
+    color: white;
+}
+
+footer > div#barrinha{
+    text-align: center;
+    align-content: center;
+    padding: var(--size-rem-xxs);
 }
 
 @keyframes slideIn{
@@ -409,23 +469,26 @@ main{
 div#bannerDir{
     grid-column: 3/4;
     grid-row: 2/3;
-    border: var(--size-rem-xxs) solid darkorchid;
+    
     margin-right:var(--size-rem-xxs);
 }
 
 div#bannerTop{
     grid-column: 2/3;
     grid-row: 1/2;
-    border: var(--size-rem-xxs) solid darkorchid;
-     margin-top: var(--size-rem-xxs);
+    
+    margin-top: var(--size-rem-xxs);
 }
 
 div#bannerBaixo{
     grid-column: 2/3;
     grid-row: 3/4;
-    border: var(--size-rem-xxs) solid darkorchid;
     margin-bottom:var(--size-rem-xxs);
 
+}
+
+.bannerAd{
+    border: var(--size-rem-xxs) solid darkorchid;
 }
 
 /*Outros*/
@@ -455,13 +518,10 @@ button.tooltip{
 button.tooltip::before {
     content: attr(data-text);
     position: absolute;
-    
     top: 50%;
     transform: translateY(-50%);
-
     left: 100%;
     margin-left: 15px;
-
     width: 200px;
     padding: 10px;
     border-radius: 10px;

@@ -1,43 +1,38 @@
+@import url('style.css');
 /*Mobile*/
 
-@media screen and (max-width : 815px) {
    
+@media (orientation: portrait) or (max-width: 900px) {
+    
     div#container{
-        grid-template-columns: 2fr 8fr 2fr;
+        grid-template-columns: 0fr 10fr 0fr;
     }
 
     div#menuToggle{
         display: none;
         position: relative;
-    
         z-index: 1;
         -webkit-user-select: none;
         user-select: none;
     }
     
-    /* 
-    #menuToggle input:checked ~span
+    #menuToggle span
     {
-      opacity: 1;
-      background: rgb(21, 156, 223);;
-    } */
-    
-    
-        #menuToggle span
-        {
         display: block;
-        width: 33px;
-        height: 4px;
-        margin-bottom: 5px;
+        width: var(--size-rem-lg);
+        height: var(--size-rem-xxs);
+        margin-top: var(--size-rem-xxs);
+        margin-bottom: var(--size-rem-xxs);
+        margin-left: var(--size-rem-xs);
         position: relative;
-        background-color: #F5F5F5;
-        border-radius: 25px;
+        background-color: var(--cor-tomDeBranco);
+        border-radius: var(--size-rem-md);
         z-index: 1;
         transform-origin: 0% 50%;
         transition: transform 0.5s cubic-bezier(0,0.2,0.05,1.0),
                     background 0.5s cubic-bezier(0,0.2,0.05,1.0),
                     opacity 0.55s ease;
-        }
+    }
 
         #menuToggle.deactive span:first-child{
             transform-origin: 0% 0%;
@@ -54,7 +49,7 @@
         }
 
         #menuToggle span:nth-child(1) {
-            transform: rotate(45deg) translate(4px, -4px);
+            transform: rotate(45deg) translate(4px, -5px);
         }
         
         #menuToggle span:nth-child(2) {
@@ -69,7 +64,6 @@
         display: none;
     }
     
-
     aside#barraLateralBotoes {
         /* display: none; */
         /* visibility: hidden; */
@@ -81,9 +75,22 @@
         max-height: 80%;
         margin-right: 0px;
         z-index: 10; 
-        border: 5px solid #331c3c;
+        border: var(--size-rem-xxs) solid #331c3c;
         overflow-y: auto;
-        border-radius: 5px;
+        border-radius: var(--size-rem-xxs);
+    }
+
+    footer > div#textos{
+        display: flex;
+        flex-direction: column;
+    }
+
+    div#textos > div{
+        padding: var(--size-rem-md);
+    }
+
+    .bannerAd:not(#bannerBaixo){
+        display: none;
     }
 
     #container > section{
@@ -108,7 +115,7 @@
     div#bannerTop{
         grid-column: 1/2;
         grid-row: 2/3;
-        border: 5px solid darkorchid;
+        border: var(--size-rem-xxs) solid darkorchid;
     }
 
     div#menuToggle{

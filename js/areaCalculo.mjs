@@ -385,7 +385,7 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
 
     partesDecimais = partesDecimais.filter(parteDecimal => !(parteDecimal === ""));
 
-    if(resultados.length >= 2 || partesDecimais.length >= 2){
+    if((resultados.length >= 2 || partesDecimais.length >= 2) && tipoResolucao !== 'graus'){
         ([resultados, partesDecimais] = removerResultadosDuplicados(resultados, partesDecimais));
     }
     

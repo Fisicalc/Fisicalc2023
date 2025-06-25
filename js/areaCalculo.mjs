@@ -265,11 +265,15 @@ function responderInput(event, formula, variavel, formulaInterativa, divFormula,
             resolucao.evaluate().toString().replace("[", "").replace("]", "") :
             resolucao.toString().replace("[", "").replace("]", "");
 
+            console.log("Formula sem seno cosseno: ", formulaSemSenoCosseno, "Resolucao sem seno cosseno: ", resolucaoSemSenoCosseno, "Fórmula Nerdamer: ", formulaNerdamer.toString(), "Resolucao Exibicao: ", resolucaoExibicao);
+
             if(variavelNaoPreenchida.dentroDeSenoOuCosseno &&
-                ((resolucaoSemSenoCosseno === "1" || resolucaoSemSenoCosseno === -1) && (formulaNerdamer.toString.includes("sin") || formulaNerdamer.toString))
+                ((resolucaoSemSenoCosseno === "1" || resolucaoSemSenoCosseno === "-1") && (formulaNerdamer.toString().includes("sin") || formulaNerdamer.toString().includes("cos")))
             ) {
                 resolucaoExibicao = resolucaoSemSenoCosseno;
             }
+
+            console.log("RESOLUCAO EXIBICAO: ", resolucaoExibicao)
 
             if(resolucaoExibicao === "") {
                 exibirMensagem("Resultado não possui solução", true)

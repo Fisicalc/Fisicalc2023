@@ -100,25 +100,37 @@ function classificarFormula(formula, variaveis) {
 function variavelDentroDeSenoOuCosseno(variavel, formula) {
     const indicesSenoOuCosseno = retornarIndicesSenoOuCosseno(formula);
     
-    return indicesSenoOuCosseno.indiceInicial > -1 && 
-        variavel.indice > indicesSenoOuCosseno.indiceInicial && 
-        ((variavel.indice + variavel.variavel.length) <= indicesSenoOuCosseno.indiceFinal || indicesSenoOuCosseno.indiceFinal === -1)
+    console.log(variavel, indicesSenoOuCosseno)
+
+    console.log(indicesSenoOuCosseno.length && indicesSenoOuCosseno.some(indice => variavel.indice >= indice.indiceInicial && ((variavel.indice + variavel.variavel.length) <= indicesSenoOuCosseno.indiceFinal || indicesSenoOuCosseno.indiceFinal === -1)))
+
+    return indicesSenoOuCosseno.length &&  
+        indicesSenoOuCosseno.some( indice => variavel.indice >= indice.indiceInicial && ((variavel.indice + variavel.variavel.length) <= indice.indiceFinal || indice.indiceFinal === -1));
 }
 
 function retornarIndicesSenoOuCosseno(formula) {
+    const indices = [];
     const comprimentoNomeOperacao = 3;
-    
-    let indiceInicial = formula.indexOf("sin");
 
-    if(indiceInicial === -1) {
-        indiceInicial = formula.indexOf("cos");
-    }
+    let indicePesquisa = 0;
 
-    const primeiroCaractereApos = formula[indiceInicial + comprimentoNomeOperacao]
-    const caractereFinal = primeiroCaractereApos === " " ? " " : ")"
-    const indiceFinal = formula.indexOf(caractereFinal, indiceInicial + comprimentoNomeOperacao + 1);
+    do {
+        let indiceInicial = formula.indexOf("sin", indicePesquisa);
 
-    return { indiceInicial, indiceFinal };
+        if(indiceInicial === -1) {
+            indiceInicial = formula.indexOf("cos", indicePesquisa);
+        }
+
+        if(indiceInicial === -1) {
+            return indices;
+        }
+
+        const primeiroCaractereApos = formula[indiceInicial + comprimentoNomeOperacao]
+        const caractereFinal = primeiroCaractereApos === " " ? " " : ")"
+        const indiceFinal = formula.indexOf(caractereFinal, indiceInicial + comprimentoNomeOperacao + 1);
+        indicePesquisa = indiceFinal !== -1 ? indiceFinal + 1 : formula.length -1 
+        indices.push({ indiceInicial, indiceFinal });
+    } while(true);
 }
 
 function contemComandoLaTeX(variavel) {

@@ -55,6 +55,10 @@ h3{
     font-size: var(--size-rem-md)
 }
 
+h4{
+    font-size: var(--size-rem-sm)
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -381,7 +385,7 @@ footer > h2{
 
 footer > div#textos{
     display: flex;
-    padding:  var(--size-rem-md);
+    padding:  var(--size-rem-sm);
     justify-content: center;
     color: var(--cor-tomDeBranco);
 }
@@ -390,18 +394,37 @@ footer > div#textos > div{
     flex: 1;
 }
 
-div#textos:first-child{
-    color: rebeccapurple;
+div#textos > div:first-child{
+    flex-grow: 2;
+    padding: 0 var(--size-rem-md);
 }
 
 footer > div#textos > div h3 {
     text-align: left;
 }
 
+footer > div#textos h3,
+footer > div#ajuda h3,
+footer > div#textos li {
+    padding-bottom: var(--size-rem-xxs);
+}
+
 footer > div#barrinha{
     background-color: var(--cor-primaria);
     color: white;
     height: 4vh;
+}
+
+footer > div#ajuda{
+    margin: var(--size-rem-sm);
+    text-align: center;
+    color: white;
+}
+
+footer > div#barrinha{
+    text-align: center;
+    align-content: center;
+    padding: var(--size-rem-xxs);
 }
 
 @keyframes slideIn{

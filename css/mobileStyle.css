@@ -64,7 +64,6 @@
         display: none;
     }
     
-
     aside#barraLateralBotoes {
         /* display: none; */
         /* visibility: hidden; */
@@ -79,6 +78,15 @@
         border: var(--size-rem-xxs) solid #331c3c;
         overflow-y: auto;
         border-radius: var(--size-rem-xxs);
+    }
+
+    footer > div#textos{
+        display: flex;
+        flex-direction: column;
+    }
+
+    div#textos > div{
+        padding: var(--size-rem-md);
     }
 
     .bannerAd:not(#bannerBaixo){

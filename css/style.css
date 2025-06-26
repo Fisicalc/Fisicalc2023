@@ -465,6 +465,10 @@ footer > div#barrinha{
     }  
 }
 
+.katex{
+    font-size: var(--size-rem-md);
+}
+
 /*ADS*/
 div#bannerDir{
     grid-column: 3/4;

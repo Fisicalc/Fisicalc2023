@@ -513,9 +513,17 @@ function removerResultadosDuplicados(resultados, formasDecimais) {
             resultadosDiferentes = [...formasDecimaisDiferentes.values()].map(formaDecimal => nerdamer(formaDecimal).toString());
         }
     }
+
+    if(!resultadosDiferentes.length && !formasDecimaisDiferentes.length) {
+        return [resultados, formasDecimais]
+    }
     
     if(!formasDecimaisDiferentes.length){
         return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+    }
+
+    if(formasDecimaisDiferentes.length == 2 && formasDecimaisDiferentes[0] === formasDecimaisDiferentes[1]) {
+        return [[resultadosDiferentes[0]], [formasDecimaisDiferentes[0]]]
     }
 
     return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];

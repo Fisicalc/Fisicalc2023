@@ -384,9 +384,13 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
                 formaDecimal = formatarFormaDecimalResultado(resultado, quantidadeCasasDecimaisExibicao);
             }
         }else if(quantosZerosAposDigitoAposOPontoDecimal(formaDecimal) >= 4) {
+            const formaDecimalPesquisa = formaDecimal.slice(formaDecimal.indexOf("."))
             //TODO: Quando caso para números como 0.500300007 e 0.500300200004 forem adicionados, ainda adicionar limitação de dígitos com a função formatarFormaDecimalResultado
             // Considerar que esta próxima linha já resolve o problema
-            formaDecimal = formaDecimal.slice(0, formaDecimal.indexOf("0000"))
+            const [zerosRepetidos] = [...formaDecimalPesquisa.matchAll(/[1-9]0000/g)]
+            const parteDecimalFormatada = formaDecimalPesquisa.slice(0, zerosRepetidos.index + 1);
+            formaDecimal = (formaDecimal.slice(0, formaDecimal.indexOf(".")) + parteDecimalFormatada); 
+
         }
         else {
             formaDecimal = formatarFormaDecimalResultado(resultado, 6)

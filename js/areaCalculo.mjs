@@ -384,9 +384,13 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
                 formaDecimal = formatarFormaDecimalResultado(resultado, quantidadeCasasDecimaisExibicao);
             }
         }else if(quantosZerosAposDigitoAposOPontoDecimal(formaDecimal) >= 4) {
+            const formaDecimalPesquisa = formaDecimal.slice(formaDecimal.indexOf("."))
             //TODO: Quando caso para números como 0.500300007 e 0.500300200004 forem adicionados, ainda adicionar limitação de dígitos com a função formatarFormaDecimalResultado
             // Considerar que esta próxima linha já resolve o problema
-            formaDecimal = formaDecimal.slice(0, formaDecimal.indexOf("0000"))
+            const [zerosRepetidos] = [...formaDecimalPesquisa.matchAll(/[1-9]0000/g)]
+            const parteDecimalFormatada = formaDecimalPesquisa.slice(0, zerosRepetidos.index + 1);
+            formaDecimal = (formaDecimal.slice(0, formaDecimal.indexOf(".")) + parteDecimalFormatada); 
+
         }
         else {
             formaDecimal = formatarFormaDecimalResultado(resultado, 6)
@@ -414,7 +418,14 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
 
         //TODO: Verificar porque as partesDecimais são usadas aqui (pensar em casos inteiros além de 0 (que também pode dar problemas aqui), 1 e -1)
         if(partesDecimais.length > 1){
-            const doisResultadosPositivosMaisProximosDeZero = partesDecimais.map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
+            const partesDecimaisSemDuplicatas = new Set();
+            
+            partesDecimais.forEach(parteDecimal => {
+                partesDecimaisSemDuplicatas.add(parteDecimal);
+            })
+
+
+            const doisResultadosPositivosMaisProximosDeZero = [...partesDecimaisSemDuplicatas.values()].map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
 
             const resolucoesEmGraus = doisResultadosPositivosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => resolucao >= 360 ? resolucao % 360 : resolucao).map(resolucao => String(resolucao) + "°");
 
@@ -513,9 +524,17 @@ function removerResultadosDuplicados(resultados, formasDecimais) {
             resultadosDiferentes = [...formasDecimaisDiferentes.values()].map(formaDecimal => nerdamer(formaDecimal).toString());
         }
     }
+
+    if(!resultadosDiferentes.length && !formasDecimaisDiferentes.length) {
+        return [resultados, formasDecimais]
+    }
     
     if(!formasDecimaisDiferentes.length){
         return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];
+    }
+
+    if(formasDecimaisDiferentes.length == 2 && formasDecimaisDiferentes[0] === formasDecimaisDiferentes[1]) {
+        return [[resultadosDiferentes[0]], [formasDecimaisDiferentes[0]]]
     }
 
     return [resultadosDiferentes, [...formasDecimaisDiferentes.values()]];

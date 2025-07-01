@@ -418,7 +418,14 @@ function formatarResultadoParaExibicao(resultado, variavel, tipoResolucao, senoO
 
         //TODO: Verificar porque as partesDecimais são usadas aqui (pensar em casos inteiros além de 0 (que também pode dar problemas aqui), 1 e -1)
         if(partesDecimais.length > 1){
-            const doisResultadosPositivosMaisProximosDeZero = partesDecimais.map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
+            const partesDecimaisSemDuplicatas = new Set();
+            
+            partesDecimais.forEach(parteDecimal => {
+                partesDecimaisSemDuplicatas.add(parteDecimal);
+            })
+
+
+            const doisResultadosPositivosMaisProximosDeZero = [...partesDecimaisSemDuplicatas.values()].map(Number).filter(numero => numero >= 0).sort((a, b) => a - b).filter((_, i) => i === 0 || i === 1);
 
             const resolucoesEmGraus = doisResultadosPositivosMaisProximosDeZero.map(converterRadianosParaGraus).map(resolucao => resolucao >= 360 ? resolucao % 360 : resolucao).map(resolucao => String(resolucao) + "°");
 

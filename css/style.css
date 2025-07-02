@@ -297,9 +297,17 @@ main{
     appearance: textfield;
 }
 
+#divFormula > p:last-child > span:first-child > span{
+    border: 2px solid var(--cor-secundaria);
+    border-radius: var(--size-rem-xs);
+    overflow-x: auto;
+    padding:  var(--size-rem-sm);
+}
+
 /* Formatação da dos inputs que o usuário coloca o número */
 .areaInteracao {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     background-color: var(--cor-tomDeCinzaClaro);
     border-radius: var(--size-rem-xs);

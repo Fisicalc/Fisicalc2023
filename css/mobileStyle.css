@@ -2,10 +2,11 @@
 /*Mobile*/
 
    
-@media (orientation: portrait) or (max-width: 900px) {
+@media (orientation: portrait) or (max-width: 940px) {
     
     div#container{
         grid-template-columns: 0fr 10fr 0fr;
+        grid-template-rows: 10vh 8vh 74vh 8vh;
     }
 
     div#menuToggle{
@@ -80,6 +81,31 @@
         border-radius: var(--size-rem-xxs);
     }
 
+    main{
+        grid-column: 1/-1;
+        grid-row: 3/4;
+    }
+
+    #equacao{
+        margin: var(--size-rem-sm);
+    }
+        
+
+    div#bannerTop{
+        grid-column: 1/-1;
+        grid-row: 2/3;
+        border: var(--size-rem-xxs) solid darkorchid;
+    }
+
+    div#bannerBaixo{
+        grid-column: 1/-1;
+        grid-row: 4/5;
+    }
+
+    .bannerAd{
+        padding: 4px;
+    }
+
     footer > div#textos{
         display: flex;
         flex-direction: column;
@@ -89,7 +115,7 @@
         padding: var(--size-rem-md);
     }
 
-    .bannerAd:not(#bannerBaixo){
+    #bannerDir{
         display: none;
     }
 
@@ -99,24 +125,13 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        height: 85%;
-        }
-
-    .areaInteracao{
-        display: flex;
-        flex-direction: column;
+        height: 100%;
     }
 
     section > div > div{
         display: inline-flex;
     }
     
-
-    div#bannerTop{
-        grid-column: 1/2;
-        grid-row: 2/3;
-        border: var(--size-rem-xxs) solid darkorchid;
-    }
 
     div#menuToggle{
         display: block;

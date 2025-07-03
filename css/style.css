@@ -81,7 +81,26 @@ div#navbar{
     justify-content: center;
     align-items: center;   
     flex-direction: row;
+    gap: var(--size-rem-xs);
 }
+
+div#navbar > button{
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--cor-tomDeBranco);
+    line-height: normal;
+    outline: none;
+    border-radius: var(--size-rem-xs);
+
+    &:hover
+    {
+        background-color: var(--cor-secundaria);
+        cursor:help;
+    }
+}
+
 
  /* TÍTULO */
  /* Seção que contém o título do site */
@@ -94,6 +113,10 @@ div#navbar{
     display: inline-flex; /* Adicionando flexbox ao section */
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
     align-items: center; /* Centraliza o conteúdo verticalmente */
+}
+
+div#tutorial-box{
+    display: block;
 }
 
  /* Botão dentro da sessão que é o título */
@@ -119,7 +142,7 @@ aside#barraLateralBotoes:focus{
 aside#barraLateralBotoes::-webkit-scrollbar {
     background-color: var(--cor-secundaria);
     width: 1.2vmin;
-  }
+}
    
 aside#barraLateralBotoes::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px var(--cor-sombra);
@@ -158,6 +181,7 @@ aside#barraLateralBotoes::-webkit-scrollbar-thumb {
     border: calc(var(--border-size-padrao) * 0.3) solid #162130;
 
 }
+
 
 input[type="search"] {
     outline: none;

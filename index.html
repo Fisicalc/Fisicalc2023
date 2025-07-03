@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <title>Fisicalc - Calculadora para fórmulas de Física</title>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./img/fisicalcFavIcon.svg">
-
-    <title>Fisicalc - Calculadora para fórmulas de Física</title>
-
+    
     <meta name="description" content="Calculadora física online gratuita: resolva instantaneamente fórmulas de cinemática (velocidade, aceleração), dinâmica (força, energia) e eletrostática. Cálculos precisos e explicações simplificadas!">
     <!-- <meta name="keywords" content="calculadora de física, fórmulas de física, física online, fórmulas física, cinemática, dinâmica, eletroestática"> -->
     <meta name="author" content="Jonathan Oliveira">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Language" content="pt-br">
     <!-- <link rel="canonical" href="https://seusite.com/calculadora-fisica"> -->
-
+    
+    <link rel="icon" type="image/x-icon" href="./img/fisicalcFavIcon.svg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body, {output: 'html'});"></script>
@@ -45,6 +45,12 @@
                     <span></span>
                     <span></span>
                 </div>
+                
+                <button type="button" onclick="miniTutorial()" class="svg-icon">
+                   <svg width="36" height="36">
+                        <image href="./img/question.svg" height="36" width="36" />
+                    </svg>
+                </button>
             </div>            
         </section>
         <div id = "bannerTop" class="bannerAd">
@@ -141,5 +147,10 @@
             <span>Fisicalc - 2025</span>
         </div>
     </footer>
+    <script>
+        function miniTutorial(){
+            alert("COMO USAR\n\n1. Selecione uma fórmula na barra lateral\n2. Insira os valores conhecidos\n3. Espere o resultado\n\nSe encontrou algum erro envie para: fisicalc25@gmail.com");
+        }
+    </script>
 </body>
 </html>

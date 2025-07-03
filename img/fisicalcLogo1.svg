@@ -24,13 +24,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      inkscape:zoom="0.82581198"
-     inkscape:cx="282.75201"
-     inkscape:cy="371.14986"
-     inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
-     inkscape:window-maximized="1"
+     inkscape:cx="282.14655"
+     inkscape:cy="370.54439"
+     inkscape:window-width="1237"
+     inkscape:window-height="1020"
+     inkscape:window-x="685"
+     inkscape:window-y="68"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg1"
      showguides="true">
     <sodipodi:guide
@@ -253,7 +253,7 @@
        id="path-effect14" />
   </defs>
   <rect
-     style="fill:#71ffe2;fill-opacity:1;stroke:#71ffe2;stroke-width:14.8299;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+     style="fill:#3ddaee;fill-opacity:1;stroke:#3ddaee;stroke-width:14.8299;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
      id="rect1"
      width="210.62251"
      height="340.87943"
@@ -297,7 +297,7 @@
        sodipodi:nodetypes="ccssccsscc" />
   </g>
   <rect
-     style="fill:#28993d;fill-opacity:0.98823529;stroke:#28993d;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:#2867d7;fill-opacity:1;stroke:#2867d7;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
      id="rect2"
      width="130.54871"
      height="55.471085"

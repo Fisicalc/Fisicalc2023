@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
-     inkscape:zoom="0.82581198"
-     inkscape:cx="659.95652"
-     inkscape:cy="170.13558"
+     inkscape:zoom="0.29196863"
+     inkscape:cx="272.28953"
+     inkscape:cy="299.68973"
      inkscape:window-width="1920"
      inkscape:window-height="991"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g4"
+     inkscape:current-layer="svg1"
      showguides="true">
     <sodipodi:guide
        position="111.47199,364.26618"
@@ -260,6 +260,19 @@
        is_visible="true"
        lpeversion="0" />
   </defs>
+  <path
+     style="fill:#0f3067;stroke:none;stroke-width:14.4822;stroke-linejoin:round;fill-opacity:1"
+     id="path4"
+     sodipodi:type="arc"
+     sodipodi:cx="325"
+     sodipodi:cy="324.99158"
+     sodipodi:rx="318.77753"
+     sodipodi:ry="307.72659"
+     sodipodi:start="4.7228516"
+     sodipodi:end="4.5018935"
+     sodipodi:open="true"
+     sodipodi:arc-type="arc"
+     d="M 328.33519,17.281827 A 318.77753,307.72659 0 0 1 643.45801,311.21714 318.77753,307.72659 0 0 1 356.82986,631.18031 318.77753,307.72659 0 0 1 10.056734,372.57626 318.77753,307.72659 0 0 1 258.3932,24.057277" />
   <g
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
@@ -308,7 +321,7 @@
        id="path3"
        sodipodi:nodetypes="ccssccsscc" />
     <rect
-       style="fill:#28993d;fill-opacity:0.988235;stroke:#28993d;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#2867d7;fill-opacity:1;stroke:#2867d7;stroke-width:9.02075;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect2"
        width="130.54871"
        height="55.471085"

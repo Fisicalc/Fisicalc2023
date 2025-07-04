@@ -69,8 +69,8 @@ ul {
 div#container{
     height: 100vh;
     display: grid;
-    grid-template-columns: 3fr 8fr 1fr;
-    grid-template-rows: 10vh 80vh 10vh;
+    grid-template-columns: 3fr 8fr 120px;
+    grid-template-rows: 60px auto 60px;
     position: relative;
     column-gap: var(--size-rem-md);
 }
@@ -443,14 +443,14 @@ footer > div#textos li {
 
 footer > div#barrinha{
     background-color: var(--cor-primaria);
-    color: white;
+    color: var(--cor-tomDeBranco);
     height: 4vh;
 }
 
 footer > div#ajuda{
     margin: var(--size-rem-sm);
     text-align: center;
-    color: white;
+    color: var(--cor-tomDeBranco);
 }
 
 footer > div#barrinha{
@@ -524,7 +524,8 @@ div#bannerBaixo{
 }
 
 .bannerAd{
-    border: var(--size-rem-xxs) solid darkorchid;
+    border: var(--size-rem-xxs) solid white;
+    color: white;
 }
 
 /*Outros*/
